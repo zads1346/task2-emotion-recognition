@@ -1,0 +1,112 @@
+{
+  "state": "passed",
+  "reviewer": "/root/v7_export_diagnosis",
+  "audited_at": "2026-10-16T10:35:27.175636+00:00",
+  "scope": "Independent CPU delivery, probability, metadata/source hashes and saved-metric reproduction; full model/checkpoint semantics audited separately by root.",
+  "GPU_used": false,
+  "training_or_inference_run": false,
+  "internal_test_images_or_labels_accessed": false,
+  "external_answers_used": false,
+  "checks": {
+    "plan_source_hashes_verified": 277,
+    "producer_hashes_verified": 304,
+    "training_artifact_hashes_verified": 25,
+    "official_class_order": true,
+    "fixed_epoch12_ema_selection": true,
+    "old_task_models_not_used_in_new_evaluation": true,
+    "new_val_members_rows_images_verified": 4782,
+    "new_train_val_overlap": 0,
+    "all_four_saved_metrics_exactly_reproduced": true,
+    "selected_validation_average_bitwise": true,
+    "submission_rows": 7065,
+    "csv_columns": [
+      "ID",
+      "Emotion"
+    ],
+    "template_ID_order_exact": true,
+    "Emotion_integer_0_to_5": true,
+    "submission_argmax_exact": true,
+    "competition_average_bitwise": true,
+    "competition_image_contents_verified": 7065,
+    "all_seven_output_hashes_verified": true,
+    "old_submissions_unchanged": 7
+  },
+  "failures": [],
+  "new_split_counts": {
+    "train": 19120,
+    "val": 4782
+  },
+  "metrics": {
+    "official_epoch0_original": {
+      "accuracy": 0.5664993726474279,
+      "macro_f1": 0.5347633847840267,
+      "log_loss": 1.1693254768703523,
+      "correct_count": 2709,
+      "samples": 4782
+    },
+    "official_epoch0_tta": {
+      "accuracy": 0.5639899623588457,
+      "macro_f1": 0.5290914009390527,
+      "log_loss": 1.161129862988902,
+      "correct_count": 2697,
+      "samples": 4782
+    },
+    "final_epoch12_original": {
+      "accuracy": 0.6783772480133835,
+      "macro_f1": 0.6543489152115675,
+      "log_loss": 0.84744914255995,
+      "correct_count": 3244,
+      "samples": 4782
+    },
+    "final_epoch12_tta": {
+      "accuracy": 0.6775407779171895,
+      "macro_f1": 0.6526812265779659,
+      "log_loss": 0.8421456208233691,
+      "correct_count": 3240,
+      "samples": 4782
+    }
+  },
+  "selected_correct_gain_over_official_epoch0_tta": 543,
+  "selected_accuracy_gain_percentage_points": 11.355081555834378,
+  "fixed_tta_vs_original_correct_delta": -4,
+  "submission_class_counts": {
+    "0": 961,
+    "1": 743,
+    "2": 1897,
+    "3": 1245,
+    "4": 802,
+    "5": 1417
+  },
+  "output_file_sha256": {
+    "submission.csv": "214d6bec3b1cd40f204cc8db3ad6c91f2db7516b65cd89d4e582f3195e0bc683",
+    "probabilities.npy": "df0ab30ae4ee3247b7bf5f899f956ac74c2a9dbb7601e055b57692e135df6a95",
+    "selected_val_probabilities.npy": "281b89c1ef04f049614be4f074264959fcec444bd3148a282b45b12e72309d35",
+    "selected_recipe.json": "fcd443f9d063095a10923ff6cfebf7b064dd33ff4e8db2eaa14eb1e29253c493",
+    "competition_prediction_receipt.json": "4ae2c0bc125abd4341edd3e2ccc9fc703d085906bd1f88b29cb2f1e3503d46a4",
+    "hse_competition_original.npy": "d9bdf87c4583ee047107c785e8a54452499eefad588ea38eb3db2fe1308d451d",
+    "hse_competition_flip.npy": "7f66f5d50a4fe4289d6bdbd35c0461926a34b2ebb671096034cb3d9c07bddbc3"
+  },
+  "plan_sha256": "68e4f40b56bddb779a3aeb1fd096d8c639d306335c2c9d597956af7b79aa2136",
+  "source_pins_sha256": "f6c8e01a84f1545fdfc22acd96d002cbe6e2f07329205f3a0f98ce1673f4f4f8",
+  "producer_files_sha256": "1bfddcd6dba2cf8b72c5f5bb757c0bbf447faef99b550bb4c4fecdf00c0a7df2",
+  "summary_sha256": "1ad1e0ddbb655d37b3579f074be876f26c982d518cc0d10dc35296b9b2234dc7",
+  "official_epoch0_checkpoint_sha256": "4ffbcbf5ef3306a226c78dc23cb02f5e8838da078850f3fd9432fdb9cd6dbca6",
+  "final_ema_checkpoint_sha256": "e872fff837d05c2bb319676bcb66f684242dcbc107d1a6b302fb88a418124091",
+  "preserved_submission_sha256": {
+    "ddamfn_v8_results/submission.csv": "55a037351e0677eadc82ebe81ce6a9c208da402f304cd9eeccba70e2121ce4b6",
+    "lora_task_v4_results/submission.csv": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+    "lora_zero_weight_v5_results/submission.csv": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+    "lora_flip_consistency_v6_results/submission.csv": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+    "hse_sam_v7_results/submission.csv": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+    "hse_results/submission.csv": "f349f4f2069e342b15d5d42d2ca705d5fb9c98144eb8304b2ab7a9f9fe7225d7",
+    "fusion_results/submission.csv": "2173c02318960c57f20fdb0f5c35d29a6d5436ee2bef3a37beb353169103c6ad"
+  },
+  "candidate_status": "unranked_against_v8",
+  "limitations": [
+    "Validation is a larger near-duplicate-group development split, not an untouched final test or Kaggle score.",
+    "Scores cannot be directly compared with the old2656-row validation scores; old task checkpoints saw4226 new-val members.",
+    "Fixed flip averaging was retained even though final original-view accuracy is higher by4 samples; no post-hoc selection changed.",
+    "This independent audit verifies saved probabilities, metadata and hashes, not a fresh model forward replay or full optimizer/state semantics."
+  ],
+  "elapsed_seconds": 35.437000000005355
+}
