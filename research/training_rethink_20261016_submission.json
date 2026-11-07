@@ -1,0 +1,4459 @@
+{
+  "format": "training_rethink_submission_audit_20261016",
+  "state": "passed",
+  "scope": "Read-only CPU audit of produced competition submissions and their unlabeled probability alignment; no test labels or external answers",
+  "classes": [
+    "Angry",
+    "Fear",
+    "Happy",
+    "Sad",
+    "Surprise",
+    "Neutral"
+  ],
+  "template": {
+    "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\data\\raw\\submission.csv",
+    "sha256": "2967a8f1518dac4c9f86f584600b5cf5c5a5474613895d8c8dcf4a6801dc6b94",
+    "rows": 7065,
+    "unique_ids": 7065,
+    "archive_template_sha256": "2967a8f1518dac4c9f86f584600b5cf5c5a5474613895d8c8dcf4a6801dc6b94",
+    "same_bytes_as_archive_template": true
+  },
+  "competition_image_binding": {
+    "current_bytes_rehashed": true,
+    "image_content_sha256": "02f2044f158f457ab7384fd6d679ca63596a8cebbc945ca554a4cb2979819ad4",
+    "row_order_sha256": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87",
+    "source_unlabeled_manifest": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\features\\unlabeled.csv",
+    "source_unlabeled_manifest_sha256": "d5e7fbb60e41f181f9819541d88023c9bd43004885e6fc071470ce1b274f5f2e"
+  },
+  "submissions": [
+    {
+      "directory": "results",
+      "submission_sha256": "84fdd9d09e6b3929d000c809ecbd94a6a33df60614fff6ed8d1fd403cf069ad5",
+      "probabilities_sha256": "1416c97ccfd02f87632692ce972359f8133b942dd318b575c5f26d51a8ce737d",
+      "probabilities_file": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\results\\submission_probabilities.npy",
+      "summary_sha256": "4f14f2f4bcf6a5fed97b80eceffce8bfcbe696acc86d57b0bfda5a41bee39e2a",
+      "recipe_sha256": null,
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "ID_order_matches_template": true,
+      "integer_label_range_0_5": true,
+      "probability_argmax_matches": true,
+      "classes_match": true,
+      "recorded_csv_sha_matches": true,
+      "recorded_probability_sha_matches": null,
+      "probability_shape": [
+        7065,
+        6
+      ],
+      "probability_dtype": "float32",
+      "label_counts": {
+        "Angry": 926,
+        "Fear": 872,
+        "Happy": 1880,
+        "Sad": 1225,
+        "Surprise": 773,
+        "Neutral": 1389
+      },
+      "selected": "initial_linear_model",
+      "improved": null,
+      "development_metrics": {
+        "accuracy": 0.6317771084337349,
+        "macro_f1": 0.6021856542175109,
+        "log_loss": 0.9775080549170568
+      },
+      "recorded_competition_content_sha256": null,
+      "recorded_competition_order_sha256": null
+    },
+    {
+      "directory": "improved_results",
+      "submission_sha256": "fee0cdb9dbe2e5ed2cbe181162760c8482173d883ef805b8ef90d0bf89fe6b33",
+      "probabilities_sha256": "53009b9089f6785a9babef8f26c6fb780ebdeca4a540288f075ecc10338ee2b8",
+      "probabilities_file": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\improved_results\\submission_probabilities.npy",
+      "summary_sha256": "c146c1c6b093319eb903c2daf55ce6f65cc06456757ef9f4d5e589a90077c046",
+      "recipe_sha256": "0974965ec37ec4a4675413a06572c9d67a8234bf42341a2e71824c521da414ae",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "ID_order_matches_template": true,
+      "integer_label_range_0_5": true,
+      "probability_argmax_matches": true,
+      "classes_match": true,
+      "recorded_csv_sha_matches": true,
+      "recorded_probability_sha_matches": true,
+      "probability_shape": [
+        7065,
+        6
+      ],
+      "probability_dtype": "float64",
+      "label_counts": {
+        "Angry": 1077,
+        "Fear": 640,
+        "Happy": 1819,
+        "Sad": 1165,
+        "Surprise": 867,
+        "Neutral": 1497
+      },
+      "selected": "lora+cnn_0.50",
+      "improved": null,
+      "development_metrics": {
+        "accuracy": 0.6852409638554217,
+        "macro_f1": 0.6584456548705423,
+        "log_loss": 0.8654881252353142
+      },
+      "recorded_competition_content_sha256": null,
+      "recorded_competition_order_sha256": null
+    },
+    {
+      "directory": "refinement_results",
+      "submission_sha256": "f662aa9718056f236c8c9be41f27bde9219cb1be5f7fc6ac22df6fb07c5b465d",
+      "probabilities_sha256": "77fcd20987b2480870981c6170e15a7c3d13afa58bb65c3bf4e304c95730f21f",
+      "probabilities_file": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\refinement_results\\submission_probabilities.npy",
+      "summary_sha256": "dd798699c3495590c0b49936aefdab7fb8076c31dd8d6c487d3770655f611334",
+      "recipe_sha256": "6cacaa10645857b65fb7cd9f7c73f51d55842aeef57689f6f78a3092df442bd2",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "ID_order_matches_template": true,
+      "integer_label_range_0_5": true,
+      "probability_argmax_matches": true,
+      "classes_match": true,
+      "recorded_csv_sha_matches": true,
+      "recorded_probability_sha_matches": true,
+      "probability_shape": [
+        7065,
+        6
+      ],
+      "probability_dtype": "float64",
+      "label_counts": {
+        "Angry": 985,
+        "Fear": 779,
+        "Happy": 1855,
+        "Sad": 1310,
+        "Surprise": 692,
+        "Neutral": 1444
+      },
+      "selected": "refined_lora_cnn_mlp_tta",
+      "improved": null,
+      "development_metrics": {
+        "accuracy": 0.6935240963855421,
+        "macro_f1": 0.6696894939182741,
+        "log_loss": 0.8463400983591807
+      },
+      "recorded_competition_content_sha256": null,
+      "recorded_competition_order_sha256": null
+    },
+    {
+      "directory": "fusion_results",
+      "submission_sha256": "2173c02318960c57f20fdb0f5c35d29a6d5436ee2bef3a37beb353169103c6ad",
+      "probabilities_sha256": "5f160d95354766fcccbb965f4ef7c250e5e2f59128e4576c1c503ba52bba71e8",
+      "probabilities_file": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\fusion_results\\probabilities.npy",
+      "summary_sha256": "0c92c4d854a6b904beea70cfa4de16eda9940ac5373cbd15dc289e044b117507",
+      "recipe_sha256": "4183ff17894292a9d5145fbf97335dbf75432334d6ab80a2cd50fd86eccd0c54",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "ID_order_matches_template": true,
+      "integer_label_range_0_5": true,
+      "probability_argmax_matches": true,
+      "classes_match": true,
+      "recorded_csv_sha_matches": true,
+      "recorded_probability_sha_matches": true,
+      "probability_shape": [
+        7065,
+        6
+      ],
+      "probability_dtype": "float64",
+      "label_counts": {
+        "Angry": 978,
+        "Fear": 783,
+        "Happy": 1847,
+        "Sad": 1321,
+        "Surprise": 708,
+        "Neutral": 1428
+      },
+      "selected": "replace_mlp_20",
+      "improved": true,
+      "development_metrics": {
+        "accuracy": 0.6957831325301205,
+        "macro_f1": 0.6739671930971368,
+        "log_loss": 0.8396570359300835,
+        "correct_count": 1848,
+        "samples": 2656
+      },
+      "recorded_competition_content_sha256": null,
+      "recorded_competition_order_sha256": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87"
+    },
+    {
+      "directory": "hse_results",
+      "submission_sha256": "f349f4f2069e342b15d5d42d2ca705d5fb9c98144eb8304b2ab7a9f9fe7225d7",
+      "probabilities_sha256": "ae6356e4cdeb0c398d1f7c98d264dc3a377b15d4fc9abac9c7a9a98a11443a4e",
+      "probabilities_file": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\hse_results\\probabilities.npy",
+      "summary_sha256": "e43b004d838bffa07aa023f420b3f0568438fa4ac2d20e407d5334348dba34d9",
+      "recipe_sha256": "dea179756e9cb8512dc8b9262afc8a2f331496b47bb3cd09eb2e32ada98ae6a5",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "ID_order_matches_template": true,
+      "integer_label_range_0_5": true,
+      "probability_argmax_matches": true,
+      "classes_match": true,
+      "recorded_csv_sha_matches": true,
+      "recorded_probability_sha_matches": true,
+      "probability_shape": [
+        7065,
+        6
+      ],
+      "probability_dtype": "float64",
+      "label_counts": {
+        "Angry": 1017,
+        "Fear": 711,
+        "Happy": 1866,
+        "Sad": 1381,
+        "Surprise": 746,
+        "Neutral": 1344
+      },
+      "selected": "hse_50_flip",
+      "improved": true,
+      "development_metrics": {
+        "accuracy": 0.7202560240963856,
+        "macro_f1": 0.6988277635838024,
+        "log_loss": 0.7901183313842441,
+        "correct_count": 1913,
+        "samples": 2656
+      },
+      "recorded_competition_content_sha256": "02f2044f158f457ab7384fd6d679ca63596a8cebbc945ca554a4cb2979819ad4",
+      "recorded_competition_order_sha256": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87"
+    },
+    {
+      "directory": "ambiguity_results",
+      "submission_sha256": "f349f4f2069e342b15d5d42d2ca705d5fb9c98144eb8304b2ab7a9f9fe7225d7",
+      "probabilities_sha256": "ae6356e4cdeb0c398d1f7c98d264dc3a377b15d4fc9abac9c7a9a98a11443a4e",
+      "probabilities_file": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ambiguity_results\\probabilities.npy",
+      "summary_sha256": "0d5ada9b0327047563db9d51d3441cd24b0083b99beeda3c82aff478b064aac6",
+      "recipe_sha256": "251d9e4e322fe0aaf74a3f865d0c5bd9b3236ed693110015001fb22f9b4b37ea",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "ID_order_matches_template": true,
+      "integer_label_range_0_5": true,
+      "probability_argmax_matches": true,
+      "classes_match": true,
+      "recorded_csv_sha_matches": true,
+      "recorded_probability_sha_matches": true,
+      "probability_shape": [
+        7065,
+        6
+      ],
+      "probability_dtype": "float64",
+      "label_counts": {
+        "Angry": 1017,
+        "Fear": 711,
+        "Happy": 1866,
+        "Sad": 1381,
+        "Surprise": 746,
+        "Neutral": 1344
+      },
+      "selected": "previous_best",
+      "improved": null,
+      "development_metrics": {},
+      "recorded_competition_content_sha256": null,
+      "recorded_competition_order_sha256": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87"
+    },
+    {
+      "directory": "ambiguity_v2_results",
+      "submission_sha256": "f349f4f2069e342b15d5d42d2ca705d5fb9c98144eb8304b2ab7a9f9fe7225d7",
+      "probabilities_sha256": "ae6356e4cdeb0c398d1f7c98d264dc3a377b15d4fc9abac9c7a9a98a11443a4e",
+      "probabilities_file": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ambiguity_v2_results\\probabilities.npy",
+      "summary_sha256": "d9083e98ebcd53350e030afbbd6c701a279e1bbbb2985be0720b83113c8e1ca5",
+      "recipe_sha256": "4dca837dff0d09104ff86ec73924f6974131c4196f490fd4e10b1d1cc4998d93",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "ID_order_matches_template": true,
+      "integer_label_range_0_5": true,
+      "probability_argmax_matches": true,
+      "classes_match": true,
+      "recorded_csv_sha_matches": true,
+      "recorded_probability_sha_matches": true,
+      "probability_shape": [
+        7065,
+        6
+      ],
+      "probability_dtype": "float64",
+      "label_counts": {
+        "Angry": 1017,
+        "Fear": 711,
+        "Happy": 1866,
+        "Sad": 1381,
+        "Surprise": 746,
+        "Neutral": 1344
+      },
+      "selected": "previous_best",
+      "improved": null,
+      "development_metrics": {},
+      "recorded_competition_content_sha256": null,
+      "recorded_competition_order_sha256": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87"
+    },
+    {
+      "directory": "lora_task_v4_results",
+      "submission_sha256": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+      "probabilities_sha256": "24b0781d3cb3bb75f5739bec3f40bd18bff83a1eafcaf26c2fb4807de7843239",
+      "probabilities_file": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_task_v4_results\\probabilities.npy",
+      "summary_sha256": "63c432c5229c19df901da3e4b171d0b3131c145c069c6ed7599e0f260d9eafdc",
+      "recipe_sha256": "b171da4ce8b511bd14d62fb7463025b8d6727bba6a85bd486c6e49bc0cd4fffd",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "ID_order_matches_template": true,
+      "integer_label_range_0_5": true,
+      "probability_argmax_matches": true,
+      "classes_match": true,
+      "recorded_csv_sha_matches": true,
+      "recorded_probability_sha_matches": true,
+      "probability_shape": [
+        7065,
+        6
+      ],
+      "probability_dtype": "float64",
+      "label_counts": {
+        "Angry": 1017,
+        "Fear": 712,
+        "Happy": 1865,
+        "Sad": 1391,
+        "Surprise": 750,
+        "Neutral": 1330
+      },
+      "selected": "epoch_05_ema",
+      "improved": true,
+      "development_metrics": {
+        "accuracy": 0.7210090361445783,
+        "macro_f1": 0.6997687449297948,
+        "log_loss": 0.7890677745294015,
+        "correct_count": 1915,
+        "samples": 2656
+      },
+      "recorded_competition_content_sha256": "02f2044f158f457ab7384fd6d679ca63596a8cebbc945ca554a4cb2979819ad4",
+      "recorded_competition_order_sha256": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87"
+    },
+    {
+      "directory": "lora_zero_weight_v5_results",
+      "submission_sha256": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+      "probabilities_sha256": "24b0781d3cb3bb75f5739bec3f40bd18bff83a1eafcaf26c2fb4807de7843239",
+      "probabilities_file": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_zero_weight_v5_results\\probabilities.npy",
+      "summary_sha256": "08fc08a13a2c0a08fb4c9fa550cf4b3400441e4d33875563ba57244b7d414e0c",
+      "recipe_sha256": "cf718c756e073de880e7537b32fbd8a66ae1dd831b23cafd15494b4d94560e3f",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "ID_order_matches_template": true,
+      "integer_label_range_0_5": true,
+      "probability_argmax_matches": true,
+      "classes_match": true,
+      "recorded_csv_sha_matches": true,
+      "recorded_probability_sha_matches": true,
+      "probability_shape": [
+        7065,
+        6
+      ],
+      "probability_dtype": "float64",
+      "label_counts": {
+        "Angry": 1017,
+        "Fear": 712,
+        "Happy": 1865,
+        "Sad": 1391,
+        "Surprise": 750,
+        "Neutral": 1330
+      },
+      "selected": "previous_best",
+      "improved": false,
+      "development_metrics": {
+        "accuracy": 0.7210090361445783,
+        "macro_f1": 0.6997687449297948,
+        "log_loss": 0.7890677745294015,
+        "correct_count": 1915,
+        "samples": 2656
+      },
+      "recorded_competition_content_sha256": "02f2044f158f457ab7384fd6d679ca63596a8cebbc945ca554a4cb2979819ad4",
+      "recorded_competition_order_sha256": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87"
+    },
+    {
+      "directory": "lora_flip_consistency_v6_results",
+      "submission_sha256": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+      "probabilities_sha256": "24b0781d3cb3bb75f5739bec3f40bd18bff83a1eafcaf26c2fb4807de7843239",
+      "probabilities_file": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_flip_consistency_v6_results\\probabilities.npy",
+      "summary_sha256": "0496dc7c5c5776504c7326ae4095ae6c8c7dd20925f571fff92f17de0a1e9d28",
+      "recipe_sha256": "0a843edee0d2447c32892efb7edb3b4c8810901c4c6895cc9ad1ec365d8b8696",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "ID_order_matches_template": true,
+      "integer_label_range_0_5": true,
+      "probability_argmax_matches": true,
+      "classes_match": true,
+      "recorded_csv_sha_matches": true,
+      "recorded_probability_sha_matches": true,
+      "probability_shape": [
+        7065,
+        6
+      ],
+      "probability_dtype": "float64",
+      "label_counts": {
+        "Angry": 1017,
+        "Fear": 712,
+        "Happy": 1865,
+        "Sad": 1391,
+        "Surprise": 750,
+        "Neutral": 1330
+      },
+      "selected": "previous_best",
+      "improved": false,
+      "development_metrics": {
+        "accuracy": 0.7210090361445783,
+        "macro_f1": 0.6997687449297948,
+        "log_loss": 0.7890677745294015,
+        "correct_count": 1915,
+        "samples": 2656
+      },
+      "recorded_competition_content_sha256": "02f2044f158f457ab7384fd6d679ca63596a8cebbc945ca554a4cb2979819ad4",
+      "recorded_competition_order_sha256": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87"
+    },
+    {
+      "directory": "hse_sam_v7_results",
+      "submission_sha256": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+      "probabilities_sha256": "24b0781d3cb3bb75f5739bec3f40bd18bff83a1eafcaf26c2fb4807de7843239",
+      "probabilities_file": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\hse_sam_v7_results\\probabilities.npy",
+      "summary_sha256": "b6d45e88a93b3cc8cac62820c7dddcff29ea1e0795fc0a264c79b5bd4b224766",
+      "recipe_sha256": "fb34ce042c65af9b934c95e8be00f9ea46f05bc86160d16c0793df8dc59c7cb6",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "ID_order_matches_template": true,
+      "integer_label_range_0_5": true,
+      "probability_argmax_matches": true,
+      "classes_match": true,
+      "recorded_csv_sha_matches": true,
+      "recorded_probability_sha_matches": true,
+      "probability_shape": [
+        7065,
+        6
+      ],
+      "probability_dtype": "float64",
+      "label_counts": {
+        "Angry": 1017,
+        "Fear": 712,
+        "Happy": 1865,
+        "Sad": 1391,
+        "Surprise": 750,
+        "Neutral": 1330
+      },
+      "selected": "previous_best",
+      "improved": false,
+      "development_metrics": {
+        "accuracy": 0.7210090361445783,
+        "macro_f1": 0.6997687449297948,
+        "log_loss": 0.7890677745294015,
+        "correct_count": 1915,
+        "samples": 2656
+      },
+      "recorded_competition_content_sha256": "02f2044f158f457ab7384fd6d679ca63596a8cebbc945ca554a4cb2979819ad4",
+      "recorded_competition_order_sha256": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87"
+    },
+    {
+      "directory": "ddamfn_v8_results",
+      "submission_sha256": "55a037351e0677eadc82ebe81ce6a9c208da402f304cd9eeccba70e2121ce4b6",
+      "probabilities_sha256": "18b44f4b0880b4eaa7f9f962558d146b281a26b435aa434c5b296c6081b9176c",
+      "probabilities_file": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ddamfn_v8_results\\probabilities.npy",
+      "summary_sha256": "452510d2a6c899c6ba80ebfed5f7736c024fd82f800cb91028cf0963ce9d090f",
+      "recipe_sha256": "7cebad906bdd1625c8779d5225f7974ceabe630cdb06f299b9581b6269937fc8",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "ID_order_matches_template": true,
+      "integer_label_range_0_5": true,
+      "probability_argmax_matches": true,
+      "classes_match": true,
+      "recorded_csv_sha_matches": true,
+      "recorded_probability_sha_matches": true,
+      "probability_shape": [
+        7065,
+        6
+      ],
+      "probability_dtype": "float64",
+      "label_counts": {
+        "Angry": 1008,
+        "Fear": 718,
+        "Happy": 1866,
+        "Sad": 1339,
+        "Surprise": 772,
+        "Neutral": 1362
+      },
+      "selected": "epoch_00_baseline",
+      "improved": true,
+      "development_metrics": {
+        "accuracy": 0.7243975903614458,
+        "macro_f1": 0.7028285512544401,
+        "log_loss": 0.7899208226506699,
+        "correct_count": 1924,
+        "samples": 2656
+      },
+      "recorded_competition_content_sha256": "02f2044f158f457ab7384fd6d679ca63596a8cebbc945ca554a4cb2979819ad4",
+      "recorded_competition_order_sha256": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87"
+    }
+  ],
+  "pairwise_comparisons": [
+    {
+      "left": "results",
+      "right": "improved_results",
+      "changed_rows": 1719,
+      "changed_percent": 24.331210191082803,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.8651667156506699,
+      "label_transition_counts": [
+        [
+          681,
+          44,
+          40,
+          49,
+          25,
+          87
+        ],
+        [
+          100,
+          442,
+          27,
+          142,
+          90,
+          71
+        ],
+        [
+          48,
+          29,
+          1669,
+          40,
+          28,
+          66
+        ],
+        [
+          143,
+          60,
+          34,
+          799,
+          16,
+          173
+        ],
+        [
+          30,
+          37,
+          13,
+          2,
+          673,
+          18
+        ],
+        [
+          75,
+          28,
+          36,
+          133,
+          35,
+          1082
+        ]
+      ]
+    },
+    {
+      "left": "results",
+      "right": "refinement_results",
+      "changed_rows": 1577,
+      "changed_percent": 22.32130219391366,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.8099039712302857,
+      "label_transition_counts": [
+        [
+          671,
+          54,
+          38,
+          72,
+          11,
+          80
+        ],
+        [
+          77,
+          521,
+          24,
+          148,
+          40,
+          62
+        ],
+        [
+          49,
+          23,
+          1705,
+          39,
+          9,
+          55
+        ],
+        [
+          101,
+          66,
+          31,
+          886,
+          6,
+          135
+        ],
+        [
+          36,
+          76,
+          23,
+          5,
+          613,
+          20
+        ],
+        [
+          51,
+          39,
+          34,
+          160,
+          13,
+          1092
+        ]
+      ]
+    },
+    {
+      "left": "results",
+      "right": "fusion_results",
+      "changed_rows": 1485,
+      "changed_percent": 21.019108280254777,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.7842405988306076,
+      "label_transition_counts": [
+        [
+          692,
+          50,
+          31,
+          69,
+          10,
+          74
+        ],
+        [
+          73,
+          538,
+          25,
+          142,
+          41,
+          53
+        ],
+        [
+          45,
+          23,
+          1713,
+          38,
+          9,
+          52
+        ],
+        [
+          89,
+          58,
+          28,
+          909,
+          4,
+          137
+        ],
+        [
+          30,
+          71,
+          20,
+          6,
+          631,
+          15
+        ],
+        [
+          49,
+          43,
+          30,
+          157,
+          13,
+          1097
+        ]
+      ]
+    },
+    {
+      "left": "results",
+      "right": "hse_results",
+      "changed_rows": 1743,
+      "changed_percent": 24.67091295116773,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.8413354902243417,
+      "label_transition_counts": [
+        [
+          649,
+          53,
+          38,
+          94,
+          15,
+          77
+        ],
+        [
+          91,
+          471,
+          34,
+          169,
+          57,
+          50
+        ],
+        [
+          59,
+          21,
+          1683,
+          47,
+          15,
+          55
+        ],
+        [
+          114,
+          57,
+          29,
+          881,
+          7,
+          137
+        ],
+        [
+          28,
+          65,
+          30,
+          7,
+          628,
+          15
+        ],
+        [
+          76,
+          44,
+          52,
+          183,
+          24,
+          1010
+        ]
+      ]
+    },
+    {
+      "left": "results",
+      "right": "ambiguity_results",
+      "changed_rows": 1743,
+      "changed_percent": 24.67091295116773,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.8413354902243417,
+      "label_transition_counts": [
+        [
+          649,
+          53,
+          38,
+          94,
+          15,
+          77
+        ],
+        [
+          91,
+          471,
+          34,
+          169,
+          57,
+          50
+        ],
+        [
+          59,
+          21,
+          1683,
+          47,
+          15,
+          55
+        ],
+        [
+          114,
+          57,
+          29,
+          881,
+          7,
+          137
+        ],
+        [
+          28,
+          65,
+          30,
+          7,
+          628,
+          15
+        ],
+        [
+          76,
+          44,
+          52,
+          183,
+          24,
+          1010
+        ]
+      ]
+    },
+    {
+      "left": "results",
+      "right": "ambiguity_v2_results",
+      "changed_rows": 1743,
+      "changed_percent": 24.67091295116773,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.8413354902243417,
+      "label_transition_counts": [
+        [
+          649,
+          53,
+          38,
+          94,
+          15,
+          77
+        ],
+        [
+          91,
+          471,
+          34,
+          169,
+          57,
+          50
+        ],
+        [
+          59,
+          21,
+          1683,
+          47,
+          15,
+          55
+        ],
+        [
+          114,
+          57,
+          29,
+          881,
+          7,
+          137
+        ],
+        [
+          28,
+          65,
+          30,
+          7,
+          628,
+          15
+        ],
+        [
+          76,
+          44,
+          52,
+          183,
+          24,
+          1010
+        ]
+      ]
+    },
+    {
+      "left": "results",
+      "right": "lora_task_v4_results",
+      "changed_rows": 1759,
+      "changed_percent": 24.89738145789101,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.8568277955622752,
+      "label_transition_counts": [
+        [
+          645,
+          55,
+          37,
+          98,
+          16,
+          75
+        ],
+        [
+          91,
+          470,
+          34,
+          170,
+          58,
+          49
+        ],
+        [
+          61,
+          20,
+          1683,
+          47,
+          15,
+          54
+        ],
+        [
+          113,
+          60,
+          30,
+          879,
+          7,
+          136
+        ],
+        [
+          30,
+          64,
+          29,
+          7,
+          628,
+          15
+        ],
+        [
+          77,
+          43,
+          52,
+          190,
+          26,
+          1001
+        ]
+      ]
+    },
+    {
+      "left": "results",
+      "right": "lora_zero_weight_v5_results",
+      "changed_rows": 1759,
+      "changed_percent": 24.89738145789101,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.8568277955622752,
+      "label_transition_counts": [
+        [
+          645,
+          55,
+          37,
+          98,
+          16,
+          75
+        ],
+        [
+          91,
+          470,
+          34,
+          170,
+          58,
+          49
+        ],
+        [
+          61,
+          20,
+          1683,
+          47,
+          15,
+          54
+        ],
+        [
+          113,
+          60,
+          30,
+          879,
+          7,
+          136
+        ],
+        [
+          30,
+          64,
+          29,
+          7,
+          628,
+          15
+        ],
+        [
+          77,
+          43,
+          52,
+          190,
+          26,
+          1001
+        ]
+      ]
+    },
+    {
+      "left": "results",
+      "right": "lora_flip_consistency_v6_results",
+      "changed_rows": 1759,
+      "changed_percent": 24.89738145789101,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.8568277955622752,
+      "label_transition_counts": [
+        [
+          645,
+          55,
+          37,
+          98,
+          16,
+          75
+        ],
+        [
+          91,
+          470,
+          34,
+          170,
+          58,
+          49
+        ],
+        [
+          61,
+          20,
+          1683,
+          47,
+          15,
+          54
+        ],
+        [
+          113,
+          60,
+          30,
+          879,
+          7,
+          136
+        ],
+        [
+          30,
+          64,
+          29,
+          7,
+          628,
+          15
+        ],
+        [
+          77,
+          43,
+          52,
+          190,
+          26,
+          1001
+        ]
+      ]
+    },
+    {
+      "left": "results",
+      "right": "hse_sam_v7_results",
+      "changed_rows": 1759,
+      "changed_percent": 24.89738145789101,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.8568277955622752,
+      "label_transition_counts": [
+        [
+          645,
+          55,
+          37,
+          98,
+          16,
+          75
+        ],
+        [
+          91,
+          470,
+          34,
+          170,
+          58,
+          49
+        ],
+        [
+          61,
+          20,
+          1683,
+          47,
+          15,
+          54
+        ],
+        [
+          113,
+          60,
+          30,
+          879,
+          7,
+          136
+        ],
+        [
+          30,
+          64,
+          29,
+          7,
+          628,
+          15
+        ],
+        [
+          77,
+          43,
+          52,
+          190,
+          26,
+          1001
+        ]
+      ]
+    },
+    {
+      "left": "results",
+      "right": "ddamfn_v8_results",
+      "changed_rows": 1818,
+      "changed_percent": 25.73248407643312,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.8703977346867526,
+      "label_transition_counts": [
+        [
+          632,
+          57,
+          40,
+          94,
+          21,
+          82
+        ],
+        [
+          97,
+          459,
+          30,
+          176,
+          56,
+          54
+        ],
+        [
+          58,
+          24,
+          1680,
+          49,
+          17,
+          52
+        ],
+        [
+          121,
+          62,
+          27,
+          843,
+          9,
+          163
+        ],
+        [
+          24,
+          68,
+          22,
+          7,
+          637,
+          15
+        ],
+        [
+          76,
+          48,
+          67,
+          170,
+          32,
+          996
+        ]
+      ]
+    },
+    {
+      "left": "improved_results",
+      "right": "refinement_results",
+      "changed_rows": 587,
+      "changed_percent": 8.308563340410474,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.3218169071043487,
+      "label_transition_counts": [
+        [
+          940,
+          36,
+          5,
+          68,
+          0,
+          28
+        ],
+        [
+          8,
+          600,
+          6,
+          21,
+          0,
+          5
+        ],
+        [
+          9,
+          6,
+          1781,
+          14,
+          0,
+          9
+        ],
+        [
+          4,
+          23,
+          10,
+          1104,
+          0,
+          24
+        ],
+        [
+          15,
+          99,
+          31,
+          13,
+          692,
+          17
+        ],
+        [
+          9,
+          15,
+          22,
+          90,
+          0,
+          1361
+        ]
+      ]
+    },
+    {
+      "left": "improved_results",
+      "right": "fusion_results",
+      "changed_rows": 680,
+      "changed_percent": 9.624911535739562,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.37884269502010837,
+      "label_transition_counts": [
+        [
+          905,
+          41,
+          8,
+          85,
+          3,
+          35
+        ],
+        [
+          12,
+          589,
+          4,
+          29,
+          0,
+          6
+        ],
+        [
+          13,
+          5,
+          1773,
+          15,
+          0,
+          13
+        ],
+        [
+          14,
+          30,
+          10,
+          1084,
+          0,
+          27
+        ],
+        [
+          14,
+          96,
+          28,
+          12,
+          702,
+          15
+        ],
+        [
+          20,
+          22,
+          24,
+          96,
+          3,
+          1332
+        ]
+      ]
+    },
+    {
+      "left": "improved_results",
+      "right": "hse_results",
+      "changed_rows": 1069,
+      "changed_percent": 15.130927105449398,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.5133182657490816,
+      "label_transition_counts": [
+        [
+          854,
+          48,
+          15,
+          107,
+          10,
+          43
+        ],
+        [
+          39,
+          495,
+          11,
+          67,
+          19,
+          9
+        ],
+        [
+          26,
+          8,
+          1738,
+          22,
+          3,
+          22
+        ],
+        [
+          35,
+          46,
+          13,
+          1009,
+          3,
+          59
+        ],
+        [
+          15,
+          84,
+          38,
+          11,
+          704,
+          15
+        ],
+        [
+          48,
+          30,
+          51,
+          165,
+          7,
+          1196
+        ]
+      ]
+    },
+    {
+      "left": "improved_results",
+      "right": "ambiguity_results",
+      "changed_rows": 1069,
+      "changed_percent": 15.130927105449398,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.5133182657490816,
+      "label_transition_counts": [
+        [
+          854,
+          48,
+          15,
+          107,
+          10,
+          43
+        ],
+        [
+          39,
+          495,
+          11,
+          67,
+          19,
+          9
+        ],
+        [
+          26,
+          8,
+          1738,
+          22,
+          3,
+          22
+        ],
+        [
+          35,
+          46,
+          13,
+          1009,
+          3,
+          59
+        ],
+        [
+          15,
+          84,
+          38,
+          11,
+          704,
+          15
+        ],
+        [
+          48,
+          30,
+          51,
+          165,
+          7,
+          1196
+        ]
+      ]
+    },
+    {
+      "left": "improved_results",
+      "right": "ambiguity_v2_results",
+      "changed_rows": 1069,
+      "changed_percent": 15.130927105449398,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.5133182657490816,
+      "label_transition_counts": [
+        [
+          854,
+          48,
+          15,
+          107,
+          10,
+          43
+        ],
+        [
+          39,
+          495,
+          11,
+          67,
+          19,
+          9
+        ],
+        [
+          26,
+          8,
+          1738,
+          22,
+          3,
+          22
+        ],
+        [
+          35,
+          46,
+          13,
+          1009,
+          3,
+          59
+        ],
+        [
+          15,
+          84,
+          38,
+          11,
+          704,
+          15
+        ],
+        [
+          48,
+          30,
+          51,
+          165,
+          7,
+          1196
+        ]
+      ]
+    },
+    {
+      "left": "improved_results",
+      "right": "lora_task_v4_results",
+      "changed_rows": 1092,
+      "changed_percent": 15.456475583864119,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.4979557335985985,
+      "label_transition_counts": [
+        [
+          848,
+          48,
+          14,
+          114,
+          10,
+          43
+        ],
+        [
+          40,
+          494,
+          12,
+          65,
+          19,
+          10
+        ],
+        [
+          27,
+          8,
+          1737,
+          22,
+          3,
+          22
+        ],
+        [
+          35,
+          49,
+          14,
+          1006,
+          3,
+          58
+        ],
+        [
+          15,
+          82,
+          38,
+          11,
+          706,
+          15
+        ],
+        [
+          52,
+          31,
+          50,
+          173,
+          9,
+          1182
+        ]
+      ]
+    },
+    {
+      "left": "improved_results",
+      "right": "lora_zero_weight_v5_results",
+      "changed_rows": 1092,
+      "changed_percent": 15.456475583864119,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.4979557335985985,
+      "label_transition_counts": [
+        [
+          848,
+          48,
+          14,
+          114,
+          10,
+          43
+        ],
+        [
+          40,
+          494,
+          12,
+          65,
+          19,
+          10
+        ],
+        [
+          27,
+          8,
+          1737,
+          22,
+          3,
+          22
+        ],
+        [
+          35,
+          49,
+          14,
+          1006,
+          3,
+          58
+        ],
+        [
+          15,
+          82,
+          38,
+          11,
+          706,
+          15
+        ],
+        [
+          52,
+          31,
+          50,
+          173,
+          9,
+          1182
+        ]
+      ]
+    },
+    {
+      "left": "improved_results",
+      "right": "lora_flip_consistency_v6_results",
+      "changed_rows": 1092,
+      "changed_percent": 15.456475583864119,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.4979557335985985,
+      "label_transition_counts": [
+        [
+          848,
+          48,
+          14,
+          114,
+          10,
+          43
+        ],
+        [
+          40,
+          494,
+          12,
+          65,
+          19,
+          10
+        ],
+        [
+          27,
+          8,
+          1737,
+          22,
+          3,
+          22
+        ],
+        [
+          35,
+          49,
+          14,
+          1006,
+          3,
+          58
+        ],
+        [
+          15,
+          82,
+          38,
+          11,
+          706,
+          15
+        ],
+        [
+          52,
+          31,
+          50,
+          173,
+          9,
+          1182
+        ]
+      ]
+    },
+    {
+      "left": "improved_results",
+      "right": "hse_sam_v7_results",
+      "changed_rows": 1092,
+      "changed_percent": 15.456475583864119,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.4979557335985985,
+      "label_transition_counts": [
+        [
+          848,
+          48,
+          14,
+          114,
+          10,
+          43
+        ],
+        [
+          40,
+          494,
+          12,
+          65,
+          19,
+          10
+        ],
+        [
+          27,
+          8,
+          1737,
+          22,
+          3,
+          22
+        ],
+        [
+          35,
+          49,
+          14,
+          1006,
+          3,
+          58
+        ],
+        [
+          15,
+          82,
+          38,
+          11,
+          706,
+          15
+        ],
+        [
+          52,
+          31,
+          50,
+          173,
+          9,
+          1182
+        ]
+      ]
+    },
+    {
+      "left": "improved_results",
+      "right": "ddamfn_v8_results",
+      "changed_rows": 1245,
+      "changed_percent": 17.62208067940552,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.6325804820862528,
+      "label_transition_counts": [
+        [
+          804,
+          60,
+          19,
+          109,
+          14,
+          71
+        ],
+        [
+          52,
+          466,
+          12,
+          72,
+          21,
+          17
+        ],
+        [
+          30,
+          10,
+          1721,
+          26,
+          8,
+          24
+        ],
+        [
+          45,
+          55,
+          17,
+          963,
+          5,
+          80
+        ],
+        [
+          12,
+          92,
+          30,
+          9,
+          710,
+          14
+        ],
+        [
+          65,
+          35,
+          67,
+          160,
+          14,
+          1156
+        ]
+      ]
+    },
+    {
+      "left": "refinement_results",
+      "right": "fusion_results",
+      "changed_rows": 270,
+      "changed_percent": 3.821656050955414,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.17146826123090742,
+      "label_transition_counts": [
+        [
+          924,
+          10,
+          5,
+          28,
+          7,
+          11
+        ],
+        [
+          10,
+          740,
+          1,
+          14,
+          10,
+          4
+        ],
+        [
+          9,
+          1,
+          1828,
+          4,
+          5,
+          8
+        ],
+        [
+          21,
+          13,
+          5,
+          1244,
+          1,
+          26
+        ],
+        [
+          1,
+          6,
+          1,
+          2,
+          681,
+          1
+        ],
+        [
+          13,
+          13,
+          7,
+          29,
+          4,
+          1378
+        ]
+      ]
+    },
+    {
+      "left": "refinement_results",
+      "right": "hse_results",
+      "changed_rows": 911,
+      "changed_percent": 12.89455060155697,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.4509146974612528,
+      "label_transition_counts": [
+        [
+          833,
+          30,
+          17,
+          57,
+          13,
+          35
+        ],
+        [
+          50,
+          582,
+          11,
+          65,
+          58,
+          13
+        ],
+        [
+          21,
+          10,
+          1774,
+          19,
+          11,
+          20
+        ],
+        [
+          55,
+          47,
+          13,
+          1120,
+          5,
+          70
+        ],
+        [
+          4,
+          21,
+          13,
+          3,
+          645,
+          6
+        ],
+        [
+          54,
+          21,
+          38,
+          117,
+          14,
+          1200
+        ]
+      ]
+    },
+    {
+      "left": "refinement_results",
+      "right": "ambiguity_results",
+      "changed_rows": 911,
+      "changed_percent": 12.89455060155697,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.4509146974612528,
+      "label_transition_counts": [
+        [
+          833,
+          30,
+          17,
+          57,
+          13,
+          35
+        ],
+        [
+          50,
+          582,
+          11,
+          65,
+          58,
+          13
+        ],
+        [
+          21,
+          10,
+          1774,
+          19,
+          11,
+          20
+        ],
+        [
+          55,
+          47,
+          13,
+          1120,
+          5,
+          70
+        ],
+        [
+          4,
+          21,
+          13,
+          3,
+          645,
+          6
+        ],
+        [
+          54,
+          21,
+          38,
+          117,
+          14,
+          1200
+        ]
+      ]
+    },
+    {
+      "left": "refinement_results",
+      "right": "ambiguity_v2_results",
+      "changed_rows": 911,
+      "changed_percent": 12.89455060155697,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.4509146974612528,
+      "label_transition_counts": [
+        [
+          833,
+          30,
+          17,
+          57,
+          13,
+          35
+        ],
+        [
+          50,
+          582,
+          11,
+          65,
+          58,
+          13
+        ],
+        [
+          21,
+          10,
+          1774,
+          19,
+          11,
+          20
+        ],
+        [
+          55,
+          47,
+          13,
+          1120,
+          5,
+          70
+        ],
+        [
+          4,
+          21,
+          13,
+          3,
+          645,
+          6
+        ],
+        [
+          54,
+          21,
+          38,
+          117,
+          14,
+          1200
+        ]
+      ]
+    },
+    {
+      "left": "refinement_results",
+      "right": "lora_task_v4_results",
+      "changed_rows": 933,
+      "changed_percent": 13.205944798301486,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.45105572383524545,
+      "label_transition_counts": [
+        [
+          829,
+          30,
+          16,
+          62,
+          13,
+          35
+        ],
+        [
+          51,
+          579,
+          12,
+          63,
+          60,
+          14
+        ],
+        [
+          23,
+          10,
+          1771,
+          19,
+          11,
+          21
+        ],
+        [
+          52,
+          49,
+          14,
+          1122,
+          5,
+          68
+        ],
+        [
+          4,
+          21,
+          13,
+          3,
+          645,
+          6
+        ],
+        [
+          58,
+          23,
+          39,
+          122,
+          16,
+          1186
+        ]
+      ]
+    },
+    {
+      "left": "refinement_results",
+      "right": "lora_zero_weight_v5_results",
+      "changed_rows": 933,
+      "changed_percent": 13.205944798301486,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.45105572383524545,
+      "label_transition_counts": [
+        [
+          829,
+          30,
+          16,
+          62,
+          13,
+          35
+        ],
+        [
+          51,
+          579,
+          12,
+          63,
+          60,
+          14
+        ],
+        [
+          23,
+          10,
+          1771,
+          19,
+          11,
+          21
+        ],
+        [
+          52,
+          49,
+          14,
+          1122,
+          5,
+          68
+        ],
+        [
+          4,
+          21,
+          13,
+          3,
+          645,
+          6
+        ],
+        [
+          58,
+          23,
+          39,
+          122,
+          16,
+          1186
+        ]
+      ]
+    },
+    {
+      "left": "refinement_results",
+      "right": "lora_flip_consistency_v6_results",
+      "changed_rows": 933,
+      "changed_percent": 13.205944798301486,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.45105572383524545,
+      "label_transition_counts": [
+        [
+          829,
+          30,
+          16,
+          62,
+          13,
+          35
+        ],
+        [
+          51,
+          579,
+          12,
+          63,
+          60,
+          14
+        ],
+        [
+          23,
+          10,
+          1771,
+          19,
+          11,
+          21
+        ],
+        [
+          52,
+          49,
+          14,
+          1122,
+          5,
+          68
+        ],
+        [
+          4,
+          21,
+          13,
+          3,
+          645,
+          6
+        ],
+        [
+          58,
+          23,
+          39,
+          122,
+          16,
+          1186
+        ]
+      ]
+    },
+    {
+      "left": "refinement_results",
+      "right": "hse_sam_v7_results",
+      "changed_rows": 933,
+      "changed_percent": 13.205944798301486,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.45105572383524545,
+      "label_transition_counts": [
+        [
+          829,
+          30,
+          16,
+          62,
+          13,
+          35
+        ],
+        [
+          51,
+          579,
+          12,
+          63,
+          60,
+          14
+        ],
+        [
+          23,
+          10,
+          1771,
+          19,
+          11,
+          21
+        ],
+        [
+          52,
+          49,
+          14,
+          1122,
+          5,
+          68
+        ],
+        [
+          4,
+          21,
+          13,
+          3,
+          645,
+          6
+        ],
+        [
+          58,
+          23,
+          39,
+          122,
+          16,
+          1186
+        ]
+      ]
+    },
+    {
+      "left": "refinement_results",
+      "right": "ddamfn_v8_results",
+      "changed_rows": 1139,
+      "changed_percent": 16.121726822363765,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.5661130802494241,
+      "label_transition_counts": [
+        [
+          779,
+          43,
+          22,
+          69,
+          18,
+          54
+        ],
+        [
+          61,
+          548,
+          11,
+          76,
+          60,
+          23
+        ],
+        [
+          26,
+          11,
+          1748,
+          22,
+          23,
+          25
+        ],
+        [
+          70,
+          64,
+          15,
+          1055,
+          9,
+          97
+        ],
+        [
+          4,
+          27,
+          11,
+          3,
+          640,
+          7
+        ],
+        [
+          68,
+          25,
+          59,
+          114,
+          22,
+          1156
+        ]
+      ]
+    },
+    {
+      "left": "fusion_results",
+      "right": "hse_results",
+      "changed_rows": 885,
+      "changed_percent": 12.526539278131635,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.45148346785946836,
+      "label_transition_counts": [
+        [
+          829,
+          30,
+          19,
+          53,
+          10,
+          37
+        ],
+        [
+          47,
+          591,
+          10,
+          67,
+          54,
+          14
+        ],
+        [
+          20,
+          9,
+          1769,
+          20,
+          8,
+          21
+        ],
+        [
+          62,
+          42,
+          14,
+          1133,
+          4,
+          66
+        ],
+        [
+          4,
+          23,
+          15,
+          2,
+          658,
+          6
+        ],
+        [
+          55,
+          16,
+          39,
+          106,
+          12,
+          1200
+        ]
+      ]
+    },
+    {
+      "left": "fusion_results",
+      "right": "ambiguity_results",
+      "changed_rows": 885,
+      "changed_percent": 12.526539278131635,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.45148346785946836,
+      "label_transition_counts": [
+        [
+          829,
+          30,
+          19,
+          53,
+          10,
+          37
+        ],
+        [
+          47,
+          591,
+          10,
+          67,
+          54,
+          14
+        ],
+        [
+          20,
+          9,
+          1769,
+          20,
+          8,
+          21
+        ],
+        [
+          62,
+          42,
+          14,
+          1133,
+          4,
+          66
+        ],
+        [
+          4,
+          23,
+          15,
+          2,
+          658,
+          6
+        ],
+        [
+          55,
+          16,
+          39,
+          106,
+          12,
+          1200
+        ]
+      ]
+    },
+    {
+      "left": "fusion_results",
+      "right": "ambiguity_v2_results",
+      "changed_rows": 885,
+      "changed_percent": 12.526539278131635,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.45148346785946836,
+      "label_transition_counts": [
+        [
+          829,
+          30,
+          19,
+          53,
+          10,
+          37
+        ],
+        [
+          47,
+          591,
+          10,
+          67,
+          54,
+          14
+        ],
+        [
+          20,
+          9,
+          1769,
+          20,
+          8,
+          21
+        ],
+        [
+          62,
+          42,
+          14,
+          1133,
+          4,
+          66
+        ],
+        [
+          4,
+          23,
+          15,
+          2,
+          658,
+          6
+        ],
+        [
+          55,
+          16,
+          39,
+          106,
+          12,
+          1200
+        ]
+      ]
+    },
+    {
+      "left": "fusion_results",
+      "right": "lora_task_v4_results",
+      "changed_rows": 908,
+      "changed_percent": 12.852087756546355,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.451624494233461,
+      "label_transition_counts": [
+        [
+          824,
+          31,
+          17,
+          58,
+          10,
+          38
+        ],
+        [
+          49,
+          587,
+          11,
+          65,
+          56,
+          15
+        ],
+        [
+          21,
+          9,
+          1768,
+          20,
+          8,
+          21
+        ],
+        [
+          60,
+          44,
+          15,
+          1134,
+          4,
+          64
+        ],
+        [
+          4,
+          23,
+          15,
+          2,
+          658,
+          6
+        ],
+        [
+          59,
+          18,
+          39,
+          112,
+          14,
+          1186
+        ]
+      ]
+    },
+    {
+      "left": "fusion_results",
+      "right": "lora_zero_weight_v5_results",
+      "changed_rows": 908,
+      "changed_percent": 12.852087756546355,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.451624494233461,
+      "label_transition_counts": [
+        [
+          824,
+          31,
+          17,
+          58,
+          10,
+          38
+        ],
+        [
+          49,
+          587,
+          11,
+          65,
+          56,
+          15
+        ],
+        [
+          21,
+          9,
+          1768,
+          20,
+          8,
+          21
+        ],
+        [
+          60,
+          44,
+          15,
+          1134,
+          4,
+          64
+        ],
+        [
+          4,
+          23,
+          15,
+          2,
+          658,
+          6
+        ],
+        [
+          59,
+          18,
+          39,
+          112,
+          14,
+          1186
+        ]
+      ]
+    },
+    {
+      "left": "fusion_results",
+      "right": "lora_flip_consistency_v6_results",
+      "changed_rows": 908,
+      "changed_percent": 12.852087756546355,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.451624494233461,
+      "label_transition_counts": [
+        [
+          824,
+          31,
+          17,
+          58,
+          10,
+          38
+        ],
+        [
+          49,
+          587,
+          11,
+          65,
+          56,
+          15
+        ],
+        [
+          21,
+          9,
+          1768,
+          20,
+          8,
+          21
+        ],
+        [
+          60,
+          44,
+          15,
+          1134,
+          4,
+          64
+        ],
+        [
+          4,
+          23,
+          15,
+          2,
+          658,
+          6
+        ],
+        [
+          59,
+          18,
+          39,
+          112,
+          14,
+          1186
+        ]
+      ]
+    },
+    {
+      "left": "fusion_results",
+      "right": "hse_sam_v7_results",
+      "changed_rows": 908,
+      "changed_percent": 12.852087756546355,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.451624494233461,
+      "label_transition_counts": [
+        [
+          824,
+          31,
+          17,
+          58,
+          10,
+          38
+        ],
+        [
+          49,
+          587,
+          11,
+          65,
+          56,
+          15
+        ],
+        [
+          21,
+          9,
+          1768,
+          20,
+          8,
+          21
+        ],
+        [
+          60,
+          44,
+          15,
+          1134,
+          4,
+          64
+        ],
+        [
+          4,
+          23,
+          15,
+          2,
+          658,
+          6
+        ],
+        [
+          59,
+          18,
+          39,
+          112,
+          14,
+          1186
+        ]
+      ]
+    },
+    {
+      "left": "fusion_results",
+      "right": "ddamfn_v8_results",
+      "changed_rows": 1120,
+      "changed_percent": 15.852795470629866,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.5998075561127328,
+      "label_transition_counts": [
+        [
+          775,
+          46,
+          24,
+          66,
+          14,
+          53
+        ],
+        [
+          63,
+          550,
+          10,
+          78,
+          57,
+          25
+        ],
+        [
+          24,
+          11,
+          1747,
+          21,
+          19,
+          25
+        ],
+        [
+          75,
+          59,
+          16,
+          1065,
+          8,
+          98
+        ],
+        [
+          4,
+          29,
+          12,
+          2,
+          654,
+          7
+        ],
+        [
+          67,
+          23,
+          57,
+          107,
+          20,
+          1154
+        ]
+      ]
+    },
+    {
+      "left": "hse_results",
+      "right": "ambiguity_results",
+      "changed_rows": 0,
+      "changed_percent": 0.0,
+      "same_csv_sha256": true,
+      "probability_max_abs_difference": 0.0,
+      "label_transition_counts": [
+        [
+          1017,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          711,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1866,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1381,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          746,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1344
+        ]
+      ]
+    },
+    {
+      "left": "hse_results",
+      "right": "ambiguity_v2_results",
+      "changed_rows": 0,
+      "changed_percent": 0.0,
+      "same_csv_sha256": true,
+      "probability_max_abs_difference": 0.0,
+      "label_transition_counts": [
+        [
+          1017,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          711,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1866,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1381,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          746,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1344
+        ]
+      ]
+    },
+    {
+      "left": "hse_results",
+      "right": "lora_task_v4_results",
+      "changed_rows": 58,
+      "changed_percent": 0.8209483368719037,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.03822037759349051,
+      "label_transition_counts": [
+        [
+          1007,
+          1,
+          0,
+          8,
+          0,
+          1
+        ],
+        [
+          1,
+          701,
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          1861,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          7,
+          1,
+          1369,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          744,
+          0
+        ],
+        [
+          4,
+          2,
+          1,
+          10,
+          2,
+          1325
+        ]
+      ]
+    },
+    {
+      "left": "hse_results",
+      "right": "lora_zero_weight_v5_results",
+      "changed_rows": 58,
+      "changed_percent": 0.8209483368719037,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.03822037759349051,
+      "label_transition_counts": [
+        [
+          1007,
+          1,
+          0,
+          8,
+          0,
+          1
+        ],
+        [
+          1,
+          701,
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          1861,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          7,
+          1,
+          1369,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          744,
+          0
+        ],
+        [
+          4,
+          2,
+          1,
+          10,
+          2,
+          1325
+        ]
+      ]
+    },
+    {
+      "left": "hse_results",
+      "right": "lora_flip_consistency_v6_results",
+      "changed_rows": 58,
+      "changed_percent": 0.8209483368719037,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.03822037759349051,
+      "label_transition_counts": [
+        [
+          1007,
+          1,
+          0,
+          8,
+          0,
+          1
+        ],
+        [
+          1,
+          701,
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          1861,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          7,
+          1,
+          1369,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          744,
+          0
+        ],
+        [
+          4,
+          2,
+          1,
+          10,
+          2,
+          1325
+        ]
+      ]
+    },
+    {
+      "left": "hse_results",
+      "right": "hse_sam_v7_results",
+      "changed_rows": 58,
+      "changed_percent": 0.8209483368719037,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.03822037759349051,
+      "label_transition_counts": [
+        [
+          1007,
+          1,
+          0,
+          8,
+          0,
+          1
+        ],
+        [
+          1,
+          701,
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          1861,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          7,
+          1,
+          1369,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          744,
+          0
+        ],
+        [
+          4,
+          2,
+          1,
+          10,
+          2,
+          1325
+        ]
+      ]
+    },
+    {
+      "left": "hse_results",
+      "right": "ddamfn_v8_results",
+      "changed_rows": 417,
+      "changed_percent": 5.902335456475583,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.1876967652628066,
+      "label_transition_counts": [
+        [
+          935,
+          30,
+          5,
+          17,
+          7,
+          23
+        ],
+        [
+          29,
+          632,
+          3,
+          23,
+          14,
+          10
+        ],
+        [
+          6,
+          3,
+          1831,
+          6,
+          15,
+          5
+        ],
+        [
+          20,
+          28,
+          6,
+          1264,
+          2,
+          61
+        ],
+        [
+          0,
+          19,
+          0,
+          0,
+          725,
+          2
+        ],
+        [
+          18,
+          6,
+          21,
+          29,
+          9,
+          1261
+        ]
+      ]
+    },
+    {
+      "left": "ambiguity_results",
+      "right": "ambiguity_v2_results",
+      "changed_rows": 0,
+      "changed_percent": 0.0,
+      "same_csv_sha256": true,
+      "probability_max_abs_difference": 0.0,
+      "label_transition_counts": [
+        [
+          1017,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          711,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1866,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1381,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          746,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1344
+        ]
+      ]
+    },
+    {
+      "left": "ambiguity_results",
+      "right": "lora_task_v4_results",
+      "changed_rows": 58,
+      "changed_percent": 0.8209483368719037,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.03822037759349051,
+      "label_transition_counts": [
+        [
+          1007,
+          1,
+          0,
+          8,
+          0,
+          1
+        ],
+        [
+          1,
+          701,
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          1861,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          7,
+          1,
+          1369,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          744,
+          0
+        ],
+        [
+          4,
+          2,
+          1,
+          10,
+          2,
+          1325
+        ]
+      ]
+    },
+    {
+      "left": "ambiguity_results",
+      "right": "lora_zero_weight_v5_results",
+      "changed_rows": 58,
+      "changed_percent": 0.8209483368719037,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.03822037759349051,
+      "label_transition_counts": [
+        [
+          1007,
+          1,
+          0,
+          8,
+          0,
+          1
+        ],
+        [
+          1,
+          701,
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          1861,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          7,
+          1,
+          1369,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          744,
+          0
+        ],
+        [
+          4,
+          2,
+          1,
+          10,
+          2,
+          1325
+        ]
+      ]
+    },
+    {
+      "left": "ambiguity_results",
+      "right": "lora_flip_consistency_v6_results",
+      "changed_rows": 58,
+      "changed_percent": 0.8209483368719037,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.03822037759349051,
+      "label_transition_counts": [
+        [
+          1007,
+          1,
+          0,
+          8,
+          0,
+          1
+        ],
+        [
+          1,
+          701,
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          1861,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          7,
+          1,
+          1369,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          744,
+          0
+        ],
+        [
+          4,
+          2,
+          1,
+          10,
+          2,
+          1325
+        ]
+      ]
+    },
+    {
+      "left": "ambiguity_results",
+      "right": "hse_sam_v7_results",
+      "changed_rows": 58,
+      "changed_percent": 0.8209483368719037,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.03822037759349051,
+      "label_transition_counts": [
+        [
+          1007,
+          1,
+          0,
+          8,
+          0,
+          1
+        ],
+        [
+          1,
+          701,
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          1861,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          7,
+          1,
+          1369,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          744,
+          0
+        ],
+        [
+          4,
+          2,
+          1,
+          10,
+          2,
+          1325
+        ]
+      ]
+    },
+    {
+      "left": "ambiguity_results",
+      "right": "ddamfn_v8_results",
+      "changed_rows": 417,
+      "changed_percent": 5.902335456475583,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.1876967652628066,
+      "label_transition_counts": [
+        [
+          935,
+          30,
+          5,
+          17,
+          7,
+          23
+        ],
+        [
+          29,
+          632,
+          3,
+          23,
+          14,
+          10
+        ],
+        [
+          6,
+          3,
+          1831,
+          6,
+          15,
+          5
+        ],
+        [
+          20,
+          28,
+          6,
+          1264,
+          2,
+          61
+        ],
+        [
+          0,
+          19,
+          0,
+          0,
+          725,
+          2
+        ],
+        [
+          18,
+          6,
+          21,
+          29,
+          9,
+          1261
+        ]
+      ]
+    },
+    {
+      "left": "ambiguity_v2_results",
+      "right": "lora_task_v4_results",
+      "changed_rows": 58,
+      "changed_percent": 0.8209483368719037,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.03822037759349051,
+      "label_transition_counts": [
+        [
+          1007,
+          1,
+          0,
+          8,
+          0,
+          1
+        ],
+        [
+          1,
+          701,
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          1861,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          7,
+          1,
+          1369,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          744,
+          0
+        ],
+        [
+          4,
+          2,
+          1,
+          10,
+          2,
+          1325
+        ]
+      ]
+    },
+    {
+      "left": "ambiguity_v2_results",
+      "right": "lora_zero_weight_v5_results",
+      "changed_rows": 58,
+      "changed_percent": 0.8209483368719037,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.03822037759349051,
+      "label_transition_counts": [
+        [
+          1007,
+          1,
+          0,
+          8,
+          0,
+          1
+        ],
+        [
+          1,
+          701,
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          1861,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          7,
+          1,
+          1369,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          744,
+          0
+        ],
+        [
+          4,
+          2,
+          1,
+          10,
+          2,
+          1325
+        ]
+      ]
+    },
+    {
+      "left": "ambiguity_v2_results",
+      "right": "lora_flip_consistency_v6_results",
+      "changed_rows": 58,
+      "changed_percent": 0.8209483368719037,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.03822037759349051,
+      "label_transition_counts": [
+        [
+          1007,
+          1,
+          0,
+          8,
+          0,
+          1
+        ],
+        [
+          1,
+          701,
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          1861,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          7,
+          1,
+          1369,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          744,
+          0
+        ],
+        [
+          4,
+          2,
+          1,
+          10,
+          2,
+          1325
+        ]
+      ]
+    },
+    {
+      "left": "ambiguity_v2_results",
+      "right": "hse_sam_v7_results",
+      "changed_rows": 58,
+      "changed_percent": 0.8209483368719037,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.03822037759349051,
+      "label_transition_counts": [
+        [
+          1007,
+          1,
+          0,
+          8,
+          0,
+          1
+        ],
+        [
+          1,
+          701,
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          1861,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          7,
+          1,
+          1369,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          744,
+          0
+        ],
+        [
+          4,
+          2,
+          1,
+          10,
+          2,
+          1325
+        ]
+      ]
+    },
+    {
+      "left": "ambiguity_v2_results",
+      "right": "ddamfn_v8_results",
+      "changed_rows": 417,
+      "changed_percent": 5.902335456475583,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.1876967652628066,
+      "label_transition_counts": [
+        [
+          935,
+          30,
+          5,
+          17,
+          7,
+          23
+        ],
+        [
+          29,
+          632,
+          3,
+          23,
+          14,
+          10
+        ],
+        [
+          6,
+          3,
+          1831,
+          6,
+          15,
+          5
+        ],
+        [
+          20,
+          28,
+          6,
+          1264,
+          2,
+          61
+        ],
+        [
+          0,
+          19,
+          0,
+          0,
+          725,
+          2
+        ],
+        [
+          18,
+          6,
+          21,
+          29,
+          9,
+          1261
+        ]
+      ]
+    },
+    {
+      "left": "lora_task_v4_results",
+      "right": "lora_zero_weight_v5_results",
+      "changed_rows": 0,
+      "changed_percent": 0.0,
+      "same_csv_sha256": true,
+      "probability_max_abs_difference": 0.0,
+      "label_transition_counts": [
+        [
+          1017,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          712,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1865,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1391,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          750,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1330
+        ]
+      ]
+    },
+    {
+      "left": "lora_task_v4_results",
+      "right": "lora_flip_consistency_v6_results",
+      "changed_rows": 0,
+      "changed_percent": 0.0,
+      "same_csv_sha256": true,
+      "probability_max_abs_difference": 0.0,
+      "label_transition_counts": [
+        [
+          1017,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          712,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1865,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1391,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          750,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1330
+        ]
+      ]
+    },
+    {
+      "left": "lora_task_v4_results",
+      "right": "hse_sam_v7_results",
+      "changed_rows": 0,
+      "changed_percent": 0.0,
+      "same_csv_sha256": true,
+      "probability_max_abs_difference": 0.0,
+      "label_transition_counts": [
+        [
+          1017,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          712,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1865,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1391,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          750,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1330
+        ]
+      ]
+    },
+    {
+      "left": "lora_task_v4_results",
+      "right": "ddamfn_v8_results",
+      "changed_rows": 408,
+      "changed_percent": 5.774946921443736,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.18621683338525874,
+      "label_transition_counts": [
+        [
+          937,
+          28,
+          6,
+          15,
+          7,
+          24
+        ],
+        [
+          28,
+          636,
+          2,
+          25,
+          13,
+          8
+        ],
+        [
+          4,
+          3,
+          1831,
+          7,
+          15,
+          5
+        ],
+        [
+          26,
+          27,
+          6,
+          1265,
+          2,
+          65
+        ],
+        [
+          0,
+          18,
+          0,
+          0,
+          730,
+          2
+        ],
+        [
+          13,
+          6,
+          21,
+          27,
+          5,
+          1258
+        ]
+      ]
+    },
+    {
+      "left": "lora_zero_weight_v5_results",
+      "right": "lora_flip_consistency_v6_results",
+      "changed_rows": 0,
+      "changed_percent": 0.0,
+      "same_csv_sha256": true,
+      "probability_max_abs_difference": 0.0,
+      "label_transition_counts": [
+        [
+          1017,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          712,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1865,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1391,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          750,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1330
+        ]
+      ]
+    },
+    {
+      "left": "lora_zero_weight_v5_results",
+      "right": "hse_sam_v7_results",
+      "changed_rows": 0,
+      "changed_percent": 0.0,
+      "same_csv_sha256": true,
+      "probability_max_abs_difference": 0.0,
+      "label_transition_counts": [
+        [
+          1017,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          712,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1865,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1391,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          750,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1330
+        ]
+      ]
+    },
+    {
+      "left": "lora_zero_weight_v5_results",
+      "right": "ddamfn_v8_results",
+      "changed_rows": 408,
+      "changed_percent": 5.774946921443736,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.18621683338525874,
+      "label_transition_counts": [
+        [
+          937,
+          28,
+          6,
+          15,
+          7,
+          24
+        ],
+        [
+          28,
+          636,
+          2,
+          25,
+          13,
+          8
+        ],
+        [
+          4,
+          3,
+          1831,
+          7,
+          15,
+          5
+        ],
+        [
+          26,
+          27,
+          6,
+          1265,
+          2,
+          65
+        ],
+        [
+          0,
+          18,
+          0,
+          0,
+          730,
+          2
+        ],
+        [
+          13,
+          6,
+          21,
+          27,
+          5,
+          1258
+        ]
+      ]
+    },
+    {
+      "left": "lora_flip_consistency_v6_results",
+      "right": "hse_sam_v7_results",
+      "changed_rows": 0,
+      "changed_percent": 0.0,
+      "same_csv_sha256": true,
+      "probability_max_abs_difference": 0.0,
+      "label_transition_counts": [
+        [
+          1017,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          712,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1865,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1391,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          750,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1330
+        ]
+      ]
+    },
+    {
+      "left": "lora_flip_consistency_v6_results",
+      "right": "ddamfn_v8_results",
+      "changed_rows": 408,
+      "changed_percent": 5.774946921443736,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.18621683338525874,
+      "label_transition_counts": [
+        [
+          937,
+          28,
+          6,
+          15,
+          7,
+          24
+        ],
+        [
+          28,
+          636,
+          2,
+          25,
+          13,
+          8
+        ],
+        [
+          4,
+          3,
+          1831,
+          7,
+          15,
+          5
+        ],
+        [
+          26,
+          27,
+          6,
+          1265,
+          2,
+          65
+        ],
+        [
+          0,
+          18,
+          0,
+          0,
+          730,
+          2
+        ],
+        [
+          13,
+          6,
+          21,
+          27,
+          5,
+          1258
+        ]
+      ]
+    },
+    {
+      "left": "hse_sam_v7_results",
+      "right": "ddamfn_v8_results",
+      "changed_rows": 408,
+      "changed_percent": 5.774946921443736,
+      "same_csv_sha256": false,
+      "probability_max_abs_difference": 0.18621683338525874,
+      "label_transition_counts": [
+        [
+          937,
+          28,
+          6,
+          15,
+          7,
+          24
+        ],
+        [
+          28,
+          636,
+          2,
+          25,
+          13,
+          8
+        ],
+        [
+          4,
+          3,
+          1831,
+          7,
+          15,
+          5
+        ],
+        [
+          26,
+          27,
+          6,
+          1265,
+          2,
+          65
+        ],
+        [
+          0,
+          18,
+          0,
+          0,
+          730,
+          2
+        ],
+        [
+          13,
+          6,
+          21,
+          27,
+          5,
+          1258
+        ]
+      ]
+    }
+  ],
+  "identical_csv_groups": [
+    [
+      "hse_results",
+      "ambiguity_results",
+      "ambiguity_v2_results"
+    ],
+    [
+      "lora_task_v4_results",
+      "lora_zero_weight_v5_results",
+      "lora_flip_consistency_v6_results",
+      "hse_sam_v7_results"
+    ]
+  ],
+  "competition_documentation": {
+    "local_note": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\说明.txt",
+    "local_note_sha256": "3ae7963e89f6134475a83c648a810881a50a7905f8fd02b01003fb447981a324",
+    "notebook": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\表情识别训练_v4.ipynb",
+    "notebook_sha256": "988712e723c711670dc61ce6509a9a369e00180716f4821c758fe2dae73333be",
+    "notebook_metric_statement": "SELECTION_METRIC defaults to macro_f1; change to accuracy if official competition ranks by accuracy. This conditional local guidance does not confirm the official metric.",
+    "archive": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\数据\\2026task2.zip",
+    "archive_file_count": 35341,
+    "archive_document_members": [],
+    "archive_parent_file_counts": {
+      "fer_data/fer_data/test": 7065,
+      "fer_data/fer_data/train/Angry": 3963,
+      "fer_data/fer_data/train/Fear": 4097,
+      "fer_data/fer_data/train/Happy": 7192,
+      "fer_data/fer_data/train/Neutral": 4959,
+      "fer_data/fer_data/train/Sad": 4862,
+      "fer_data/fer_data/train/Surprise": 3202,
+      "": 1
+    },
+    "official_competition_url_locally_found": false,
+    "official_metric_confirmed": false,
+    "true_dataset_source_confirmed": false,
+    "source_limitation": "2026task2.zip and fer_data names do not establish FER2013 or another dataset provenance. HSE/DDAM AffectNet pretraining provenance does not identify competition data."
+  },
+  "facts": [
+    "All12 audited generated CSV files have exactly7065 rows, ID/Emotion columns, template ID order, integer labels0..5, and saved probability argmax consistency.",
+    "V5/V6/V7 retained previous_best and their CSV bytes equal V4; ambiguity V1/V2 CSV bytes equal HSE.",
+    "V8 selected epoch_00_baseline, not a trained epoch.",
+    "Local development scores do not establish Kaggle scores; no Kaggle score is inferred here."
+  ],
+  "possible_causes_not_proven": [
+    "Repeated reuse of a small development split can favor changes that fail to generalize.",
+    "Single-model improvements can reduce ensemble error diversity; aggregate submission changes alone do not prove this cause.",
+    "Official metric mismatch or train/competition distribution shift are possible but unverified."
+  ],
+  "recommendations": [
+    {
+      "status": "fact_based",
+      "text": "Distinguish byte-identical retained submissions from genuinely changed predictions before interpreting unchanged Kaggle scores."
+    },
+    {
+      "status": "requires_official_evidence",
+      "text": "Obtain official evaluation/rules/data description and the exact uploaded submission SHA; do not infer the competition metric from local training defaults."
+    },
+    {
+      "status": "validation_design",
+      "text": "Use bounded train-only grouped CV with official initialization for method choice, then one fixed development check; avoid repeated searches for tiny improvements on reused validation."
+    }
+  ],
+  "safety": {
+    "GPU_used": false,
+    "new_training_started": false,
+    "internal_test_images_or_labels_read": false,
+    "external_answer_files_opened": false,
+    "old_artifacts_modified": false,
+    "excluded_file": "submission_final(1).csv",
+    "discovery_note": "An initial broad text search surfaced pre-existing historical aggregate evaluation-report lines. No answer CSV, per-image reference labels, or internal-test images were read; those aggregate scores were not used in this audit or its conclusions. Subsequent reads were limited to explicit submission/probability/metadata/document paths."
+  },
+  "class_mapping_evidence": {
+    "task_and_local_note": [
+      "0 Angry/愤怒",
+      "1 Fear/恐惧",
+      "2 Happy/快乐",
+      "3 Sad/悲伤",
+      "4 Surprise/惊讶",
+      "5 Neutral/中性"
+    ],
+    "all_generated_probability_metadata_consistent": true,
+    "DDAMFN_native_classes": [
+      "Neutral",
+      "Happy",
+      "Sad",
+      "Surprise",
+      "Fear",
+      "Disgust",
+      "Angry"
+    ],
+    "DDAMFN_head_row_indices": [
+      6,
+      4,
+      1,
+      2,
+      3,
+      0
+    ],
+    "DDAMFN_mapping_source": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\ddamfn_v8_model.py",
+    "limitation": "Consistent metadata/code/argmax prove the saved export contract, not hidden competition labels or the semantic correctness of individual predictions."
+  }
+}
