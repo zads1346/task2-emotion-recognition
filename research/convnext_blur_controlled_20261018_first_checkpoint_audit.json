@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "safe_tensor_only_checkpoint_load": true,
+  "complete_epoch": 1,
+  "optimizer_steps": [
+    598
+  ],
+  "successful": 598,
+  "skipped": 0,
+  "all_model_and_ema_tensors_finite": true,
+  "full_rng_present": true,
+  "model_tensor_count": 182,
+  "optimizer_parameter_states": 182,
+  "verified_at": 1792334245.8629644,
+  "checkpoint_bytes": 445467154
+}
