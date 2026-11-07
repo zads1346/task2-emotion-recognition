@@ -1,0 +1,77 @@
+{
+  "state": "passed",
+  "GPU_used": false,
+  "worker_launched": false,
+  "runner_sha256": "4320c34f2d041ce7f4de25e4eca313447205ece4d97a718d0929acee4c1b9cb0",
+  "test_source_sha256": "fbd078d989df23126b4c120c39725abbeb03faf447ac705319fe1f778b7c125d",
+  "tests": [
+    {
+      "case": "complete_bound_fixture",
+      "passed": true
+    },
+    {
+      "case": "protocol_review_only",
+      "rejected": true
+    },
+    {
+      "case": "unresolved_review_blocker",
+      "rejected": true
+    },
+    {
+      "case": "stale_review_plan",
+      "rejected": true
+    },
+    {
+      "case": "cpu_smoke",
+      "rejected": true
+    },
+    {
+      "case": "outer_validation_in_smoke",
+      "rejected": true
+    },
+    {
+      "case": "wrong_training_members",
+      "rejected": true
+    },
+    {
+      "case": "wrong_effective_batch",
+      "rejected": true
+    },
+    {
+      "case": "one_arm_only",
+      "rejected": true
+    },
+    {
+      "case": "one_successful_step",
+      "rejected": true
+    },
+    {
+      "case": "skipped_update",
+      "rejected": true
+    },
+    {
+      "case": "wrong_ema_count",
+      "rejected": true
+    },
+    {
+      "case": "frozen_backbone_changed",
+      "rejected": true
+    },
+    {
+      "case": "optimizer_step_mismatch",
+      "rejected": true
+    },
+    {
+      "case": "missing_dropout_evidence",
+      "rejected": true
+    },
+    {
+      "case": "no_gpu_memory",
+      "rejected": true
+    },
+    {
+      "case": "source_hash_tampered",
+      "rejected": true
+    }
+  ]
+}
