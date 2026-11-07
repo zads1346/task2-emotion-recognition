@@ -1,0 +1,5 @@
+torch>=2.5
+torchvision>=0.20
+timm==1.0.30
+numpy>=1.26
+Pillow>=10
