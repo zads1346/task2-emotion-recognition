@@ -1,0 +1,1779 @@
+{
+  "format": "training_rethink_history_audit_v1",
+  "state": "complete",
+  "created_at_utc": "2026-10-16T07:27:31.768555+00:00",
+  "project_root": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base",
+  "scope": {
+    "cpu_only": true,
+    "gpu_started": false,
+    "models_loaded_or_modified": false,
+    "source_plan_training_outputs_modified": false,
+    "internal_test_labels_read": false,
+    "external_answers_read": false,
+    "competition_prediction_files_compared": true,
+    "running_V9_accessed_or_interfered": false,
+    "metric_scope": "2656-row repeatedly reused development validation unless explicitly labelled grouped train-only CV. No Kaggle scores inferred."
+  },
+  "definitions": {
+    "new_candidate": "epoch>0,excluding initialization/retained incumbent",
+    "single_metric": "V4-V8 candidate CSV uses average original+horizontal-flip probabilities; early HSE downweight selection uses original only and is explicitly labelled",
+    "best_new": "Maximum correct/accuracy;all accuracy ties retained in audit without implying statistically significant selection",
+    "submission_identity": "Actual SHA256 of CSV bytes plus exact aligned prediction comparison"
+  },
+  "stages": [
+    {
+      "stage": "V1_frozen_DINOv2_linear",
+      "train": "Frozen DINOv2 Base features, logistic regression; 8 fits and16 original/flip candidate variants, validation macroF1 selection",
+      "selected_development": {
+        "accuracy": 0.6317771084337349,
+        "macro_f1": 0.6021856542175109,
+        "log_loss": 0.9775080549170568,
+        "correct_count": 1678,
+        "samples": 2656
+      },
+      "deployed_final_fit_images": 23904,
+      "deployed_final_fit_augmented_rows": 47808,
+      "matched_control": false,
+      "export": "results",
+      "caveat": "Final classifier refitted on train+validation23904; selected validation score describes pre-refit candidate, not independent final-model performance."
+    },
+    {
+      "stage": "early_LoRA_CNN",
+      "train": "DINOv2 last4-block LoRA11 completed epochs; best original-view epoch6. ResNet18 reused from earlier8-epoch run, selected epoch6",
+      "new_lora_original": {
+        "accuracy": 0.6716867469879518,
+        "macro_f1": 0.6427005772722094,
+        "loss": 0.9114015861367945,
+        "correct_count": 1784,
+        "samples": 2656
+      },
+      "selected_development_fusion": {
+        "accuracy": 0.6852409638554217,
+        "macro_f1": 0.6584456548705423,
+        "log_loss": 0.8654881252353142,
+        "correct_count": 1820,
+        "samples": 2656
+      },
+      "matched_control": false,
+      "export": "improved_results"
+    },
+    {
+      "stage": "LoRA_refinement",
+      "train": "4 additional last4 LoRA epochs with raw/EMA and original+flip candidates; selected epoch1 raw",
+      "new_lora_tta": {
+        "accuracy": 0.677710843373494,
+        "macro_f1": 0.6519836533882745,
+        "loss": 0.8739766055900755,
+        "correct_count": 1800,
+        "samples": 2656
+      },
+      "selected_development_fusion": {
+        "accuracy": 0.6935240963855421,
+        "macro_f1": 0.6696894939182741,
+        "log_loss": 0.8463400983591807,
+        "correct_count": 1842,
+        "samples": 2656
+      },
+      "matched_control": false,
+      "export": "refinement_results"
+    },
+    {
+      "stage": "frozen_multilayer_MLP_fusion",
+      "train": "Frozen DINO last4 features3840D:3-fold12-epoch head comparisons. Cosine LR MLP retrained12 epochs on21248 training rows;4 fixed fusions",
+      "selected_development_fusion": {
+        "accuracy": 0.6957831325301205,
+        "macro_f1": 0.6739671930971368,
+        "log_loss": 0.8396570359300835,
+        "correct_count": 1848,
+        "samples": 2656
+      },
+      "matched_control": "Feature/head/schedule candidates in grouped3-fold train-only CV; later4 fusions selected on reused development validation",
+      "export": "fusion_results",
+      "fusion_weights": {
+        "refined_lora": 0.4,
+        "cnn_resnet18": 0.4,
+        "new_mlp": 0.2
+      },
+      "caveat": "cosine names the LR schedule of an MLP, not a cosine-similarity classifier; CV selection estimate is distinct from2656-row development metric."
+    },
+    {
+      "stage": "HSE_specialist_v1",
+      "train": "Official AffectNet7 HSEmotion EfficientNetB2 mapped to6 classes;12 epochs on21248;1 frozen-backbone head warmup then11 full fine-tuning;BN stats frozen; original-view selected epoch7",
+      "new_single_original": {
+        "accuracy": 0.6995481927710844,
+        "macro_f1": 0.6754722289373828,
+        "log_loss": 0.8390872193791084,
+        "correct_count": 1858,
+        "samples": 2656
+      },
+      "selected_single_tta": {
+        "accuracy": 0.7048192771084337,
+        "macro_f1": 0.6809385140546222,
+        "log_loss": 0.8315724750711575,
+        "correct_count": 1872,
+        "samples": 2656
+      },
+      "selected_development_fusion": {
+        "accuracy": 0.7202560240963856,
+        "macro_f1": 0.6988277635838024,
+        "log_loss": 0.7901183313842441,
+        "correct_count": 1913,
+        "samples": 2656
+      },
+      "successful_optimizer_steps": 7968,
+      "amp_skipped_steps": 0,
+      "matched_control": false,
+      "fusion_candidates": 7,
+      "export": "hse_results",
+      "caveat": "Bundled new pretraining/model/fine-tuning/TTA/ensemble change; cannot isolate one ingredient as cause."
+    },
+    {
+      "stage": "HSE_downweight_v1",
+      "train": "4 continued epochs from original HSE epoch7,21248 rows,uniform shuffle,per-class mean weight normalized to1",
+      "raw_weights": {
+        "normal": 1,
+        "uncertain": 0.75,
+        "very_uncertain": 0.5
+      },
+      "difficulty_counts": {
+        "normal": 17139,
+        "uncertain": 3811,
+        "very_uncertain": 298
+      },
+      "new_single_original": {
+        "accuracy": 0.6950301204819277,
+        "correct_count": 1846,
+        "samples": 2656,
+        "epochs_tied": [
+          1,
+          4
+        ]
+      },
+      "selected_epoch": 0,
+      "selected_single_original": {
+        "accuracy": 0.6995481927710844,
+        "macro_f1": 0.6754722289373828,
+        "log_loss": 0.8390872193791084,
+        "correct_count": 1858,
+        "samples": 2656
+      },
+      "best_new_fusion": null,
+      "fusion_gate": "Only selected HSE checkpoint entered fixed .5/.5 fusion. Selected epoch0 reproduces old HSE; all new checkpoint fusions were not exhaustively compared in this export. Later V3 cached6 diagnostic candidates but was superseded.",
+      "selected_development_fusion": {
+        "accuracy": 0.7202560240963856,
+        "macro_f1": 0.6988277635838024,
+        "log_loss": 0.7901183313842441,
+        "correct_count": 1913,
+        "samples": 2656
+      },
+      "matched_control": false,
+      "unweighted_continuation_control_run": false,
+      "export": "ambiguity_results",
+      "uncertainty_caveat": "OOF model uncertainty is a proxy for ambiguity, not a verified incorrect label or human judgment."
+    },
+    {
+      "stage": "HSE_downweight_v2",
+      "train": "4 continued epochs from original HSE epoch7,21248 rows,uniform shuffle,per-class mean weight normalized to1",
+      "raw_weights": {
+        "normal": 1,
+        "uncertain": 0.5,
+        "very_uncertain": 0.2
+      },
+      "difficulty_counts": {
+        "normal": 17139,
+        "uncertain": 3811,
+        "very_uncertain": 298
+      },
+      "new_single_original": {
+        "accuracy": 0.6950301204819277,
+        "correct_count": 1846,
+        "samples": 2656,
+        "epochs_tied": [
+          2
+        ]
+      },
+      "selected_epoch": 0,
+      "selected_single_original": {
+        "accuracy": 0.6995481927710844,
+        "macro_f1": 0.6754722289373828,
+        "log_loss": 0.8390872193791084,
+        "correct_count": 1858,
+        "samples": 2656
+      },
+      "best_new_fusion": null,
+      "fusion_gate": "Only selected HSE checkpoint entered fixed .5/.5 fusion. Selected epoch0 reproduces old HSE; all new checkpoint fusions were not exhaustively compared in this export. Later V3 cached6 diagnostic candidates but was superseded.",
+      "selected_development_fusion": {
+        "accuracy": 0.7202560240963856,
+        "macro_f1": 0.6988277635838024,
+        "log_loss": 0.7901183313842441,
+        "correct_count": 1913,
+        "samples": 2656
+      },
+      "matched_control": false,
+      "unweighted_continuation_control_run": false,
+      "export": "ambiguity_v2_results",
+      "uncertainty_caveat": "Model OOF uncertainty proxy, not verified label error."
+    },
+    {
+      "stage": "LoRA_V4",
+      "train": "6 epochs,21248 uniform rows. Inherited last4 adapter/head; extended to last8 blocks with new B=0. Low differential LR,EMA,13 model candidates",
+      "candidate_audit": {
+        "candidate_rows_including_incumbent": 14,
+        "arms": {
+          "single": {
+            "trained_candidates": 12,
+            "best_new_single": {
+              "accuracy": 0.6837349397590361,
+              "correct_count": 1816,
+              "ties": [
+                {
+                  "name": "epoch_05_ema",
+                  "epoch": 5,
+                  "weight_source": "ema",
+                  "accuracy": 0.6837349397590361,
+                  "correct_count": 1816,
+                  "macro_f1": 0.6595641840250667,
+                  "log_loss": null
+                }
+              ]
+            },
+            "best_new_fusion": {
+              "accuracy": 0.7210090361445783,
+              "correct_count": 1915,
+              "ties": [
+                {
+                  "name": "epoch_05_ema",
+                  "epoch": 5,
+                  "weight_source": "ema",
+                  "accuracy": 0.7210090361445783,
+                  "correct_count": 1915,
+                  "macro_f1": 0.6997687449297948,
+                  "log_loss": 0.7890677745294015
+                }
+              ]
+            }
+          }
+        }
+      },
+      "selected_development_fusion": {
+        "accuracy": 0.7210090361445783,
+        "macro_f1": 0.6997687449297948,
+        "log_loss": 0.7890677745294015,
+        "correct_count": 1915,
+        "samples": 2656
+      },
+      "baseline_development_fusion": {
+        "accuracy": 0.7202560240963856,
+        "macro_f1": 0.6988277635838024,
+        "log_loss": 0.7901183313842441,
+        "correct_count": 1913,
+        "samples": 2656
+      },
+      "improved": true,
+      "selected": {
+        "name": "epoch_05_ema",
+        "epoch": 5,
+        "weight_source": "ema"
+      },
+      "matched_control": false,
+      "export": "lora_task_v4_results",
+      "training_arms": {
+        "single": {
+          "parent_checkpoint_sha256": "9cc6eacb56a2caf8068be4254289b0f1840b0583b9cf4ad9b1eb0df70b71b219",
+          "epochs_completed": 6,
+          "train_rows": 21248,
+          "val_rows": 2656,
+          "settings": {
+            "epochs": 6,
+            "seed": 42,
+            "augmentation_epoch_offset": 20,
+            "label_smoothing": 0.02,
+            "weight_decay": 0.001,
+            "lr_new": 2e-05,
+            "lr_inherited": 5e-06,
+            "lr_head": 2e-05,
+            "warmup_successful_steps": 100,
+            "min_lr_ratio": 0.1,
+            "ema_decay": 0.995,
+            "rank": 8,
+            "alpha": 16.0,
+            "lora_dropout": 0.05,
+            "last_blocks": 8,
+            "effective_batch_size": 32,
+            "workers": 0,
+            "cpu_threads": 4,
+            "image_size": 224,
+            "amp_initial_scale": 1024.0,
+            "gradient_clip": 1.0,
+            "validation_batch_size": 4,
+            "sample_weights": "uniform",
+            "selection": "fixed .5 HSE + .2 LoRA + .2 CNN + .1 MLP; strict correct-count increase; ties retain incumbent",
+            "checkpoint": "adapted blocks only; use_reentrant=False; preserve_rng_state=True",
+            "batch_size": 8,
+            "accumulation": 4
+          },
+          "successful_optimizer_steps": 3984,
+          "amp_skipped_steps": 0,
+          "ema_updates": 3984
+        }
+      },
+      "caveat": "No matched last4-only continuation arm; tiny+2correct cannot separately attribute to last8 expansion,EMA,LR or continued learning."
+    },
+    {
+      "stage": "LoRA_V5_zero_weight",
+      "train": "4 epochs each uniform_control vs weighted,independent same V4 epoch05EMA init,21248 same rows. Exact weights1/.15/0,no class normalization",
+      "candidate_audit": {
+        "candidate_rows_including_incumbent": 19,
+        "arms": {
+          "uniform_control": {
+            "trained_candidates": 8,
+            "best_new_single": {
+              "accuracy": 0.6837349397590361,
+              "correct_count": 1816,
+              "ties": [
+                {
+                  "name": "uniform_control/epoch_03_ema",
+                  "epoch": 3,
+                  "weight_source": "ema",
+                  "accuracy": 0.6837349397590361,
+                  "correct_count": 1816,
+                  "macro_f1": 0.6593928353110045,
+                  "log_loss": 0.8571413444269814
+                }
+              ]
+            },
+            "best_new_fusion": {
+              "accuracy": 0.7210090361445783,
+              "correct_count": 1915,
+              "ties": [
+                {
+                  "name": "uniform_control/epoch_03_raw",
+                  "epoch": 3,
+                  "weight_source": "raw",
+                  "accuracy": 0.7210090361445783,
+                  "correct_count": 1915,
+                  "macro_f1": 0.6999172014557814,
+                  "log_loss": 0.788710971179074
+                },
+                {
+                  "name": "uniform_control/epoch_03_ema",
+                  "epoch": 3,
+                  "weight_source": "ema",
+                  "accuracy": 0.7210090361445783,
+                  "correct_count": 1915,
+                  "macro_f1": 0.6998530929143727,
+                  "log_loss": 0.7888360771306601
+                },
+                {
+                  "name": "uniform_control/epoch_04_ema",
+                  "epoch": 4,
+                  "weight_source": "ema",
+                  "accuracy": 0.7210090361445783,
+                  "correct_count": 1915,
+                  "macro_f1": 0.6998530929143727,
+                  "log_loss": 0.7886893372916864
+                }
+              ]
+            }
+          },
+          "weighted": {
+            "trained_candidates": 8,
+            "best_new_single": {
+              "accuracy": 0.6833584337349398,
+              "correct_count": 1815,
+              "ties": [
+                {
+                  "name": "weighted/epoch_04_raw",
+                  "epoch": 4,
+                  "weight_source": "raw",
+                  "accuracy": 0.6833584337349398,
+                  "correct_count": 1815,
+                  "macro_f1": 0.659029600778754,
+                  "log_loss": 0.8587200732697565
+                },
+                {
+                  "name": "weighted/epoch_04_ema",
+                  "epoch": 4,
+                  "weight_source": "ema",
+                  "accuracy": 0.6833584337349398,
+                  "correct_count": 1815,
+                  "macro_f1": 0.6589010824564615,
+                  "log_loss": 0.8585666629303271
+                }
+              ]
+            },
+            "best_new_fusion": {
+              "accuracy": 0.7206325301204819,
+              "correct_count": 1914,
+              "ties": [
+                {
+                  "name": "weighted/epoch_01_raw",
+                  "epoch": 1,
+                  "weight_source": "raw",
+                  "accuracy": 0.7206325301204819,
+                  "correct_count": 1914,
+                  "macro_f1": 0.6992354900069254,
+                  "log_loss": 0.7888799283858611
+                },
+                {
+                  "name": "weighted/epoch_01_ema",
+                  "epoch": 1,
+                  "weight_source": "ema",
+                  "accuracy": 0.7206325301204819,
+                  "correct_count": 1914,
+                  "macro_f1": 0.6992263989230924,
+                  "log_loss": 0.7891288264478333
+                },
+                {
+                  "name": "weighted/epoch_03_raw",
+                  "epoch": 3,
+                  "weight_source": "raw",
+                  "accuracy": 0.7206325301204819,
+                  "correct_count": 1914,
+                  "macro_f1": 0.6993467381280155,
+                  "log_loss": 0.7889798530599452
+                },
+                {
+                  "name": "weighted/epoch_03_ema",
+                  "epoch": 3,
+                  "weight_source": "ema",
+                  "accuracy": 0.7206325301204819,
+                  "correct_count": 1914,
+                  "macro_f1": 0.6994539571108033,
+                  "log_loss": 0.7890284712919386
+                }
+              ]
+            }
+          }
+        }
+      },
+      "selected_development_fusion": {
+        "accuracy": 0.7210090361445783,
+        "macro_f1": 0.6997687449297948,
+        "log_loss": 0.7890677745294015,
+        "correct_count": 1915,
+        "samples": 2656
+      },
+      "baseline_development_fusion": {
+        "accuracy": 0.7210090361445783,
+        "macro_f1": 0.6997687449297948,
+        "log_loss": 0.7890677745294015,
+        "correct_count": 1915,
+        "samples": 2656
+      },
+      "improved": false,
+      "selected": {
+        "name": "previous_best"
+      },
+      "matched_control": true,
+      "export": "lora_zero_weight_v5_results",
+      "training_arms": {
+        "uniform_control": {
+          "parent_checkpoint_sha256": "8dab5b4e2b679fc369ea497b37e36abe5778ec65007e1474781592b353139d28",
+          "epochs_completed": 4,
+          "train_rows": 21248,
+          "val_rows": 2656,
+          "settings": {
+            "epochs": 4,
+            "seed": 42,
+            "augmentation_epoch_offset": 40,
+            "label_smoothing": 0.02,
+            "weight_decay": 0.001,
+            "lr_new": 1e-05,
+            "lr_inherited": 2.5e-06,
+            "lr_head": 1e-05,
+            "warmup_successful_steps": 50,
+            "min_lr_ratio": 0.1,
+            "ema_decay": 0.995,
+            "batch_size": 8,
+            "accumulation": 4,
+            "effective_batch_size": 32,
+            "workers": 0,
+            "cpu_threads": 4,
+            "image_size": 224,
+            "amp_initial_scale": 1024.0,
+            "gradient_clip": 1.0,
+            "validation_batch_size": 4,
+            "rank": 8,
+            "alpha": 16.0,
+            "lora_dropout": 0.05,
+            "last_blocks": 8,
+            "sample_weights": {
+              "normal": 1.0,
+              "uncertain": 0.15,
+              "very_uncertain": 0.0
+            },
+            "class_normalization": false,
+            "sampler": "uniform, same ordered rows in both arms",
+            "loss_normalization": "sum(w_i*CE_i)/sum(w_i) over full effective group of32",
+            "modes": [
+              "weighted",
+              "uniform_control"
+            ],
+            "mixup": false,
+            "cutmix": false
+          },
+          "successful_optimizer_steps": 2656,
+          "amp_skipped_steps": 0,
+          "ema_updates": 2656,
+          "zero_weight_groups": 0
+        },
+        "weighted": {
+          "parent_checkpoint_sha256": "8dab5b4e2b679fc369ea497b37e36abe5778ec65007e1474781592b353139d28",
+          "epochs_completed": 4,
+          "train_rows": 21248,
+          "val_rows": 2656,
+          "settings": {
+            "epochs": 4,
+            "seed": 42,
+            "augmentation_epoch_offset": 40,
+            "label_smoothing": 0.02,
+            "weight_decay": 0.001,
+            "lr_new": 1e-05,
+            "lr_inherited": 2.5e-06,
+            "lr_head": 1e-05,
+            "warmup_successful_steps": 50,
+            "min_lr_ratio": 0.1,
+            "ema_decay": 0.995,
+            "batch_size": 8,
+            "accumulation": 4,
+            "effective_batch_size": 32,
+            "workers": 0,
+            "cpu_threads": 4,
+            "image_size": 224,
+            "amp_initial_scale": 1024.0,
+            "gradient_clip": 1.0,
+            "validation_batch_size": 4,
+            "rank": 8,
+            "alpha": 16.0,
+            "lora_dropout": 0.05,
+            "last_blocks": 8,
+            "sample_weights": {
+              "normal": 1.0,
+              "uncertain": 0.15,
+              "very_uncertain": 0.0
+            },
+            "class_normalization": false,
+            "sampler": "uniform, same ordered rows in both arms",
+            "loss_normalization": "sum(w_i*CE_i)/sum(w_i) over full effective group of32",
+            "modes": [
+              "weighted",
+              "uniform_control"
+            ],
+            "mixup": false,
+            "cutmix": false
+          },
+          "successful_optimizer_steps": 2656,
+          "amp_skipped_steps": 0,
+          "ema_updates": 2656,
+          "zero_weight_groups": 0
+        }
+      },
+      "caveat": "Weighted best new fusion1914 is below uniform-control best1915; evidence does not support stronger OOF downweighting under this single-seed setting. Not human-verified ambiguity; class average weights differ."
+    },
+    {
+      "stage": "LoRA_V6_flip_consistency",
+      "train": "4 epochs each CE control vs CE+.1 symmetric KL,independent V4 epoch05EMA init. Both pair original+flip,smoothing0;21246 same rows after2 common invalid-image exclusions",
+      "candidate_audit": {
+        "candidate_rows_including_incumbent": 19,
+        "arms": {
+          "ce_control": {
+            "trained_candidates": 8,
+            "best_new_single": {
+              "accuracy": 0.6822289156626506,
+              "correct_count": 1812,
+              "ties": [
+                {
+                  "name": "ce_control/epoch_01_ema",
+                  "epoch": 1,
+                  "weight_source": "ema",
+                  "accuracy": 0.6822289156626506,
+                  "correct_count": 1812,
+                  "macro_f1": 0.6584511607829043,
+                  "log_loss": 0.8582219753730079
+                }
+              ]
+            },
+            "best_new_fusion": {
+              "accuracy": 0.7210090361445783,
+              "correct_count": 1915,
+              "ties": [
+                {
+                  "name": "ce_control/epoch_03_raw",
+                  "epoch": 3,
+                  "weight_source": "raw",
+                  "accuracy": 0.7210090361445783,
+                  "correct_count": 1915,
+                  "macro_f1": 0.6998913671570216,
+                  "log_loss": 0.7886230942550754
+                },
+                {
+                  "name": "ce_control/epoch_03_ema",
+                  "epoch": 3,
+                  "weight_source": "ema",
+                  "accuracy": 0.7210090361445783,
+                  "correct_count": 1915,
+                  "macro_f1": 0.7000582027824863,
+                  "log_loss": 0.7885707179557357
+                },
+                {
+                  "name": "ce_control/epoch_04_ema",
+                  "epoch": 4,
+                  "weight_source": "ema",
+                  "accuracy": 0.7210090361445783,
+                  "correct_count": 1915,
+                  "macro_f1": 0.6998913671570216,
+                  "log_loss": 0.7885661945961507
+                }
+              ]
+            }
+          },
+          "flip_consistency": {
+            "trained_candidates": 8,
+            "best_new_single": {
+              "accuracy": 0.6822289156626506,
+              "correct_count": 1812,
+              "ties": [
+                {
+                  "name": "flip_consistency/epoch_01_ema",
+                  "epoch": 1,
+                  "weight_source": "ema",
+                  "accuracy": 0.6822289156626506,
+                  "correct_count": 1812,
+                  "macro_f1": 0.6584293893570942,
+                  "log_loss": 0.8581909845839246
+                }
+              ]
+            },
+            "best_new_fusion": {
+              "accuracy": 0.7210090361445783,
+              "correct_count": 1915,
+              "ties": [
+                {
+                  "name": "flip_consistency/epoch_03_raw",
+                  "epoch": 3,
+                  "weight_source": "raw",
+                  "accuracy": 0.7210090361445783,
+                  "correct_count": 1915,
+                  "macro_f1": 0.6998913671570216,
+                  "log_loss": 0.7886234103656007
+                },
+                {
+                  "name": "flip_consistency/epoch_03_ema",
+                  "epoch": 3,
+                  "weight_source": "ema",
+                  "accuracy": 0.7210090361445783,
+                  "correct_count": 1915,
+                  "macro_f1": 0.7000582027824863,
+                  "log_loss": 0.7885730536847827
+                },
+                {
+                  "name": "flip_consistency/epoch_04_ema",
+                  "epoch": 4,
+                  "weight_source": "ema",
+                  "accuracy": 0.7210090361445783,
+                  "correct_count": 1915,
+                  "macro_f1": 0.6998913671570216,
+                  "log_loss": 0.788572427102259
+                }
+              ]
+            }
+          }
+        }
+      },
+      "selected_development_fusion": {
+        "accuracy": 0.7210090361445783,
+        "macro_f1": 0.6997687449297948,
+        "log_loss": 0.7890677745294015,
+        "correct_count": 1915,
+        "samples": 2656
+      },
+      "baseline_development_fusion": {
+        "accuracy": 0.7210090361445783,
+        "macro_f1": 0.6997687449297948,
+        "log_loss": 0.7890677745294015,
+        "correct_count": 1915,
+        "samples": 2656
+      },
+      "improved": false,
+      "selected": {
+        "name": "previous_best"
+      },
+      "matched_control": true,
+      "export": "lora_flip_consistency_v6_results",
+      "training_arms": {
+        "ce_control": {
+          "parent_checkpoint_sha256": "8dab5b4e2b679fc369ea497b37e36abe5778ec65007e1474781592b353139d28",
+          "epochs_completed": 4,
+          "train_rows": 21246,
+          "val_rows": 2656,
+          "settings": {
+            "epochs": 4,
+            "seed": 42,
+            "augmentation_epoch_offset": 60,
+            "label_smoothing": 0.0,
+            "weight_decay": 0.001,
+            "lr_new": 1e-05,
+            "lr_inherited": 2.5e-06,
+            "lr_head": 1e-05,
+            "warmup_successful_steps": 50,
+            "min_lr_ratio": 0.1,
+            "ema_decay": 0.995,
+            "batch_size": 4,
+            "accumulation": 8,
+            "effective_batch_size": 32,
+            "workers": 0,
+            "cpu_threads": 4,
+            "image_size": 224,
+            "amp_initial_scale": 1024.0,
+            "gradient_clip": 1.0,
+            "validation_batch_size": 4,
+            "rank": 8,
+            "alpha": 16.0,
+            "lora_dropout": 0.05,
+            "last_blocks": 8,
+            "sample_weights": "uniform1",
+            "physical_microbatch_size": 8,
+            "views_per_image": 2,
+            "temperature": 1.0,
+            "ce_definition": "mean of standard CE on original and horizontally flipped views",
+            "consistency_definition": "symmetric KL in FP32, both branches differentiable, temperature1",
+            "mixup": false,
+            "cutmix": false,
+            "sampling": "uniform full-member shuffle; identical paired augmentation and order"
+          },
+          "successful_optimizer_steps": 2656,
+          "amp_skipped_steps": 0,
+          "ema_updates": 2656,
+          "zero_weight_groups": 0
+        },
+        "flip_consistency": {
+          "parent_checkpoint_sha256": "8dab5b4e2b679fc369ea497b37e36abe5778ec65007e1474781592b353139d28",
+          "epochs_completed": 4,
+          "train_rows": 21246,
+          "val_rows": 2656,
+          "settings": {
+            "epochs": 4,
+            "seed": 42,
+            "augmentation_epoch_offset": 60,
+            "label_smoothing": 0.0,
+            "weight_decay": 0.001,
+            "lr_new": 1e-05,
+            "lr_inherited": 2.5e-06,
+            "lr_head": 1e-05,
+            "warmup_successful_steps": 50,
+            "min_lr_ratio": 0.1,
+            "ema_decay": 0.995,
+            "batch_size": 4,
+            "accumulation": 8,
+            "effective_batch_size": 32,
+            "workers": 0,
+            "cpu_threads": 4,
+            "image_size": 224,
+            "amp_initial_scale": 1024.0,
+            "gradient_clip": 1.0,
+            "validation_batch_size": 4,
+            "rank": 8,
+            "alpha": 16.0,
+            "lora_dropout": 0.05,
+            "last_blocks": 8,
+            "sample_weights": "uniform1",
+            "physical_microbatch_size": 8,
+            "views_per_image": 2,
+            "temperature": 1.0,
+            "ce_definition": "mean of standard CE on original and horizontally flipped views",
+            "consistency_definition": "symmetric KL in FP32, both branches differentiable, temperature1",
+            "mixup": false,
+            "cutmix": false,
+            "sampling": "uniform full-member shuffle; identical paired augmentation and order"
+          },
+          "successful_optimizer_steps": 2656,
+          "amp_skipped_steps": 0,
+          "ema_updates": 2656,
+          "zero_weight_groups": 0
+        }
+      },
+      "caveat": "Both arms share paired-view training and2 exclusions. Matching maxima1915 each supplies no improvement from lambda.1 KL in this setting; cannot attribute changes vs V4 solely to filtering or KL."
+    },
+    {
+      "stage": "HSE_V7_SAM",
+      "train": "4 epochs each AdamW control vs SAM rho.05,independent original HSE epoch7 init;21246 same uniform rows;BN stats frozen",
+      "candidate_audit": {
+        "candidate_rows_including_incumbent": 19,
+        "arms": {
+          "adamw_control": {
+            "trained_candidates": 8,
+            "best_new_single": {
+              "accuracy": 0.7014307228915663,
+              "correct_count": 1863,
+              "ties": [
+                {
+                  "name": "adamw_control/epoch_02_ema",
+                  "epoch": 2,
+                  "weight_source": "ema",
+                  "accuracy": 0.7014307228915663,
+                  "correct_count": 1863,
+                  "macro_f1": 0.6800265522880281,
+                  "log_loss": 0.8496100215880463
+                }
+              ]
+            },
+            "best_new_fusion": {
+              "accuracy": 0.7172439759036144,
+              "correct_count": 1905,
+              "ties": [
+                {
+                  "name": "adamw_control/epoch_01_raw",
+                  "epoch": 1,
+                  "weight_source": "raw",
+                  "accuracy": 0.7172439759036144,
+                  "correct_count": 1905,
+                  "macro_f1": 0.696014705534147,
+                  "log_loss": 0.7824156591335297
+                },
+                {
+                  "name": "adamw_control/epoch_04_raw",
+                  "epoch": 4,
+                  "weight_source": "raw",
+                  "accuracy": 0.7172439759036144,
+                  "correct_count": 1905,
+                  "macro_f1": 0.6966522564803636,
+                  "log_loss": 0.7817295183419766
+                }
+              ]
+            }
+          },
+          "sam": {
+            "trained_candidates": 8,
+            "best_new_single": {
+              "accuracy": 0.7063253012048193,
+              "correct_count": 1876,
+              "ties": [
+                {
+                  "name": "sam/epoch_02_raw",
+                  "epoch": 2,
+                  "weight_source": "raw",
+                  "accuracy": 0.7063253012048193,
+                  "correct_count": 1876,
+                  "macro_f1": 0.6841584775114941,
+                  "log_loss": 0.8126341514016784
+                }
+              ]
+            },
+            "best_new_fusion": {
+              "accuracy": 0.7202560240963856,
+              "correct_count": 1913,
+              "ties": [
+                {
+                  "name": "sam/epoch_01_raw",
+                  "epoch": 1,
+                  "weight_source": "raw",
+                  "accuracy": 0.7202560240963856,
+                  "correct_count": 1913,
+                  "macro_f1": 0.6983850641063025,
+                  "log_loss": 0.7829039566860744
+                }
+              ]
+            }
+          }
+        }
+      },
+      "selected_development_fusion": {
+        "accuracy": 0.7210090361445783,
+        "macro_f1": 0.6997687449297948,
+        "log_loss": 0.7890677745294015,
+        "correct_count": 1915,
+        "samples": 2656
+      },
+      "baseline_development_fusion": {
+        "accuracy": 0.7210090361445783,
+        "macro_f1": 0.6997687449297948,
+        "log_loss": 0.7890677745294015,
+        "correct_count": 1915,
+        "samples": 2656
+      },
+      "improved": false,
+      "selected": {
+        "name": "previous_best"
+      },
+      "matched_control": true,
+      "export": "hse_sam_v7_results",
+      "training_arms": {
+        "adamw_control": {
+          "parent_checkpoint_sha256": "ed58a57d691943dc605053ac6182d6b54f05f4ae4133690d65ce5abeb10d20b7",
+          "epochs_completed": 4,
+          "train_rows": 21246,
+          "val_rows": 2656,
+          "settings": {
+            "epochs": 4,
+            "seed": 42,
+            "augmentation_epoch_offset": 70,
+            "batch_size": 16,
+            "accumulation": 2,
+            "effective_batch_size": 32,
+            "workers": 0,
+            "cpu_threads": 4,
+            "image_size": 224,
+            "validation_batch_size": 16,
+            "backbone_lr": 5e-06,
+            "head_lr": 5e-05,
+            "weight_decay": 0.01,
+            "label_smoothing": 0.0,
+            "gradient_clip": 1.0,
+            "warmup_successful_steps": 50,
+            "min_lr_ratio": 0.1,
+            "ema_decay": 0.995,
+            "amp_initial_scale": 1024.0,
+            "amp_growth_interval": 2000,
+            "batchnorm_running_stats": "frozen_eval",
+            "sample_weights": "uniform1",
+            "mixup": false,
+            "cutmix": false,
+            "sam_adaptive": false,
+            "sampling": "same epoch shuffle and augmentation for both arms"
+          },
+          "successful_optimizer_steps": 2656,
+          "amp_skipped_steps": 0,
+          "ema_updates": 2656,
+          "zero_weight_groups": 0
+        },
+        "sam": {
+          "parent_checkpoint_sha256": "ed58a57d691943dc605053ac6182d6b54f05f4ae4133690d65ce5abeb10d20b7",
+          "epochs_completed": 4,
+          "train_rows": 21246,
+          "val_rows": 2656,
+          "settings": {
+            "epochs": 4,
+            "seed": 42,
+            "augmentation_epoch_offset": 70,
+            "batch_size": 16,
+            "accumulation": 2,
+            "effective_batch_size": 32,
+            "workers": 0,
+            "cpu_threads": 4,
+            "image_size": 224,
+            "validation_batch_size": 16,
+            "backbone_lr": 5e-06,
+            "head_lr": 5e-05,
+            "weight_decay": 0.01,
+            "label_smoothing": 0.0,
+            "gradient_clip": 1.0,
+            "warmup_successful_steps": 50,
+            "min_lr_ratio": 0.1,
+            "ema_decay": 0.995,
+            "amp_initial_scale": 1024.0,
+            "amp_growth_interval": 2000,
+            "batchnorm_running_stats": "frozen_eval",
+            "sample_weights": "uniform1",
+            "mixup": false,
+            "cutmix": false,
+            "sam_adaptive": false,
+            "sampling": "same epoch shuffle and augmentation for both arms"
+          },
+          "successful_optimizer_steps": 2656,
+          "amp_skipped_steps": 0,
+          "ema_updates": 2656,
+          "zero_weight_groups": 0
+        }
+      },
+      "parent_hse_tta": {
+        "accuracy": 0.7048192771084337,
+        "macro_f1": 0.6809385140546222,
+        "log_loss": 0.8315724750711575,
+        "correct_count": 1872,
+        "samples": 2656
+      },
+      "caveat": "SAM best new single1876 vs control1863 (+13),best new fusion1913 vs control1905 (+8),but neither beats deployed incumbent1915. SAM can help continuation relative to control without improving the delivered ensemble."
+    },
+    {
+      "stage": "DDAMFN_V8",
+      "train": "Official AffectNet7 DDAMFN mapped6 classes;6 epochs,21246 uniform rows,BN stats frozen,AdamW+EMA;13 candidate models including official epoch0",
+      "candidate_audit": {
+        "candidate_rows_including_incumbent": 14,
+        "arms": {
+          "ddamfn": {
+            "trained_candidates": 12,
+            "best_new_single": {
+              "accuracy": 0.692394578313253,
+              "correct_count": 1839,
+              "ties": [
+                {
+                  "name": "epoch_06_ema",
+                  "epoch": 6,
+                  "weight_source": "ema",
+                  "accuracy": 0.692394578313253,
+                  "correct_count": 1839,
+                  "macro_f1": 0.6681495492368122,
+                  "log_loss": 0.8255851773866836
+                }
+              ]
+            },
+            "best_new_fusion": {
+              "accuracy": 0.7232680722891566,
+              "correct_count": 1921,
+              "ties": [
+                {
+                  "name": "epoch_03_raw",
+                  "epoch": 3,
+                  "weight_source": "raw",
+                  "accuracy": 0.7232680722891566,
+                  "correct_count": 1921,
+                  "macro_f1": 0.7011866819871,
+                  "log_loss": 0.7680100589529727
+                }
+              ]
+            }
+          }
+        }
+      },
+      "selected_development_fusion": {
+        "accuracy": 0.7243975903614458,
+        "macro_f1": 0.7028285512544401,
+        "log_loss": 0.7899208226506699,
+        "correct_count": 1924,
+        "samples": 2656
+      },
+      "baseline_development_fusion": {
+        "accuracy": 0.7210090361445783,
+        "macro_f1": 0.6997687449297948,
+        "log_loss": 0.7890677745294015,
+        "correct_count": 1915,
+        "samples": 2656
+      },
+      "improved": true,
+      "selected": {
+        "name": "epoch_00_baseline",
+        "epoch": 0,
+        "weight_source": "baseline"
+      },
+      "matched_control": false,
+      "export": "ddamfn_v8_results",
+      "training_arms": {
+        "single": {
+          "parent_checkpoint_sha256": "edf731a458162eef6b2be12c3572bd10cbe92ce8c009da4331184a2943d7ed14",
+          "epochs_completed": 6,
+          "train_rows": 21246,
+          "val_rows": 2656,
+          "settings": {
+            "epochs": 6,
+            "seed": 42,
+            "augmentation_epoch_offset": 80,
+            "effective_batch_size": 32,
+            "workers": 0,
+            "cpu_threads": 4,
+            "image_size": 112,
+            "validation_batch_size": 32,
+            "backbone_lr": 1e-05,
+            "head_lr": 0.0001,
+            "weight_decay": 0.01,
+            "label_smoothing": 0.0,
+            "gradient_clip": 1.0,
+            "warmup_successful_steps": 100,
+            "min_lr_ratio": 0.1,
+            "ema_decay": 0.995,
+            "amp_initial_scale": 1024.0,
+            "amp_growth_interval": 2000,
+            "batchnorm_running_stats": "frozen_eval",
+            "batchnorm_affine": "trainable",
+            "sample_weights": "uniform1",
+            "mixup": false,
+            "cutmix": false,
+            "rho": 0.0,
+            "initialization": "official AffectNet7 only; mapped six-class head",
+            "batch_size": 32,
+            "accumulation": 1
+          },
+          "successful_optimizer_steps": 3984,
+          "amp_skipped_steps": 0,
+          "ema_updates": 3984,
+          "zero_weight_groups": 0
+        }
+      },
+      "paired_selected_vs_incumbent": {
+        "both_correct": 1860,
+        "baseline_only_correct": 55,
+        "candidate_only_correct": 64,
+        "both_wrong": 677,
+        "net_correct_change": 9
+      },
+      "old_cnn_tta": {
+        "accuracy": 0.6506024096385542,
+        "macro_f1": 0.628609025668006,
+        "log_loss": 0.9824973699849112,
+        "correct_count": 1728,
+        "samples": 2656
+      },
+      "official_epoch0_tta": {
+        "accuracy": 0.5945030120481928,
+        "macro_f1": 0.5635579860477092,
+        "log_loss": 1.1410126375676244,
+        "correct_count": 1579,
+        "samples": 2656
+      },
+      "caveat": "Delivered+9correct uses official epoch0,not locally trained DDAM. Six training epochs improve standalone from1579 to1839 but best new fusion1921 loses to epoch0 fusion1924. Accuracy rises while selected logloss worsens from.7890678 to.7899208."
+    }
+  ],
+  "grouped_head_experiments": [
+    {
+      "directory": "multilayer_results",
+      "folds": 3,
+      "epochs_per_fold": 12,
+      "train_rows": 21248,
+      "selected": {
+        "candidate": "last4_mlp",
+        "feature_dim": 3840,
+        "kind": "mlp",
+        "mean_accuracy": 0.6473076434675344,
+        "mean_macro_f1": 0.623714419843309,
+        "mean_log_loss": 1.025696018258382,
+        "std_accuracy": 0.0031212496437717867
+      },
+      "candidates": [
+        {
+          "candidate": "last_layer_linear",
+          "feature_dim": 1536,
+          "kind": "linear",
+          "mean_accuracy": 0.6312593175276279,
+          "mean_macro_f1": 0.6024025602146105,
+          "mean_log_loss": 0.9883477336022052,
+          "std_accuracy": 0.0041873709164451794
+        },
+        {
+          "candidate": "last4_linear",
+          "feature_dim": 3840,
+          "kind": "linear",
+          "mean_accuracy": 0.6304592865070745,
+          "mean_macro_f1": 0.6030617303014799,
+          "mean_log_loss": 1.0314445502412257,
+          "std_accuracy": 0.003141489840604069
+        },
+        {
+          "candidate": "last_layer_mlp",
+          "feature_dim": 1536,
+          "kind": "mlp",
+          "mean_accuracy": 0.644860509299442,
+          "mean_macro_f1": 0.6205550616869496,
+          "mean_log_loss": 1.0152402912384508,
+          "std_accuracy": 0.004691508395896694
+        },
+        {
+          "candidate": "last4_mlp",
+          "feature_dim": 3840,
+          "kind": "mlp",
+          "mean_accuracy": 0.6473076434675344,
+          "mean_macro_f1": 0.623714419843309,
+          "mean_log_loss": 1.025696018258382,
+          "std_accuracy": 0.0031212496437717867
+        }
+      ],
+      "submission_generated": false
+    },
+    {
+      "directory": "weighted_results",
+      "folds": 3,
+      "epochs_per_fold": 12,
+      "train_rows": 21248,
+      "selected": {
+        "candidate": "cosine",
+        "feature_dim": 3840,
+        "kind": "mlp",
+        "mean_accuracy": 0.6617563060197788,
+        "mean_macro_f1": 0.6380622402365086,
+        "mean_log_loss": 0.9356836186875682,
+        "std_accuracy": 0.004048322449930881
+      },
+      "candidates": [
+        {
+          "candidate": "baseline",
+          "feature_dim": 3840,
+          "kind": "mlp",
+          "mean_accuracy": 0.6473076434675344,
+          "mean_macro_f1": 0.623714419843309,
+          "mean_log_loss": 1.025696018258382,
+          "std_accuracy": 0.0031212496437717867
+        },
+        {
+          "candidate": "label_smoothing",
+          "feature_dim": 3840,
+          "kind": "mlp",
+          "mean_accuracy": 0.6481076213342952,
+          "mean_macro_f1": 0.6238952002814323,
+          "mean_log_loss": 0.9723618856886346,
+          "std_accuracy": 0.004147983161507624
+        },
+        {
+          "candidate": "cosine",
+          "feature_dim": 3840,
+          "kind": "mlp",
+          "mean_accuracy": 0.6617563060197788,
+          "mean_macro_f1": 0.6380622402365086,
+          "mean_log_loss": 0.9356836186875682,
+          "std_accuracy": 0.004048322449930881
+        },
+        {
+          "candidate": "feature_mixup",
+          "feature_dim": 3840,
+          "kind": "mlp",
+          "mean_accuracy": 0.6465074662740514,
+          "mean_macro_f1": 0.6210443453193031,
+          "mean_log_loss": 0.977696300470059,
+          "std_accuracy": 0.004391584563120659
+        },
+        {
+          "candidate": "class_weight",
+          "feature_dim": 3840,
+          "kind": "mlp",
+          "mean_accuracy": 0.6464605447636524,
+          "mean_macro_f1": 0.6236826470949692,
+          "mean_log_loss": 1.0251825115338942,
+          "std_accuracy": 0.003156069246647637
+        },
+        {
+          "candidate": "duplicate_weight",
+          "feature_dim": 3840,
+          "kind": "mlp",
+          "mean_accuracy": 0.6471665334366856,
+          "mean_macro_f1": 0.6235570753710009,
+          "mean_log_loss": 1.0253916526609432,
+          "std_accuracy": 0.0023815502102995986
+        },
+        {
+          "candidate": "class_duplicate_weight",
+          "feature_dim": 3840,
+          "kind": "mlp",
+          "mean_accuracy": 0.6470723449162358,
+          "mean_macro_f1": 0.6244111585838048,
+          "mean_log_loss": 1.0248503607552275,
+          "std_accuracy": 0.003302582580808776
+        }
+      ],
+      "submission_generated": false
+    }
+  ],
+  "submission_history": [
+    {
+      "directory": "results",
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\results\\submission.csv",
+      "sha256": "84fdd9d09e6b3929d000c809ecbd94a6a33df60614fff6ed8d1fd403cf069ad5",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "label_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "directory": "improved_results",
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\improved_results\\submission.csv",
+      "sha256": "fee0cdb9dbe2e5ed2cbe181162760c8482173d883ef805b8ef90d0bf89fe6b33",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "label_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "previous_directory": "results",
+      "changed_predictions_from_previous": 1719,
+      "same_csv_as_previous": false
+    },
+    {
+      "directory": "refinement_results",
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\refinement_results\\submission.csv",
+      "sha256": "f662aa9718056f236c8c9be41f27bde9219cb1be5f7fc6ac22df6fb07c5b465d",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "label_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "previous_directory": "improved_results",
+      "changed_predictions_from_previous": 587,
+      "same_csv_as_previous": false
+    },
+    {
+      "directory": "fusion_results",
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\fusion_results\\submission.csv",
+      "sha256": "2173c02318960c57f20fdb0f5c35d29a6d5436ee2bef3a37beb353169103c6ad",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "label_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "previous_directory": "refinement_results",
+      "changed_predictions_from_previous": 270,
+      "same_csv_as_previous": false
+    },
+    {
+      "directory": "hse_results",
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\hse_results\\submission.csv",
+      "sha256": "f349f4f2069e342b15d5d42d2ca705d5fb9c98144eb8304b2ab7a9f9fe7225d7",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "label_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "previous_directory": "fusion_results",
+      "changed_predictions_from_previous": 885,
+      "same_csv_as_previous": false
+    },
+    {
+      "directory": "ambiguity_results",
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ambiguity_results\\submission.csv",
+      "sha256": "f349f4f2069e342b15d5d42d2ca705d5fb9c98144eb8304b2ab7a9f9fe7225d7",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "label_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "previous_directory": "hse_results",
+      "changed_predictions_from_previous": 0,
+      "same_csv_as_previous": true
+    },
+    {
+      "directory": "ambiguity_v2_results",
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ambiguity_v2_results\\submission.csv",
+      "sha256": "f349f4f2069e342b15d5d42d2ca705d5fb9c98144eb8304b2ab7a9f9fe7225d7",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "label_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "previous_directory": "ambiguity_results",
+      "changed_predictions_from_previous": 0,
+      "same_csv_as_previous": true
+    },
+    {
+      "directory": "lora_task_v4_results",
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_task_v4_results\\submission.csv",
+      "sha256": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "label_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "previous_directory": "ambiguity_v2_results",
+      "changed_predictions_from_previous": 58,
+      "same_csv_as_previous": false
+    },
+    {
+      "directory": "lora_zero_weight_v5_results",
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_zero_weight_v5_results\\submission.csv",
+      "sha256": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "label_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "previous_directory": "lora_task_v4_results",
+      "changed_predictions_from_previous": 0,
+      "same_csv_as_previous": true
+    },
+    {
+      "directory": "lora_flip_consistency_v6_results",
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_flip_consistency_v6_results\\submission.csv",
+      "sha256": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "label_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "previous_directory": "lora_zero_weight_v5_results",
+      "changed_predictions_from_previous": 0,
+      "same_csv_as_previous": true
+    },
+    {
+      "directory": "hse_sam_v7_results",
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\hse_sam_v7_results\\submission.csv",
+      "sha256": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "label_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "previous_directory": "lora_flip_consistency_v6_results",
+      "changed_predictions_from_previous": 0,
+      "same_csv_as_previous": true
+    },
+    {
+      "directory": "ddamfn_v8_results",
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ddamfn_v8_results\\submission.csv",
+      "sha256": "55a037351e0677eadc82ebe81ce6a9c208da402f304cd9eeccba70e2121ce4b6",
+      "rows": 7065,
+      "columns": [
+        "ID",
+        "Emotion"
+      ],
+      "label_values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "previous_directory": "hse_sam_v7_results",
+      "changed_predictions_from_previous": 408,
+      "same_csv_as_previous": false
+    }
+  ],
+  "identical_submission_groups": [
+    {
+      "sha256": "f349f4f2069e342b15d5d42d2ca705d5fb9c98144eb8304b2ab7a9f9fe7225d7",
+      "directories": [
+        "hse_results",
+        "ambiguity_results",
+        "ambiguity_v2_results"
+      ]
+    },
+    {
+      "sha256": "cb0ea39ee545ff4d9c229fb03a909e4bb1f28b5ddfef97b700a8974137aaf1fd",
+      "directories": [
+        "lora_task_v4_results",
+        "lora_zero_weight_v5_results",
+        "lora_flip_consistency_v6_results",
+        "hse_sam_v7_results"
+      ]
+    }
+  ],
+  "superseded_V3": {
+    "status": "superseded",
+    "reason": "User requested prioritizing task-specific LoRA fine-tuning before the remaining HSE/official-head queue",
+    "diagnostic_cached_candidates": 6,
+    "completed_summary_exists": false,
+    "completed_export_summary_exists": false,
+    "caveat": "Partial cached diagnostics are not a completed10-job experiment or delivered improvement."
+  },
+  "interpretation_limits": [
+    "Five later export directories merely preserve the existing submission:ambiguity V1,V2 and LoRA V5,V6,HSE V7. HSE throughV8 has8 result directories but only3 unique CSVs.",
+    "Development validation was repeatedly used for checkpoint/architecture/EMA/TTA/fusion/weight selection; a+2or+9 correct gain is a selection estimate and cannot establish Kaggle improvement.",
+    "OOF uncertainty is from baseline/cosine heads on the same DINO feature family,not independent human adjudication or proof of incorrect labels. Strong downweighting can suppress genuinely difficult valid examples and change effective class priors.",
+    "Only V5,V6,V7 provide matched algorithm controls;all are one-seed finite-setting comparisons. Raw/EMA best-checkpoint comparisons reuse validation and do not establish a causal EMA benefit.",
+    "Single-model accuracy and fusion accuracy answer different questions. Official DDAM epoch0 is weaker alone but more complementary than its fine-tuned successor.",
+    "V8 gain is attributable descriptively to replacing the20percent CNN branch with an official pretrained DDAM branch under one fixed reused-dev comparison,not to six-epoch local training.",
+    "Early metadata marks internal test as previously observed;this audit ignores those scores and no untouched holdout is established here.",
+    "No actual Kaggle leaderboard score has been read or verified;the user-reported failure to improve is compatible with repeated identical CSVs and small dev-only gains."
+  ],
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ambiguity_results\\selected_recipe.json",
+      "sha256": "251d9e4e322fe0aaf74a3f865d0c5bd9b3236ed693110015001fb22f9b4b37ea"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ambiguity_results\\summary.json",
+      "sha256": "0d5ada9b0327047563db9d51d3441cd24b0083b99beeda3c82aff478b064aac6"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ambiguity_v2_results\\selected_recipe.json",
+      "sha256": "4dca837dff0d09104ff86ec73924f6974131c4196f490fd4e10b1d1cc4998d93"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ambiguity_v2_results\\summary.json",
+      "sha256": "d9083e98ebcd53350e030afbbd6c701a279e1bbbb2985be0720b83113c8e1ca5"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ddamfn_v8_results\\candidate_metrics.csv",
+      "sha256": "a43a6a2ac56907d33fc173a29c6236013bc2f528b2655af4da95b3b1d2e8d6f2"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ddamfn_v8_results\\selected_recipe.json",
+      "sha256": "7cebad906bdd1625c8779d5225f7974ceabe630cdb06f299b9581b6269937fc8"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ddamfn_v8_results\\summary.json",
+      "sha256": "452510d2a6c899c6ba80ebfed5f7736c024fd82f800cb91028cf0963ce9d090f"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\cnn_reference\\summary.json",
+      "sha256": "9b0db254297b7f7244ee6279ea6f2fe9949c36fd0df967c158a985325ea27042"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\cosine_full_train\\summary.json",
+      "sha256": "287f8814939300eb874d707b7f11edbd6acf0866b00a1b0b38321ae7e19063be"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\ddamfn_v8\\config.json",
+      "sha256": "3577a74dfaf8f63905259122c94a5be28c9944d0d854c9d4327f5cfa2f11dace"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\ddamfn_v8\\summary.json",
+      "sha256": "cc904dc8164ec8d632c471c7bc884d2241f6ddadac8fa606e5646510c1a8c5df"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_ambiguity_v1\\downweighted\\history.csv",
+      "sha256": "88b91021384f553edcfdd13f0da16e2b3776ad45488cc058820d0024884f4652"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_ambiguity_v1\\weights\\summary.json",
+      "sha256": "b794a32a79634f6a5406ccb84c236650208ef63c17f7058ec2a9df2f34fecbbc"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_ambiguity_v1\\weights\\train_weights.csv",
+      "sha256": "8393ecddcd9204f31dfe2bcec2413eede5a65672eb3262a3b741965b2eb7d614"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_ambiguity_v2\\downweighted\\history.csv",
+      "sha256": "fb4dbce44a4c76f048427381dfa69b53c03f70f30fd34dbab5caae8595d8d085"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_ambiguity_v2\\weights\\summary.json",
+      "sha256": "02b9e75c25898bc21f143b20304c22bb239ce0b4e2f65a1ac2fe8b5b7f9f1bf3"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_ambiguity_v2\\weights\\train_weights.csv",
+      "sha256": "10201a314c19210f4acf5f6403b9993d3ac1a257a4e90dc32d77d45a5164e25a"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_sam_v7\\adamw_control\\config.json",
+      "sha256": "d1d816488377cf7f0ed269e017ad14799d715429074435ac16ecb98db1440f4d"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_sam_v7\\adamw_control\\summary.json",
+      "sha256": "8a55c47e613a715210ee8ac2472e4a49fc14e6b77ba86c1bc5d1ce053b034584"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_sam_v7\\sam\\config.json",
+      "sha256": "f095642f40b5376ecf63e2bdd7da7e44146e0313456a6317b2df01f535e122c2"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_sam_v7\\sam\\summary.json",
+      "sha256": "ce087531fdb5a17ac16603703b76fb3e269b658642e8ad398c43b47761c36f03"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_specialist_v1\\config.json",
+      "sha256": "61d086a0cdcfb6bbf4c73af87aa43a7f05fd155f75135cbfa7937162c1c6f089"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_specialist_v1\\history.csv",
+      "sha256": "a6cb9e132a6d8e31443fba2b9bcbe07da5e1ba6ad7c4c29cb9bca2732600816f"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_specialist_v1\\summary.json",
+      "sha256": "fa9993ce9ec1b13fc99160593f5a29b69bc69407380283a4c439a5c58b38b1f7"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora\\summary.json",
+      "sha256": "1c550cd5e2c3449a050bb2d8e9c821484cc18ae44d52d2249b5f05a46e095468"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_flip_consistency_v6\\ce_control\\config.json",
+      "sha256": "cf2ebbb9a435ec7a43f42a08b25010b7b34ecf2f6bbe165e8b2e05f912f68b07"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_flip_consistency_v6\\ce_control\\summary.json",
+      "sha256": "7596c3ebe853b3702cf1d6c77b34f726a82b479233520c3ace123cacc05a2c5e"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_flip_consistency_v6\\flip_consistency\\config.json",
+      "sha256": "e193912e6daf3e4883cb18142c0fe24c722bded7d32a1eead9f9cdc0620cb733"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_flip_consistency_v6\\flip_consistency\\summary.json",
+      "sha256": "3dfa9daef5e5b6e84e0903cee861caebf523e94a9efc063f3102e7843e80669e"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_refinement\\summary.json",
+      "sha256": "a67ee7918a045e07d2584814de928effd128f879128b3a8dbc87e094378f2aca"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_task_v4\\config.json",
+      "sha256": "55644830b839c58224a2bdf580f96f0582c8f965916fac99ada9e98f50f90e28"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_task_v4\\summary.json",
+      "sha256": "ebaa9cf184ddd3e7bde89c628079d00d19464bdd85be220800c7b0806d2f5e7b"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_zero_weight_v5\\uniform_control\\config.json",
+      "sha256": "77f97eb3c07e7dd4ce9b591a0eac9c743aa8aa2c5563e8c9ba8474efac6d6d3e"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_zero_weight_v5\\uniform_control\\summary.json",
+      "sha256": "398d113d838046ea6d1486e0d1d84039fbc9a418ce53bf17eac99249b4d44c8a"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_zero_weight_v5\\weighted\\config.json",
+      "sha256": "0991009304cd397bc755736a5818dc1b4c49b159d1f34a56e3c2061fe3b6f940"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_zero_weight_v5\\weighted\\summary.json",
+      "sha256": "e11d2f4b355c7ede60e84c709d8ea4d5015b70bb88fb62e8cf25663c0c006ce3"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_zero_weight_v5\\weights\\summary.json",
+      "sha256": "88c00e094d8548586bcabcb6a95f9451d8e7aa1f387a30d952cae281aa60aa60"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_zero_weight_v5\\weights\\train_weights.csv",
+      "sha256": "1cfe22790fcd48d1be80ebcc117d82d84d059d4bb6337989c72f79986b5ec361"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\fusion_validation_results\\selected_recipe.json",
+      "sha256": "4183ff17894292a9d5145fbf97335dbf75432334d6ab80a2cd50fd86eccd0c54"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\hse_results\\selected_recipe.json",
+      "sha256": "dea179756e9cb8512dc8b9262afc8a2f331496b47bb3cd09eb2e32ada98ae6a5"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\hse_results\\summary.json",
+      "sha256": "e43b004d838bffa07aa023f420b3f0568438fa4ac2d20e407d5334348dba34d9"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\hse_sam_v7_results\\candidate_metrics.csv",
+      "sha256": "b3758a876c0d696ee9ab032cdf9c43321b30bc6f119c6d7c4dfb540bb58616a0"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\hse_sam_v7_results\\selected_recipe.json",
+      "sha256": "fb34ce042c65af9b934c95e8be00f9ea46f05bc86160d16c0793df8dc59c7cb6"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\hse_sam_v7_results\\summary.json",
+      "sha256": "b6d45e88a93b3cc8cac62820c7dddcff29ea1e0795fc0a264c79b5bd4b224766"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\improved_results\\selected_recipe.json",
+      "sha256": "0974965ec37ec4a4675413a06572c9d67a8234bf42341a2e71824c521da414ae"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\logs\\improvement_v3_status.json",
+      "sha256": "f281524ea9efb246b52450f9b4d90f5d298056bf803b26c5958c69b6a894b31a"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_flip_consistency_v6_results\\candidate_metrics.csv",
+      "sha256": "8f9181302f9ae8eb51991fdb78cde391fcc67d3f3e378982b74c04675cd68a6e"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_flip_consistency_v6_results\\selected_recipe.json",
+      "sha256": "0a843edee0d2447c32892efb7edb3b4c8810901c4c6895cc9ad1ec365d8b8696"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_flip_consistency_v6_results\\summary.json",
+      "sha256": "0496dc7c5c5776504c7326ae4095ae6c8c7dd20925f571fff92f17de0a1e9d28"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_task_v4_results\\candidate_metrics.csv",
+      "sha256": "8140bb016c337ea8a72c98c184d3816fb572a45f43e7b5d8851191a79cec71c6"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_task_v4_results\\selected_recipe.json",
+      "sha256": "b171da4ce8b511bd14d62fb7463025b8d6727bba6a85bd486c6e49bc0cd4fffd"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_task_v4_results\\summary.json",
+      "sha256": "63c432c5229c19df901da3e4b171d0b3131c145c069c6ed7599e0f260d9eafdc"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_zero_weight_v5_results\\candidate_metrics.csv",
+      "sha256": "dfa98879afc02e15adea8cf428a947c5dc0345fa260b303bd4abd1554993db3d"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_zero_weight_v5_results\\selected_recipe.json",
+      "sha256": "cf718c756e073de880e7537b32fbd8a66ae1dd831b23cafd15494b4d94560e3f"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_zero_weight_v5_results\\summary.json",
+      "sha256": "08fc08a13a2c0a08fb4c9fa550cf4b3400441e4d33875563ba57244b7d414e0c"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\multilayer_results\\summary.json",
+      "sha256": "42cd5243c750b34997feb4038d8376b67db31dd02ababcbc382b9c9f18c3c275"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\refinement_results\\selected_recipe.json",
+      "sha256": "6cacaa10645857b65fb7cd9f7c73f51d55842aeef57689f6f78a3092df442bd2"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\results\\summary.json",
+      "sha256": "4f14f2f4bcf6a5fed97b80eceffce8bfcbe696acc86d57b0bfda5a41bee39e2a"
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\weighted_results\\summary.json",
+      "sha256": "4a0809e07661e06de9be9e83a767bbd6703824ed12ca4f0eae8a2e6da5694a1d"
+    }
+  ]
+}
