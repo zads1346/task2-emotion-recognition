@@ -1,0 +1,33 @@
+{
+  "safe_candidate_roundtrip": true,
+  "state_tensor_count": 1190,
+  "model_state_bitwise_restored": true,
+  "trainer_finalizer_bindings": true,
+  "audit_summary_path_bound": true,
+  "missing_required_audit_path_rejected": true,
+  "formal_plan_written": false,
+  "checkpoint_written": false,
+  "dataset_labels_read": false,
+  "tail30_accumulation": true,
+  "tail30_full_group_max_parameter_error": 0.0,
+  "ema_updates": 1,
+  "GPU_used": false,
+  "state": "passed",
+  "checked_at": "2026-10-16T03:21:32.894539+00:00",
+  "purpose": "CPU-only in-memory schema fixture and production tail-group math; synthetic metrics are not experiment scores",
+  "source_sha256": {
+    "src/ddamfn_v8_model.py": "17d26770a0d6f4457054f1e6214ddb15361938fc7801c73b4327743ab73c9112",
+    "src/train_ddamfn_v8.py": "a25e6fad2ecd0c5101c8e7e923dcbdf04cd871d7f7f9cb46662ae90f0002c364",
+    "src/prepare_ddamfn_v8.py": "0ce2de717c29d18a1f3aa195255f7c3e2ad1418d6f3d0e5ad1022a47fb007bcf",
+    "src/run_ddamfn_v8.py": "8808f53f51f7769e142ec9068a30f6713a13ff56e74dcc24de310e910f539e5b",
+    "src/ddamfn_v8_worker.py": "3caf708190ed4bf98cf5967c84cf146028573633f060881ad2817dab13e92e72",
+    "src/verify_ddamfn_v8_cpu.py": "680fc6056d4645e636f812d55c5d3bf548a176e3a1b6313e3f5a01d5be3bd4e7",
+    "src/finalize_ddamfn_v8.py": "fb5f4f9428f7765f21c65a61b93606198578d240d4c3fe93e8e36b48a76f6838",
+    "start_ddamfn_v8.ps1": "88c7fe616aa9bf611bf5d39e44add9631bd50ed1ba74e3802c8d4d8d8a89bb28",
+    "run_ddamfn_v8_worker.ps1": "41699df1ae4853c2bb8603bcfaf10a0b0be7dd6154f48ddd49d632aacb9cc077",
+    "check_ddamfn_v8.ps1": "dc673aa5a3e523a679521a21cc6d1beb5289c73f1acde67705e201e23696a805"
+  },
+  "captured_fixture_stdout": "{\"stage\": \"validate_candidate_ddamfn_v8\", \"name\": \"epoch_00_baseline\"}\n{\"stage\": \"candidate_ddamfn_v8_complete\", \"name\": \"epoch_00_baseline\", \"accuracy\": 0.1667921686746988, \"correct_count\": 443}\n",
+  "python_ast_passed": 7,
+  "powershell_ast_passed": 3
+}
