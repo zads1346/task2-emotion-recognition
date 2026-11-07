@@ -1,0 +1,27 @@
+{
+  "state": "implementation_blockers_found_before_training",
+  "time": "2026-10-18T06:07:43.726523+00:00",
+  "GPU_training_started": false,
+  "protocol_unchanged": true,
+  "files_before": {
+    "src/train_hse_groupcv_v11.py": "5708e0b4c8ab1dc31a08a3957fe48707c0daab0ee0d065ea8bb06cb64b4037d3",
+    "src/finalize_hse_groupcv_v11.py": "d0a2d7b6aa0a9481289385ddc9c0f53823290c7ebb7e471ac1fc191210456ffc",
+    "src/prepare_hse_groupcv_v11.py": "d0a6468890be2a24eaf4a6df45b35c0c813d3ad0fe499a07ee5bc68ff1727b4c",
+    "src/run_hse_groupcv_v11.py": "6c6afc0be3f8587d0232f5df3b101f584ccb9b38bae1666ec87959ba626bf3fe"
+  },
+  "blockers": [
+    {
+      "id": "final_purpose_contract",
+      "detail": "Trainer final checkpoint/result omit purpose=fixed_final_epoch while finalizer requires it; successful CV training would be rejected during selection."
+    },
+    {
+      "id": "cv_rule_contract",
+      "detail": "Finalizer uses a differently worded selection_rule constant from the independent outer gate; valid fc_only selection would be rejected."
+    },
+    {
+      "id": "oof_producer_binding",
+      "detail": "select_cv saves OOF file checksums but omits the OOF files from producer_files, while outer permission requires those explicit producer bindings."
+    }
+  ],
+  "next": "Fix V11 metadata and binding integration only; archive/relock any superseded V11 plan and invalidate old review pins. Preserve V10 sources, settings, all existing outputs, delivered notebook/ZIP. No training until independent implementation review and actual GPU smoke pass."
+}
