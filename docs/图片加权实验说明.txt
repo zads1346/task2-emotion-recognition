@@ -1,0 +1,33 @@
+图片样本加权实验
+
+使用本机 RTX 4060，复用已提取的 DINOv2 四层冻结特征。
+给训练图片的损失设置权重，原图和水平翻转图共享同一个图片权重。
+
+本轮比较七个方案：
+1. baseline：每张图片权重均为 1。
+2. label_smoothing：标签平滑 0.05，图片权重仍为 1。
+3. cosine：12 轮内学习率从 0.001 逐步降到 0.00001。
+4. feature_mixup：alpha=0.2，每批 50% 概率做特征及标签插值。
+5. class_weight：按当前训练折类别频次的平方根倒数适度加权。
+6. duplicate_weight：同一近重复组内每张图片乘以 1/sqrt(组内图片数)。
+7. class_duplicate_weight：类别与近重复权重相乘，先限制在 0.5～1.5。
+
+所有权重都以当前训练折为单位归一化到均值 1，归一后的上下限会随之变化。
+损失 = 当前批次每张图片的（权重 × 交叉熵）的平均值。
+训练仍按原顺序策略均匀抽样，不额外进行加权重采样，不自动修改任何标签。
+权重只由当前折训练部分决定，验证部分只做最终评估，评分本身不加权。
+没有使用旧验证/测试集、比赛图片或外部标准答案。
+
+四层 MLP 结构、3 个验证折、每折 12 轮和随机种子保持一致。
+这些验证折已用于之前的实验，本轮是开发对照，最高分不是独立测试结论。
+
+训练代码：src/evaluate_weighted_heads.py
+图片权重代码：src/image_sample_weights.py
+启动或继续：start_weighted_heads_experiment.ps1
+查看进度：check_weighted_heads_experiment.ps1
+结果汇总：weighted_results/summary.json
+每张训练图片的权重：experiments/weighted_heads/方案名/fold_0（或1、2）/image_weights.csv
+训练日志：logs/weighted_heads_cv.log
+
+已完成的验证折可以复用；中断时尚未完成的折会从第 1 轮重新训练。
+本轮不直接生成新的比赛提交；现有提交文件为 refinement_results/submission.csv。
