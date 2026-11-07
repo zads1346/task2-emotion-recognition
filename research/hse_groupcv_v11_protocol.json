@@ -1,0 +1,120 @@
+{
+  "format": "hse_groupcv_v11_preregistered_protocol",
+  "state": "draft_for_independent_review",
+  "purpose": "Test whether restricting task adaptation to the classifier improves held-out training-pool accuracy, without searching the expanded development set.",
+  "evidence": {
+    "v10_train_loss_first": 1.0176213852780633,
+    "v10_train_loss_last": 0.7899488462688534,
+    "v10_online_augmented_train_accuracy_last": 0.6997384937238493,
+    "v10_final_dev_correct": 3240,
+    "v10_dev_count": 4782,
+    "interpretation": "No demonstrated severe overfitting; this is a controlled adaptation-capacity comparison, not a claim that freezing must help. Online augmented training accuracy is not directly comparable to deterministic validation accuracy."
+  },
+  "data": {
+    "source_manifest": "data/expanded_validation_v10/manifest.csv",
+    "source_manifest_sha256": "b5a9d3cb15d6ce6f586a34194d669350a7f7d599265c73afdc1237ef02a98a8a",
+    "pool": "Only rows with split=train in the frozen V10 manifest, 19120 images; materialize a training-only manifest before any CV worker starts.",
+    "groups": "Reuse frozen label-blind near-duplicate group IDs. Not person-independent CV.",
+    "folds": 3,
+    "splitter": "StratifiedGroupKFold(n_splits=3, shuffle=True, random_state=20261017)",
+    "row_order": "Frozen manifest order; bind all fold member/image/group hashes in executable plan before training.",
+    "outer_development": "4782 frozen V10 validation images; no CV or selection-stage metric evaluation and no intermediate checkpoint selection using them.",
+    "internal_test": "Never access internal held-out images or labels.",
+    "external_answers": "Never access external answers; no relabeling or additional exclusions."
+  },
+  "initialization": {
+    "model": "Official HSEmotion EfficientNet-B2 AffectNet7 only, reset independently for each run",
+    "official_sha256": "e687fd9e7bee45486c7325f11222740f841c3bebac531badb903a50e82b9ac0f",
+    "head_row_mapping": [
+      0,
+      2,
+      3,
+      5,
+      6,
+      4
+    ],
+    "classes": [
+      "Angry",
+      "Fear",
+      "Happy",
+      "Sad",
+      "Surprise",
+      "Neutral"
+    ],
+    "task_checkpoint_initialization_forbidden": true
+  },
+  "arms": {
+    "full": "All model parameters trainable, BN running statistics frozen exactly as V10; backbone LR=1e-5, classifier LR=1e-4.",
+    "fc_only": "Only classifier weight and bias trainable, LR=1e-4; all backbone parameters and buffers frozen and backbone in eval mode; assert exact tensor invariance."
+  },
+  "interpretation_boundary": "This compares two complete adaptation regimes. fc_only eval disables any stochastic layers that actually exist; GPU smoke must list actual dropout/drop-path configuration. The pinned HSE constructor currently defaults both rates to zero. If both are zero and BN statistics are frozen in both arms, do not claim a stochastic-regularization difference. Report observed mode differences rather than assuming them.",
+  "common_settings": {
+    "epochs": 12,
+    "candidate": "Only final epoch12 EMA per run, original/flip equal probability mean",
+    "seed": 42,
+    "augmentation_offset": 100,
+    "loss": "uniform standard cross entropy, smoothing=0",
+    "weak_augmentation": "Exactly the frozen V10 implementation and parameters",
+    "input_size": 224,
+    "micro_batch": 16,
+    "effective_batch": 32,
+    "tail": "Actual group-size denominator, never drop tail",
+    "optimizer": "AdamW",
+    "weight_decay": 0.01,
+    "warmup_successful_updates": 100,
+    "cosine_min_ratio": 0.1,
+    "gradient_clip_norm": 1.0,
+    "ema_decay": 0.995,
+    "amp_initial_scale": 1024,
+    "amp_growth_interval": 2000,
+    "pairing": "Within each fold use identical row shuffle and deterministic image augmentation for both arms. Scheduler and EMA count actual successful optimizer updates."
+  },
+  "execution": {
+    "order": [
+      "fold0_full",
+      "fold0_fc_only",
+      "fold1_full",
+      "fold1_fc_only",
+      "fold2_full",
+      "fold2_fc_only"
+    ],
+    "cv_training_epochs_total": 72,
+    "gpu_concurrency": 1,
+    "resume": "Nearest complete epoch only, with optimizer/scaler/RNG/EMA and immutable source/input/config bindings",
+    "gates": "Freeze executable plan and source/input hashes; independent code/math/data review; real GPU two-update smoke for each arm including freeze checks; then serial launch.",
+    "estimation": "Approximately 7-10 GPU hours including possible refit, provisional until smoke timing; not a promised finish time."
+  },
+  "selection": {
+    "oof": "Each of 19120 training-pool members appears once in final OOF predictions per arm; fold models may never train on their held-out groups.",
+    "rule": "Choose fc_only only when its pooled OOF correct_count is strictly higher than full and it wins at least 2 of the 3 folds; all ties/defaults select full.",
+    "lock": "Write and hash cv_selection.json before any outer-development confirmation or competition inference.",
+    "if_full_selected": "Preserve verified V10 final epoch12 EMA and CSV, which already used exactly the full-pool recipe. Do not repeat identical refit or reevaluate old checkpoints.",
+    "if_fc_only_selected": "From official initialization train fc_only on all 19120 for fixed 12 epochs with the common settings; final EMA is the sole outer-development candidate. Adopt only if its correct_count strictly exceeds V10 3240/4782; otherwise preserve V10.",
+    "competition": "Only an adopted new candidate receives fresh 7065-image original/flip inference. Otherwise copy verified V10 predictions. No weight/temperature/TTA/epoch search; no old task-model probability fusion.",
+    "max_training_epochs_total": 84,
+    "full_reuse_contract": "Mandatory exact protocol equivalence: ordered training membership and image hashes; official initialization and runtime; seed42 and augmentation offset100, augmentation and RNG management; uniform CE/smoothing0; BN policy and trainable parameters; AdamW parameter groups, weight decay and clipping; micro16/effective32 and tail denominator; successful-update learning-rate schedule; AMP/scaler; EMA initialization/update; fixed epoch12 EMA and fixed two-view probability mean. Verify all pinned V10 artifacts and both delivery receipts. If any part differs or cannot be established, stop reuse and record the mismatch; do not silently add refit, change training settings, or claim a matched full control.",
+    "full_reuse_artifact_sha256": {
+      "experiments/hse_expanded_validation_v10/config.json": "264010411ce709081e645a87d5fe64653005922697b5a463b08fd452ae249647",
+      "experiments/hse_expanded_validation_v10/summary.json": "3326ac34a31e1c22f9ffc2f0ab78d9711446f3356474fe13208e319a626fd169",
+      "experiments/hse_expanded_validation_v10/final_ema.pt": "e872fff837d05c2bb319676bcb66f684242dcbc107d1a6b302fb88a418124091",
+      "experiments/hse_expanded_validation_v10/final_original.npy": "a48aef11231ae9505ba289a9fc05a11c649e59d2ea6e62bf100cefa905c9f92c",
+      "experiments/hse_expanded_validation_v10/final_flip.npy": "057e61ef8d280f2f10d427dff197f0ecc781ac527c86963a748d9c5b5725a7ea",
+      "hse_expanded_validation_v10_results/selected_recipe.json": "fcd443f9d063095a10923ff6cfebf7b064dd33ff4e8db2eaa14eb1e29253c493",
+      "hse_expanded_validation_v10_results/selected_val_probabilities.npy": "281b89c1ef04f049614be4f074264959fcec444bd3148a282b45b12e72309d35",
+      "hse_expanded_validation_v10_results/probabilities.npy": "df0ab30ae4ee3247b7bf5f899f956ac74c2a9dbb7601e055b57692e135df6a95",
+      "hse_expanded_validation_v10_results/submission.csv": "214d6bec3b1cd40f204cc8db3ad6c91f2db7516b65cd89d4e582f3195e0bc683",
+      "research/hse_expanded_validation_v10_delivery_root.json": "ac35eee6242278d3eba85c0862db37320cef7fdaf3c9f5191e8f9d7d74212b9e",
+      "research/hse_expanded_validation_v10_delivery_independent.json": "e7d3ed4c3a551fbf9b313b03473b2e2c0716d99ae4c5e155cb5062247c4e14e9"
+    }
+  },
+  "delivery": {
+    "directory": "hse_groupcv_v11_results",
+    "requirements": "Verify complete epoch histories, actual AdamW/AMP/EMA counters, freeze invariance, all source/model/probability/member/image/group hashes, OOF coverage and selection rule. CSV exactly7065 rows ID/Emotion, exact template ID order, integer0..5 equal probabilities.argmax; fixed original/flip mean and full output recipe hashes.",
+    "competition_image_content_sha256": "02f2044f158f457ab7384fd6d679ca63596a8cebbc945ca554a4cb2979819ad4",
+    "competition_id_order_sha256": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87",
+    "preserve_v10_submission_sha256": "214d6bec3b1cd40f204cc8db3ad6c91f2db7516b65cd89d4e582f3195e0bc683",
+    "preserve_v8_submission_sha256": "55a037351e0677eadc82ebe81ce6a9c208da402f304cd9eeccba70e2121ce4b6",
+    "old_v8_comparison": "Still unranked on a common independent split; never directly compare old2656 validation score to new4782 score.",
+    "communication": "Open verified CSV in this chat; no Kaggle upload. Report OOF and outer-development outcomes separately; no promise of Kaggle improvement."
+  }
+}
