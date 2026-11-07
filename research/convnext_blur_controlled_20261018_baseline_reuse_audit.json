@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "checked_at": 1792335495.5512042,
+  "baseline_exact_original_flip_mean": true,
+  "template_order_sha256": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87",
+  "old_ready_and_V11_pause_unchanged": true,
+  "old_V8_preserved": true,
+  "no_gpu_used": true
+}
