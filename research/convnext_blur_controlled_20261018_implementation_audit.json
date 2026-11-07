@@ -1,0 +1,22 @@
+{
+  "reviewed_at": 1792333617.239659,
+  "plan_sha256": "9a910ff0d571c0ae397dbee10d7b3055667bce97ac5633b688137c326e1b97e5",
+  "smoke_sha256": "a399c7e71cbbadf4d92150c1905899b48b322e233dcd5f8bcd33e4fb598336dd",
+  "checks": {
+    "new_official_ImageNet_initialization": true,
+    "unknown_imported_fold0_excluded": true,
+    "train_only_manifest_hash_and_all19120_images_checked": true,
+    "no_outer_labels_in_training": true,
+    "actual_tail_group_denominator": true,
+    "gradient_clipping_after_full_logical_group": true,
+    "BF16_FP32_CE_no_loss_scaler": true,
+    "successful_optimizer_and_EMA_counts_bound": true,
+    "full_epoch_optimizer_RNG_EMA_save_and_resume": true,
+    "fixed_epoch12_no_intermediate_validation": true,
+    "one_predefined_half_half_vote_no_weight_search": true,
+    "synthetic_blur_is_not_real_blur_accuracy": true,
+    "V11_and_old_monitor_remain_paused": true
+  },
+  "independent_agent_review": false,
+  "review_type": "same-agent implementation audit plus native CPU/GPU checks; not an independent-review claim"
+}
