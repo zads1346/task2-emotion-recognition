@@ -1,0 +1,26 @@
+多层冻结特征 + 3 折分组验证
+
+启动或继续：在 PowerShell 运行本目录 start_multilayer_experiment.ps1。
+查看进度：运行 check_multilayer_experiment.ps1。
+使用本机 RTX 4060 GPU；独立后台进程运行，关机仍会中断。
+特征提取按批次保存，分类器按已完成的折保存，下次启动自动恢复。
+
+本轮只使用原训练集的 21248 张图像。
+近重复分组：原图和水平翻转的 pHash，加严格像素相似度验证。
+分组后固定 3 折，近重复组不会跨折；没有人物 ID，不能保证人物隔离。
+
+冻结官方 DINOv2 Base，读取最后 4 层 CLS 特征，再拼接最后一层 patch 平均特征，共 3840 维。
+原图和翻转图分别缓存；从同一缓存取最后一层的 1536 维作为对照。
+比较 4 个方案：最后一层线性头、四层线性头、最后一层 MLP、四层 MLP。
+每个方案在同样的 3 折上各训练 12 轮，标准化只拟合该折的训练数据。
+每折的留出数据只在固定训练结束后评估，不用于选择该折的训练轮数。
+
+实验结果：multilayer_results/summary.json
+分组：experiments/multilayer_groups/
+特征缓存：features_multilayer_train/
+各折分类器及预测：experiments/multilayer_cv/
+状态和日志：logs/multilayer_status.json、multilayer_groups.log、multilayer_features.log、multilayer_cv.log
+
+本轮用于判断新特征的效果，不直接生成新的比赛提交文件。
+当前可用提交文件仍是 refinement_results/submission.csv。
+不读取外部标准答案；不将之前全训练集拟合过的 LoRA/CNN 当作本次折内对照。
