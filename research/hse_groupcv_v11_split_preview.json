@@ -1,0 +1,84 @@
+{
+  "state": "preview_only_not_executable_plan",
+  "pool": 19120,
+  "folds": [
+    {
+      "fold": 0,
+      "train_count": 12753,
+      "heldout_count": 6367,
+      "train_class_counts": [
+        1832,
+        1810,
+        3359,
+        2251,
+        1197,
+        2304
+      ],
+      "heldout_class_counts": [
+        864,
+        922,
+        1684,
+        1138,
+        595,
+        1164
+      ],
+      "group_overlap": 0,
+      "train_member_sha256": "e4a18cc575c3db08a4964c3486c892c10920d7387cd3b16a96af902e6fabcae5",
+      "heldout_member_sha256": "1a21e91c3e3ec1f75438add4e96d5492696fc0dc754253004706d579dcfc1e41"
+    },
+    {
+      "fold": 1,
+      "train_count": 12743,
+      "heldout_count": 6377,
+      "train_class_counts": [
+        1802,
+        1814,
+        3358,
+        2260,
+        1199,
+        2310
+      ],
+      "heldout_class_counts": [
+        894,
+        918,
+        1685,
+        1129,
+        593,
+        1158
+      ],
+      "group_overlap": 0,
+      "train_member_sha256": "e8682d781e380d85895d03c4506276b428785f39d7e0f3c6379532f143ccbeb6",
+      "heldout_member_sha256": "d5660cce1a1fc066ddfdb322d0332402e93440d42c8646a3ab1e2999c0e6842e"
+    },
+    {
+      "fold": 2,
+      "train_count": 12744,
+      "heldout_count": 6376,
+      "train_class_counts": [
+        1758,
+        1840,
+        3369,
+        2267,
+        1188,
+        2322
+      ],
+      "heldout_class_counts": [
+        938,
+        892,
+        1674,
+        1122,
+        604,
+        1146
+      ],
+      "group_overlap": 0,
+      "train_member_sha256": "3c9b1a9d382c7e8fd2a168fc186d80aa86ec901b6717385aadf56d1174b80c50",
+      "heldout_member_sha256": "0367597290c82f1db59e5aa9ebc458bd531b3bbdafc11bb3715625005373b223"
+    }
+  ],
+  "oof_coverage_once": true,
+  "new_val_evaluated": false,
+  "images_read": false,
+  "gpu_used": false,
+  "source_manifest_sha256": "b5a9d3cb15d6ce6f586a34194d669350a7f7d599265c73afdc1237ef02a98a8a",
+  "splitter_seed": 20261017
+}
