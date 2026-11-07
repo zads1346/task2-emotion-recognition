@@ -1,0 +1,41 @@
+{
+  "state": "ready_for_independent_review_not_approved",
+  "created_at": "2026-10-18T06:27:44.566686+00:00",
+  "plan": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\logs\\hse_groupcv_v11_plan.json",
+  "plan_sha256": "eeb82057cb39abfddb0d74d3e6319c26b9e965b15352f291a49ccf6d8d76d384",
+  "protocol": "research/hse_groupcv_v11_protocol.json",
+  "protocol_sha256": "df8b5884ea716c63d27c5a61590edba693351fd1345eee11329c1c609cc23bd1",
+  "implementation_files": [
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\prepare_hse_groupcv_v11.py",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_hse_groupcv_v11.py",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\finalize_hse_groupcv_v11.py",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\run_hse_groupcv_v11.py",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\hse_groupcv_v11_worker.py",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\start_hse_groupcv_v11.ps1",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\run_hse_groupcv_v11_worker.ps1"
+  ],
+  "source_pins_checked": 300,
+  "training_only_manifest": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\data\\hse_groupcv_v11\\train_manifest.csv",
+  "training_only_manifest_sha256": "538ce7340600a43236cc5cdd22c144cf504ee99b7bab4e003e372c347bc9fc9c",
+  "regression_report": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\research\\hse_groupcv_v11_integration_20261018\\cpu_integration.json",
+  "regression_sha256": "83adc22d68f3a99dd2f604dc2517b146efd9fba1848022215d2a839987bec1e4",
+  "launch_gate_report": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\research\\hse_groupcv_v11_launch_gate_tests.json",
+  "launch_gate_report_sha256": "6dfe68777919503b5d74c5656347722fba86ad8421d8848b568abe41d24a3243",
+  "fixed_findings": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\research\\hse_groupcv_v11_integration_20261018\\findings_before_fixes.json",
+  "checklist": [
+    "Code/math/data audit of exact source pins, with independent review of root-authored integration repairs",
+    "Training-only19120 and near-duplicate groups, complete three-fold OOF coverage without outer use",
+    "Official source reinitialization, six-class rows, paired augmentation/shuffle, full vs fc_only trainability and buffers",
+    "Actual-tail loss denominator, successful-step schedule/AMP/EMA, full epoch model/optimizer/scaler/RNG/EMA restore",
+    "OOF rule and producer locks, gated outer confirmation, V10 exact-reuse contract including11 artifact hashes",
+    "Complete12epochs and true counters in each fold/refit, export and source/model/member/image/group/probability hashes",
+    "Serial GPU ownership and hidden worker lifecycle; real two-update smoke both arms remains required"
+  ],
+  "review_status": "not_reviewed_independently",
+  "gpu_smoke_status": "not_run",
+  "training_status": "not_started",
+  "delivered_notebook_and_zip_unchanged": true,
+  "GPU_used": false,
+  "outer_images_or_labels_read": false,
+  "internal_test_read": false
+}
