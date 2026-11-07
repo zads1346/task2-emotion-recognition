@@ -1,0 +1,28 @@
+{
+  "state": "passed",
+  "GPU_used": false,
+  "source_sha256": "5738a54c6c7c87994eed586bbccc426b81299add96f12f2a05da8a5151a13371",
+  "tail18_micro16_vs_full18_max_parameter_error": 0.0,
+  "actual_training_rows": 19120,
+  "actual_validation_rows": 4782,
+  "actual_groups_per_epoch": 598,
+  "actual_final_group_rows": 16,
+  "expected_total_successful_updates_if_no_skips": 7176,
+  "official_class_head_rows_exact": [
+    0,
+    2,
+    3,
+    5,
+    6,
+    4
+  ],
+  "all_parameters_trainable": true,
+  "BN_running_stats_frozen_affine_trainable": true,
+  "synthetic_resume_model_optimizer_scaler_EMA_RNG": true,
+  "model_parameter_tensors": 301,
+  "model_state_keys": 508,
+  "limitations": [
+    "Tail/resume math uses a tiny CNN fixture and temporarily substitutes plan verification; full bound real-GPU smoke remains root-owned.",
+    "No training GPU computation, no formal model output, no old test or competition answer labels accessed."
+  ]
+}
