@@ -1,0 +1,33 @@
+本轮：DINOv2 Base LoRA 低学习率精调 + 翻转 TTA + EMA
+
+开始或断点恢复：在 PowerShell 中运行此目录下 start_refinement.ps1。
+查看实时状态：运行此目录下 check_refinement.ps1。
+启动后使用本机 RTX 4060 Laptop GPU，在独立后台进程运行。
+关闭或重启电脑会中断；再次启动会从最后一个已保存的完整 epoch 恢复。
+
+训练配置
+从 experiments/lora/best.pt（上一轮第 6 轮最佳模型）开始。
+新增训练 4 轮，LoRA 学习率 0.00001，分类头 0.00005，余弦衰减。
+微批量 4，梯度累计 8，有效批量 32；EMA 衰减 0.995。
+训练图片 21248，验证图片 2656。只用验证集选模型。
+每轮比较普通参数与 EMA 参数的原图/水平翻转两视图概率平均。
+
+融合候选固定为四种
+1. 上一轮 LoRA 50% + CNN 50%（原图）
+2. 上一轮 LoRA 50% + CNN 50%（翻转 TTA）
+3. 本轮最佳 LoRA 50% + CNN 50%（翻转 TTA）
+4. 本轮最佳 LoRA 45% + CNN 45% + MLP 10%（翻转 TTA）
+按验证准确率、macro F1、较低 log loss 的顺序选优。
+旧方案也参与比较；精调不保证一定提高，最终报告以实际验证结果为准。
+
+文件位置
+训练日志：logs/refinement_train.log
+流水线状态：logs/refinement_status.json
+新模型、断点与每轮记录：experiments/lora_refinement/
+训练和方案比较全部结束后的提交文件：refinement_results/submission.csv
+上一轮 improved_results/submission.csv 和原模型保留。
+
+类别编码固定为：0 愤怒，1 恐惧，2 快乐，3 悲伤，4 惊讶，5 中性。
+提交文件保持原模板的 7065 行和 ID 顺序。
+外部标准答案不参与训练、调参或选优。
+内部测试集之前已查看过；后续分数是复用测试集的对比，不是全新的独立评估。
