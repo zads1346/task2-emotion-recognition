@@ -1,0 +1,21 @@
+{
+  "train_hse_groupcv_v11.py": {
+    "changed_functions": [
+      "_verify_final",
+      "finalize_run",
+      "model_payload"
+    ],
+    "sha256": "048360d9cf7851c8d4a21f3994526140c87adc29d13ca45e36a55dd6b5fb6823"
+  },
+  "finalize_hse_groupcv_v11.py": {
+    "changed_functions": [
+      "select_cv"
+    ],
+    "sha256": "6288fe9215315908e5b8bcb96590585909b45f7ecc9670ce1d42a50de6fb6cb3"
+  },
+  "run_hse_groupcv_v11.py": {
+    "changed_functions": [],
+    "sha256": "4320c34f2d041ce7f4de25e4eca313447205ece4d97a718d0929acee4c1b9cb0"
+  },
+  "prior_cpu_check_source_matches_archived_trainer": true
+}
