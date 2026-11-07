@@ -1,0 +1,45 @@
+任务相关 DINOv2 Base LoRA 微调 V4
+
+项目：C:\Users\lenovo\Desktop\表情识别训练\DINOv2_Base
+设备：本地 NVIDIA GeForce RTX 4060 Laptop GPU，8GB。
+本次6轮任务替换旧 improvement_v3 队列；旧队列完成的诊断结果保留，不自动恢复旧队列。
+
+方法
+继承 experiments\lora_refinement\best.pt 的分类头和最后4块（8～11）的rank8 qkv适配器。
+扩展至最后8块（4～11）。新增适配器A随机初始化、B严格0，初始模型函数保留。
+GPU验证：同批次父子模型logits最大误差0，原参数精确复制，新增A收到第二步梯度、新B与分类头完成更新，预训练qkv保持冻结。
+batch_size=8，梯度累积4次，有效batch_size=32；两次真实更新无AMP跳步，测试峰值分配显存718.15MiB（不包括其他应用和全部CUDA运行时占用）。
+
+固定训练设置
+6轮，输入224，官方DINOv2 ViT-B/14主干冻结，rank8，alpha16，LoRA dropout0.05。
+新增适配器峰值学习率2e-5；继承适配器5e-6；分类头2e-5。
+前100次成功优化更新预热，其后余弦衰减至峰值10%；AdamW、weight_decay0.001、clip1、标签平滑0.02。
+AMP fp16、初始scale1024；适配层启用非重入激活检查点。
+均匀图片权重，保留原轻量翻转、旋转和亮度增强；不继续强降权。
+EMA decay0.995，只在成功更新后更新；每轮保存raw与EMA模型及原图/翻转验证概率。
+完整轮次按epochs/epoch_XX.pt与last.json提交，可恢复最近完整轮次。
+
+评估与交付
+原LoRA单模型TTA准确率67.7711%，原完整融合72.0256%（1913/2656）。
+固定融合：HSE50%，LoRA20%，ResNet18 20%，冻结多层DINO特征MLP10%，各分支原图/翻转概率均值。
+仅替换LoRA20%分支；候选固定为epoch0以及6轮raw/EMA共13个，不搜索其他权重或温度。
+验证正确数量严格提高才采用新候选，平分保留原最佳。
+有提升才运行新LoRA对7065张比赛图片的推断；复用其他分支已经核验的概率。
+完成后本目录submission.csv为交付文件；ID/Emotion两列、7065行，ID顺序与模板一致，编码0愤怒1恐惧2快乐3悲伤4惊讶5中性。
+原hse_results\submission.csv及其他原实验产物保持不变。不会上传Kaggle。
+
+查看进度（PowerShell）
+& 'C:\Users\lenovo\Desktop\表情识别训练\DINOv2_Base\check_lora_task_v4.ps1'
+
+实时查看训练日志
+Get-Content -LiteralPath 'C:\Users\lenovo\Desktop\表情识别训练\DINOv2_Base\logs\lora_task_v4_train.log' -Tail 10 -Wait -Encoding UTF8
+Ctrl+C仅退出日志查看，不会停止训练。
+电脑重启后，可用start_lora_task_v4.ps1恢复；已有任务正常运行时不要重复启动。
+
+源与输入锁定：logs\lora_task_v4_plan.json。
+状态：logs\lora_task_v4_status.json；实际后台进程：logs\lora_task_v4_runtime.json。
+训练产物：experiments\lora_task_v4；最终结果：lora_task_v4_results。
+
+成绩来自已重复使用的开发验证集，不是Kaggle分数或独立泛化估计。
+没有新的未扩展LoRA继续训练对照，不能将改善单独归因于扩层或EMA。
+本次不读取内部测试图片/标签或外部标准答案。
