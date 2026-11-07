@@ -1,0 +1,58 @@
+{
+  "state": "passed",
+  "checked_at": "2026-10-16T18:38:14.749519+08:00",
+  "training_audit": {
+    "single_original_metrics": {
+      "accuracy": 0.6783772480133835,
+      "macro_f1": 0.6543489152115675,
+      "log_loss": 0.84744914255995,
+      "correct_count": 3244,
+      "samples": 4782
+    },
+    "single_tta_metrics": {
+      "accuracy": 0.6775407779171895,
+      "macro_f1": 0.6526812265779659,
+      "log_loss": 0.8421456208233691,
+      "correct_count": 3240,
+      "samples": 4782
+    },
+    "successful_optimizer_steps": 7175,
+    "amp_skipped_steps": 1,
+    "ema_updates": 7175,
+    "final_model_sha256": "e872fff837d05c2bb319676bcb66f684242dcbc107d1a6b302fb88a418124091",
+    "training_summary_sha256": "3326ac34a31e1c22f9ffc2f0ab78d9711446f3356474fe13208e319a626fd169",
+    "epoch0_diagnostic": {
+      "single_original_metrics": {
+        "accuracy": 0.5664993726474279,
+        "macro_f1": 0.5347633847840267,
+        "log_loss": 1.1693254768703523,
+        "correct_count": 2709,
+        "samples": 4782
+      },
+      "single_tta_metrics": {
+        "accuracy": 0.5639899623588457,
+        "macro_f1": 0.5290914009390527,
+        "log_loss": 1.161129862988902,
+        "correct_count": 2697,
+        "samples": 4782
+      },
+      "checkpoint_sha256": "4ffbcbf5ef3306a226c78dc23cb02f5e8838da078850f3fd9432fdb9cd6dbca6",
+      "receipt_sha256": "b76397f5a91da91640292b862b56ba61caf10e0ba3164d00b1248906796b19a1",
+      "used_for_selection": false,
+      "interpretation": "official initialization on the same new split; diagnostic only"
+    }
+  },
+  "submission_rows": 7065,
+  "file_sha256": {
+    "submission.csv": "214d6bec3b1cd40f204cc8db3ad6c91f2db7516b65cd89d4e582f3195e0bc683",
+    "probabilities.npy": "df0ab30ae4ee3247b7bf5f899f956ac74c2a9dbb7601e055b57692e135df6a95",
+    "selected_val_probabilities.npy": "281b89c1ef04f049614be4f074264959fcec444bd3148a282b45b12e72309d35",
+    "selected_recipe.json": "fcd443f9d063095a10923ff6cfebf7b064dd33ff4e8db2eaa14eb1e29253c493",
+    "competition_prediction_receipt.json": "4ae2c0bc125abd4341edd3e2ccc9fc703d085906bd1f88b29cb2f1e3503d46a4",
+    "hse_competition_original.npy": "d9bdf87c4583ee047107c785e8a54452499eefad588ea38eb3db2fe1308d451d",
+    "hse_competition_flip.npy": "7f66f5d50a4fe4289d6bdbd35c0461926a34b2ebb671096034cb3d9c07bddbc3"
+  },
+  "candidate_status": "unranked_against_v8",
+  "gpu_used": false,
+  "read_only_experiment_verification": true
+}
