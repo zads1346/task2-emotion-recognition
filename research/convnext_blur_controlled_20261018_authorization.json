@@ -1,0 +1,17 @@
+{
+  "created_at": 1792333399.9487016,
+  "human_request": "给出一个提升方案然后执行，然后生成准确率更高的提交文件",
+  "clarification": "没有记录，按独立对照继续",
+  "scope": "One new controlled ConvNeXt ImageNet initialization, native mild blur augmentation, fixed12 epochs, finalEMA and fixed50/50 HSE probability vote; confirm once on reused development set; no Kaggle upload",
+  "baseline_clean_correct": 3240,
+  "validation_rows": 4782,
+  "train_rows": 19120,
+  "maximum_candidate_epochs": 12,
+  "single_gpu_experiment": true,
+  "prior_v11_state": "paused_by_user",
+  "prior_monitor": "PAUSED",
+  "V11_resumed": false,
+  "independent_review_claimed": false,
+  "old_outputs_preserved": true,
+  "ready_sha256": "97717ebaa40b54021bf9cc02aac6b0fa7c5b40dedbcec617a8dbe4e810695da0"
+}
