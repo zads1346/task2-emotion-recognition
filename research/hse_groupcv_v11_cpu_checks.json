@@ -1,0 +1,177 @@
+{
+  "state": "passed",
+  "GPU_used": false,
+  "source_sha256": "5708e0b4c8ab1dc31a08a3957fe48707c0daab0ee0d065ea8bb06cb64b4037d3",
+  "full_reuse_math_contract": {
+    "format": "hse_groupcv_v11_full_reuse_math_contract",
+    "state": "passed",
+    "classes": [
+      "Angry",
+      "Fear",
+      "Happy",
+      "Sad",
+      "Surprise",
+      "Neutral"
+    ],
+    "training_settings_equal": true,
+    "settings_text_differences": {
+      "checkpoint_selection": [
+        "fixed epoch12 EMA; epoch0 diagnostic only",
+        "fixed epoch12 EMA only"
+      ]
+    },
+    "training_settings": {
+      "epochs": 12,
+      "seed": 42,
+      "augmentation_epoch_offset": 100,
+      "batch_size": 16,
+      "effective_batch_size": 32,
+      "accumulation": 2,
+      "workers": 0,
+      "cpu_threads": 4,
+      "image_size": 224,
+      "validation_batch_size": 16,
+      "backbone_lr": 1e-05,
+      "head_lr": 0.0001,
+      "weight_decay": 0.01,
+      "label_smoothing": 0.0,
+      "gradient_clip": 1.0,
+      "warmup_successful_steps": 100,
+      "min_lr_ratio": 0.1,
+      "ema_decay": 0.995,
+      "amp_initial_scale": 1024.0,
+      "amp_growth_interval": 2000,
+      "batchnorm_running_stats": "frozen_eval",
+      "batchnorm_affine": "trainable",
+      "sample_weights": "uniform1",
+      "mixup": false,
+      "cutmix": false,
+      "rho": 0.0,
+      "head_warmup_epochs": 0,
+      "initialization": "official AffectNet7 only; mapped six-class head"
+    },
+    "shared_helpers": {
+      "seed": "train_hse_specialist.seed_everything",
+      "official_initialization": "hse_model.load_initial_model",
+      "full_trainability": "train_expanded_validation_v10.configure_trainability",
+      "optimizer": "train_expanded_validation_v10.make_optimizer",
+      "loader_and_augmentation": "train_expanded_validation_v10.make_loader",
+      "learning_rate": "train_expanded_validation_v10.set_learning_rate",
+      "group_step": "train_hse_sam_v7.group_step",
+      "scaler": "train_hse_sam_v7.ManualGradScaler",
+      "ema": "train_hse_sam_v7.FullModelEMA",
+      "rng_state": "train_hse_specialist.rng_state",
+      "restore_rng": "train_hse_specialist.restore_rng",
+      "validation_views": "train_expanded_validation_v10.validate_views",
+      "metrics": "train_expanded_validation_v10.metrics"
+    },
+    "shared_source_sha256": {
+      "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_expanded_validation_v10.py": "5738a54c6c7c87994eed586bbccc426b81299add96f12f2a05da8a5151a13371",
+      "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\hse_model.py": "b1fa48f4c4a3be657e0b65348c02a98d4ae30b024bd4b5304d242573c231ad3c",
+      "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_hse_sam_v7.py": "f4c2b77bfdd944a2f8b328a9367592df247388e3ff7507e2f8714ed0ea853f25",
+      "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_hse_specialist.py": "4e8a3d88e5437cf156c0db3792a4b115f5875701b9b81bdd121ef8c3faaa7a75",
+      "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\validate_cosine_fusion.py": "bc878b7ab7ea8289c399d200dd51f0f78f8d0d011f28b9219b83faa72c61194e"
+    },
+    "initialization_order": [
+      "seed_everything42",
+      "official_HSE_load_initial_model",
+      "configure_trainability",
+      "frozen_reference_CPU_copy",
+      "make_optimizer",
+      "ManualGradScaler",
+      "FullModelEMA",
+      "epoch00_commit"
+    ],
+    "uniform_standard_CE": true,
+    "label_smoothing": 0.0,
+    "head_warmup_epochs": 0,
+    "group_step_rho": 0.0,
+    "group_size": 32,
+    "microbatch_size": 16,
+    "actual_tail_denominator": true,
+    "successful_step_scheduler": true,
+    "successful_step_EMA": true,
+    "V10_diagnostic_preserves_all_RNG": true,
+    "V11_epoch00_evaluation": false,
+    "final_epoch": 12,
+    "final_weight_source": "ema",
+    "final_flip_probability_average": 0.5,
+    "outer_validation_read": false,
+    "old_artifacts_read": false,
+    "GPU_used": false
+  },
+  "modes": {
+    "full": {
+      "state": "passed",
+      "tail19_micro16_vs_full19_parameter_error": 1.8189894035458565e-12,
+      "frozen_tensors_unchanged": true,
+      "only_intended_parameters_have_gradients": true,
+      "epoch00_exact_initial_raw_EMA": true,
+      "epoch1_model_optimizer_scaler_EMA_RNG_resume": true,
+      "optimizer_parameter_count": 6,
+      "changed_state_keys": [
+        "bn.bias",
+        "bn.weight",
+        "classifier.bias",
+        "classifier.weight",
+        "conv.bias",
+        "conv.weight"
+      ]
+    },
+    "fc_only": {
+      "state": "passed",
+      "tail19_micro16_vs_full19_parameter_error": 0.0,
+      "frozen_tensors_unchanged": true,
+      "only_intended_parameters_have_gradients": true,
+      "epoch00_exact_initial_raw_EMA": true,
+      "epoch1_model_optimizer_scaler_EMA_RNG_resume": true,
+      "optimizer_parameter_count": 2,
+      "changed_state_keys": [
+        "classifier.bias",
+        "classifier.weight"
+      ]
+    }
+  },
+  "native_HSE": {
+    "full": {
+      "trainable_count": 301,
+      "dropout_configuration": {
+        "dropout_modules": [],
+        "drop_path_modules": [],
+        "rate_attributes": [
+          {
+            "name": "",
+            "attribute": "drop_rate",
+            "value": 0.0,
+            "training": true
+          }
+        ],
+        "positive_rates_present": false
+      }
+    },
+    "fc_only": {
+      "trainable_count": 2,
+      "dropout_configuration": {
+        "dropout_modules": [],
+        "drop_path_modules": [],
+        "rate_attributes": [
+          {
+            "name": "",
+            "attribute": "drop_rate",
+            "value": 0.0,
+            "training": false
+          }
+        ],
+        "positive_rates_present": false
+      }
+    }
+  },
+  "limits": [
+    "Mathematical tail/resume tests use a tiny CNN and substitute only source/plan verification; formal source-bound real GPU smoke remains root-owned.",
+    "Data/preparation was stubbed only if not yet landed at import; no records or outer-validation fields were accessed by this test."
+  ],
+  "preparation_stubbed": true,
+  "weights_saved": false,
+  "internal_test_read": false,
+  "external_answers_used": false
+}
