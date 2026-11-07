@@ -1,0 +1,71 @@
+{
+  "state": "cpu_audit_passed",
+  "official_commit": "cebfe5c5969b7d1fd64ecd775e318d3834ca76bb",
+  "constructor": "DDAMNet(num_class=7,num_head=2,pretrained=False)",
+  "constructor_external_torch_load_calls": 0,
+  "strict_native_load": true,
+  "missing_keys": [],
+  "unexpected_keys": [],
+  "native_parameters": 4187421,
+  "native_bn_modules": 149,
+  "cpu_dummy_batch": 2,
+  "input_shape": [
+    2,
+    3,
+    112,
+    112
+  ],
+  "output_shape": [
+    2,
+    7
+  ],
+  "feature_shape": [
+    2,
+    512,
+    7,
+    7
+  ],
+  "attention_heads": 2,
+  "attention_shape": [
+    2,
+    512,
+    7,
+    7
+  ],
+  "native_classes": [
+    "Neutral",
+    "Happy",
+    "Sad",
+    "Surprise",
+    "Fear",
+    "Disgust",
+    "Angry"
+  ],
+  "six_class_indices": [
+    6,
+    4,
+    1,
+    2,
+    3,
+    0
+  ],
+  "six_class_strict_load": true,
+  "six_class_row_sliced_keys": [
+    "fc.weight",
+    "fc.bias",
+    "bn.weight",
+    "bn.bias",
+    "bn.running_mean",
+    "bn.running_var"
+  ],
+  "unused_bn_retained_compatibly": true,
+  "six_class_cpu_logits_max_error": 0.0,
+  "gpu_used": false,
+  "training_run": false,
+  "unsafe_pickle_load": false,
+  "converted_weights_saved": false,
+  "repository_license_api": null,
+  "license_file_found": false,
+  "source_redistribution_permission_established": false,
+  "external_pretrain_overlap_audited": false
+}
