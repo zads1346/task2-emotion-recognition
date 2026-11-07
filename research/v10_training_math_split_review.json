@@ -1,0 +1,129 @@
+{
+  "state": "passed",
+  "created_at_utc": "2026-10-16T07:41:07.966853+00:00",
+  "GPU_used": false,
+  "source_sha256": {
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\prepare_expanded_validation_v10.py": "e1eed416fe8bf1bf08331a0db25178f58c529c1cb4e7491cf1df1bdaac2d4146",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\group_training_images.py": "c5679f1eb9a6f01c91eeb1dd605cd35aef242806dc7b16ef9ac2c29edfaa8b60",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_expanded_validation_v10.py": "5738a54c6c7c87994eed586bbccc426b81299add96f12f2a05da8a5151a13371",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\prepare_hse_expanded_validation_v10.py": "79a60783b279bf6baa10956dd4dbbaff9ef547d7dd4164cf6a3699026941bb74",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\run_hse_expanded_validation_v10.py": "2f16713fc2fed1fcb47b49b8f3de7b1f9a4022e98c191b597577a03d63e5fbb6",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\hse_model.py": "b1fa48f4c4a3be657e0b65348c02a98d4ae30b024bd4b5304d242573c231ad3c",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_hse_sam_v7.py": "f4c2b77bfdd944a2f8b328a9367592df247388e3ff7507e2f8714ed0ea853f25",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_hse_specialist.py": "4e8a3d88e5437cf156c0db3792a4b115f5875701b9b81bdd121ef8c3faaa7a75",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\validate_cosine_fusion.py": "bc878b7ab7ea8289c399d200dd51f0f78f8d0d011f28b9219b83faa72c61194e",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\data\\expanded_validation_v10\\manifest.csv": "b5a9d3cb15d6ce6f586a34194d669350a7f7d599265c73afdc1237ef02a98a8a",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\data\\expanded_validation_v10\\summary.json": "dc6e649c49953223564d44a09e4e096f2c571d260536b975e644a735ee63cd04",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\data\\expanded_validation_v10\\grouping_pairs.csv": "abbef69457e9805685ce1e124cbbb0a0f076e2819dbe6e251ba3799320430021",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\features\\manifest.csv": "1c6929af352703962c3e382aa8a1186fb75baf4ea2d807f48f9708ced40763a9",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\research\\hse_expanded_validation_v10_cpu_checks.json": "2307c5f7cffa7ae8ad08d7ab5a9ae4668233ddb25375f991180bdae8a078206e"
+  },
+  "math_checks": {
+    "state": "passed",
+    "GPU_used": false,
+    "source_sha256": "5738a54c6c7c87994eed586bbccc426b81299add96f12f2a05da8a5151a13371",
+    "tail18_micro16_vs_full18_max_parameter_error": 0.0,
+    "actual_training_rows": 19120,
+    "actual_validation_rows": 4782,
+    "actual_groups_per_epoch": 598,
+    "actual_final_group_rows": 16,
+    "expected_total_successful_updates_if_no_skips": 7176,
+    "official_class_head_rows_exact": [
+      0,
+      2,
+      3,
+      5,
+      6,
+      4
+    ],
+    "all_parameters_trainable": true,
+    "BN_running_stats_frozen_affine_trainable": true,
+    "synthetic_resume_model_optimizer_scaler_EMA_RNG": true,
+    "model_parameter_tensors": 301,
+    "model_state_keys": 508,
+    "limitations": [
+      "Tail/resume math uses a tiny CNN fixture and temporarily substitutes plan verification; full bound real-GPU smoke remains root-owned.",
+      "No training GPU computation, no formal model output, no old test or competition answer labels accessed."
+    ]
+  },
+  "new_split": {
+    "original_allowed_rows": 23904,
+    "effective_rows": 23902,
+    "train": 19120,
+    "validation": 4782,
+    "excluded_indices": [
+      7727,
+      10448
+    ],
+    "split_counts_by_class": {
+      "train": {
+        "Angry": 2696,
+        "Fear": 2732,
+        "Happy": 5043,
+        "Neutral": 3468,
+        "Sad": 3389,
+        "Surprise": 1792
+      },
+      "val": {
+        "Angry": 672,
+        "Fear": 687,
+        "Happy": 1259,
+        "Neutral": 865,
+        "Sad": 852,
+        "Surprise": 447
+      }
+    },
+    "source_composition": {
+      "train": {
+        "train": 17020,
+        "val": 2100
+      },
+      "val": {
+        "train": 4226,
+        "val": 556
+      }
+    },
+    "cross_split_overlap_counts": {
+      "manifest_index": 0,
+      "path": 0,
+      "image_sha256": 0,
+      "group_id": 0
+    },
+    "all_five_folds_group_isolated": true,
+    "SGKF_seed20261016_reproduced": true,
+    "accepted_edge_components_reproduced": true,
+    "accepted_pairs": 49,
+    "group_count": 23853,
+    "old_train_val_crossing_edges": 10,
+    "labels_and_paths_unchanged": true,
+    "source_manifest_order_preserved": true,
+    "original_internal_test_rows_excluded_before_label_or_path_access": true
+  },
+  "code_review": {
+    "official_HSE_initialization_only": true,
+    "HSE_native_7to6_mapping": [
+      0,
+      2,
+      3,
+      5,
+      6,
+      4
+    ],
+    "uniform_standard_CE_smoothing0": true,
+    "actual_group_loss_normalization": true,
+    "BN_buffers_frozen_affine_trainable": true,
+    "fixed12_finalEMA_no_epoch_selection": true,
+    "diagnostic_epoch0_not_candidate": true,
+    "full_epoch_resume_with_RNG_scaler_optimizer_EMA": true,
+    "EMA_only_successful_updates": true,
+    "root_prepare_trainer_no_circular_import": true,
+    "runner_gate_requires_source_plan_bound_CPU_review_and_real_GPU_smoke": true,
+    "runner_owns_single_locked_child_and_stops_child_on_failure": true
+  },
+  "limits": [
+    "No full pixel grouping recomputation or image-byte rehash repeated here; independent review reproduces member/label/path bindings,fold assignment and accepted-edge components. Data author/root preflight own full image+pixel verification.",
+    "CPU tail/resume uses a small CNN fixture with only the plan verifier substituted; real official-HSE CUDA2-step smoke is required separately and was not executed by this agent.",
+    "New validation includes former training images and is a development split. Old task-trained models cannot be independently evaluated or fused on it; person/source independence and external pretraining overlap remain unknown."
+  ],
+  "no_model_plan_old_output_changes": true
+}
