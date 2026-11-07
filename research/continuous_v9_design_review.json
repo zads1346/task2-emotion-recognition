@@ -1,0 +1,209 @@
+{
+  "format": "ddamfn_groupcv_v9_design_review",
+  "state": "cpu_preflight_pass",
+  "reviewer": "/root/v7_recovery_export",
+  "scope": "prepare/finalizer schema and local data evidence; independent review is separate",
+  "official_classes": [
+    "Angry",
+    "Fear",
+    "Happy",
+    "Sad",
+    "Surprise",
+    "Neutral"
+  ],
+  "baseline": {
+    "directory": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ddamfn_v8_results",
+    "selected": "epoch_00_baseline",
+    "correct_count": 1924,
+    "samples": 2656,
+    "accuracy": 0.7243975903614458,
+    "output_hashes_checked": true,
+    "full_metric_dictionary_reproduced_exactly": true,
+    "v7_v8_fixed_weight_chain_verified": true,
+    "old_ddamfn_views_bound": true
+  },
+  "design": {
+    "hypothesis": "Preserving the official feature backbone may retain useful disagreement with the existing ensemble while fitting a task-specific head. The present development evidence motivates a bounded comparison; it does not prove the cause.",
+    "arms": [
+      "full",
+      "fc_only"
+    ],
+    "folds": 3,
+    "epochs_each_run": 6,
+    "fold_epoch_total": 36,
+    "refit_epochs": 6,
+    "initialization": "Official external AffectNet checkpoint independently for every fold/arm/refit; no task checkpoint",
+    "candidate": "Final EMA only; no epoch0 or intermediate validation selection",
+    "cv_selection_rule": "fc_only only if pooled OOF correct_count strictly exceeds full and fc_only strictly wins at least2 of3 folds; otherwise full",
+    "development_validation_used_to_select_mode": false,
+    "final_development_candidates": 1,
+    "final_replacement": ".2 DDAMFN branch only; .5 HSE/.2 LoRA/.1 MLP remain bound",
+    "strict_improvement_required": true,
+    "settings": {
+      "epochs": 6,
+      "seed": 42,
+      "augmentation_epoch_offset": 90,
+      "batch_size": 32,
+      "effective_batch_size": 32,
+      "accumulation": 1,
+      "workers": 0,
+      "cpu_threads": 4,
+      "image_size": 112,
+      "validation_batch_size": 32,
+      "backbone_lr": 1e-05,
+      "head_lr": 0.0001,
+      "weight_decay": 0.01,
+      "label_smoothing": 0.0,
+      "gradient_clip": 1.0,
+      "warmup_successful_steps": 100,
+      "min_lr_ratio": 0.1,
+      "ema_decay": 0.995,
+      "amp_initial_scale": 1024.0,
+      "amp_growth_interval": 2000,
+      "batchnorm_running_stats": "frozen_eval",
+      "sample_weights": "uniform1",
+      "mixup": false,
+      "cutmix": false,
+      "rho": 0.0,
+      "initialization": "official AffectNet7 only; mapped six-class head"
+    }
+  },
+  "grouping": {
+    "source_csv": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\multilayer_groups\\train_groups.csv",
+    "source_csv_sha256": "8f5a2cc7698feb78d3e088fb3ed5f8d300c1395e7bbebdbd419fb3a5ca288831",
+    "source_code_sha256": "c5679f1eb9a6f01c91eeb1dd605cd35aef242806dc7b16ef9ac2c29edfaa8b60",
+    "original_train_rows": 21248,
+    "excluded_manifest_indices": [
+      7727,
+      10448
+    ],
+    "effective_train_rows": 21246,
+    "fold_counts": {
+      "0": {
+        "training": 14164,
+        "heldout": 7082,
+        "training_groups": 14141,
+        "heldout_groups": 7069
+      },
+      "1": {
+        "training": 14164,
+        "heldout": 7082,
+        "training_groups": 14140,
+        "heldout_groups": 7070
+      },
+      "2": {
+        "training": 14164,
+        "heldout": 7082,
+        "training_groups": 14139,
+        "heldout_groups": 7071
+      }
+    },
+    "csv_members_and_groups_revalidated": true,
+    "group_leakage_across_folds": false,
+    "identity_groups_available": false,
+    "limitation": "Near-duplicate image groups, not verified person identities; official external pretraining overlap not audited. prepare will independently hash actual train and dev image content before locking."
+  },
+  "checks": {
+    "ast_all_python_sources": true,
+    "imports": true,
+    "all_required_sources_present": true,
+    "decision_boundary_cases": [
+      {
+        "full_correct": [
+          10,
+          10,
+          10
+        ],
+        "fc_only_correct": [
+          10,
+          10,
+          10
+        ],
+        "selected": "full",
+        "fc_only_fold_wins": 0,
+        "expected": "full"
+      },
+      {
+        "full_correct": [
+          10,
+          10,
+          10
+        ],
+        "fc_only_correct": [
+          11,
+          11,
+          8
+        ],
+        "selected": "full",
+        "fc_only_fold_wins": 2,
+        "expected": "full"
+      },
+      {
+        "full_correct": [
+          10,
+          10,
+          10
+        ],
+        "fc_only_correct": [
+          9,
+          9,
+          20
+        ],
+        "selected": "full",
+        "fc_only_fold_wins": 1,
+        "expected": "full"
+      },
+      {
+        "full_correct": [
+          10,
+          10,
+          10
+        ],
+        "fc_only_correct": [
+          11,
+          11,
+          9
+        ],
+        "selected": "fc_only",
+        "fc_only_fold_wins": 2,
+        "expected": "fc_only"
+      },
+      {
+        "full_correct": [
+          10,
+          10,
+          10
+        ],
+        "fc_only_correct": [
+          10,
+          11,
+          11
+        ],
+        "selected": "fc_only",
+        "fc_only_fold_wins": 2,
+        "expected": "fc_only"
+      }
+    ],
+    "oof_normalization": "Stored raw float32 view average; check_probability is validation-only in storage/verifier, metrics gets the same raw array exactly once. No widened tolerance.",
+    "plan_created_by_this_review": false,
+    "gpu_used": false,
+    "internal_test_images_or_labels_read": false,
+    "external_answers_used": false
+  },
+  "source_sha256": {
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\prepare_ddamfn_groupcv_v9.py": "4cccfacca17c63405ff6c16b66c3426b197d760c9d8ad7ec7523b652194d537a",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_ddamfn_groupcv_v9.py": "0f047377621f60f1e1bc2ee7c064656af4f80bae797265321bf01a40ddb4ce97",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\finalize_ddamfn_groupcv_v9.py": "391ed07fa87c8800e2d029d9be845f3c5e0ab8af090367753de75553a62bebf3",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\run_ddamfn_groupcv_v9.py": "418dc6cf342379f61f1f71d00bb5b7f7191600e3e43f658a8205c630fa567da4",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\ddamfn_groupcv_v9_worker.py": "55e621e41d6a2ea32d1dbef1aded5b7c62f4e1dd3a60b5a6a2ac39d7fd640b36",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\start_ddamfn_groupcv_v9.ps1": "4e0f43e63caa6a78470d71252466a9fc55cf841bca63c55e7f485ae550f5d3e1",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\run_ddamfn_groupcv_v9_worker.ps1": "6d7d79b1e90504630c9012230508e4fd4e39a1553ccbd683cc27e33357225f00",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\ddamfn_v8_model.py": "17d26770a0d6f4457054f1e6214ddb15361938fc7801c73b4327743ab73c9112",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_ddamfn_v8.py": "a25e6fad2ecd0c5101c8e7e923dcbdf04cd871d7f7f9cb46662ae90f0002c364",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_hse_sam_v7.py": "f4c2b77bfdd944a2f8b328a9367592df247388e3ff7507e2f8714ed0ea853f25",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_hse_specialist.py": "4e8a3d88e5437cf156c0db3792a4b115f5875701b9b81bdd121ef8c3faaa7a75",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\validate_cosine_fusion.py": "bc878b7ab7ea8289c399d200dd51f0f78f8d0d011f28b9219b83faa72c61194e",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\group_training_images.py": "c5679f1eb9a6f01c91eeb1dd605cd35aef242806dc7b16ef9ac2c29edfaa8b60",
+    "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\run_hse_sam_v7.py": "d94fb0afb067cf0437c53ba9797fee89e485c86ddd5714d03a7d22cad0f6aec6"
+  }
+}
