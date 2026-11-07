@@ -1,0 +1,335 @@
+{
+  "format": "training_rethink_validation_audit_v1",
+  "state": "complete",
+  "auditor": "/root/v7_export_diagnosis",
+  "created_at": "2026-10-16T15:24:23.068166+08:00",
+  "scope": "Read-only CPU metadata/source/checkpoint-membership audit. Analyze only original train and val. No internal test images/labels, external answers, GPU inference, new training, or production edits.",
+  "Kaggle_result_source": "User reports no score improvement; this audit did not fetch or infer a numeric Kaggle score.",
+  "findings": [
+    {
+      "id": "F1",
+      "finding": "原始验证是图片级分层随机划分，不是人物/来源隔离。",
+      "evidence": {
+        "split_method": "per-class stratified shuffle with mandatory class coverage",
+        "seed": 42,
+        "train_count": 21248,
+        "val_count": 2656,
+        "train_val_subject_id_nonempty": 0,
+        "source_id_column_available": false,
+        "old_fivefold_method": "StratifiedKFold",
+        "old_fivefold_scope": "train + val",
+        "subject_disjoint": false
+      },
+      "implication": "能衡量这批数据的随机图片泛化；不能据此声称跨人物、跨来源或比赛分布泛化。",
+      "files": [
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\data\\original_splits\\split_audit_original.json",
+          "sha256": "c5ece67bf819f45929c005caca3af1b37b8ecfcbbabe1dbccc7737b024a06a9e",
+          "line": 8098
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\prepare_inputs.py",
+          "sha256": "fbb92e5d473c4a780fc89e51eed485155a987e82238e48194f7c2b6a2cf8c5a8",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "id": "F2",
+      "finding": "只证实 train/val 无文件字节完全重复；没有已经完成的跨 train-val 近重复/身份审计证据。",
+      "evidence": {
+        "byte_identical_train_val_overlap": 0,
+        "original_cleaning_exact_duplicate_removed": 1007,
+        "train_only_near_duplicate_groups": 21212,
+        "train_only_nontrivial_groups": 33,
+        "train_only_cross_label_groups": 10,
+        "grouping_scope": "Only original manifest split=train images and labels"
+      },
+      "implication": "train-only近重复分组不能证明现有dev与train视觉独立；也不能反过来凭缺审计认定已经发生跨split泄漏。",
+      "files": [
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\data\\split_audit.json",
+          "sha256": "54c3e596120d233f8dc165ae5dbd43ad713c1df6bcbf66a978c179c4563fd186",
+          "line": 30
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\multilayer_groups\\groups_summary.json",
+          "sha256": "a4d3363c90042fb449cca71e54a50d95a89d9171088a2730b9e8fab922fb33e8",
+          "line": 883
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\group_training_images.py",
+          "sha256": "c5679f1eb9a6f01c91eeb1dd605cd35aef242806dc7b16ef9ac2c29edfaa8b60",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "id": "F3",
+      "finding": "同一2656张dev已持续承担选模型、选epoch、选raw/EMA和选融合的职责。",
+      "evidence": {
+        "nine_final_candidate_table_rows": {
+          "fusion_validation_results": 4,
+          "hse_results": 7,
+          "lora_task_v4_results": 14,
+          "lora_zero_weight_v5_results": 19,
+          "lora_flip_consistency_v6_results": 19,
+          "hse_sam_v7_results": 19,
+          "ddamfn_v8_results": 14,
+          "ambiguity_results": 2,
+          "ambiguity_v2_results": 2
+        },
+        "total_rows": 100,
+        "count_caveat": "包含重复incumbent和epoch0，不能解释成100个独立模型；尚未计入早期训练选轮/线性探针搜索。",
+        "HSE_epochs_before_selecting_best": 12,
+        "HSE_fusion_candidates": 7,
+        "V4_fused_candidate_count_excluding_incumbent": 13
+      },
+      "implication": "这些成绩应当称为重复使用的开发选择分数；严格提高1个正确样本仍可能适应这个开发集，不能保证Kaggle增长。",
+      "files": [
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\fusion_validation_results\\candidate_metrics.csv",
+          "sha256": "301310e15bfc0804ca1ad24563b27d8c3c0da5d9ef9c658a3568d6df0eb513f6"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\hse_results\\candidate_metrics.csv",
+          "sha256": "b0e43a3d265a0c6cb12b3448d0795939635c5d5a7b96ad2ca6d77c60e9e03474"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_task_v4_results\\candidate_metrics.csv",
+          "sha256": "8140bb016c337ea8a72c98c184d3816fb572a45f43e7b5d8851191a79cec71c6"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_zero_weight_v5_results\\candidate_metrics.csv",
+          "sha256": "dfa98879afc02e15adea8cf428a947c5dc0345fa260b303bd4abd1554993db3d"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\lora_flip_consistency_v6_results\\candidate_metrics.csv",
+          "sha256": "8f9181302f9ae8eb51991fdb78cde391fcc67d3f3e378982b74c04675cd68a6e"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\hse_sam_v7_results\\candidate_metrics.csv",
+          "sha256": "b3758a876c0d696ee9ab032cdf9c43321b30bc6f119c6d7c4dfb540bb58616a0"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ddamfn_v8_results\\candidate_metrics.csv",
+          "sha256": "a43a6a2ac56907d33fc173a29c6236013bc2f528b2655af4da95b3b1d2e8d6f2"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ambiguity_results\\candidate_metrics.csv",
+          "sha256": "8a2ca1e3cfa2a5f300fbaeb89fec7fbd27aaa3c04ed1675360e971078f3234df"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ambiguity_v2_results\\candidate_metrics.csv",
+          "sha256": "8a2ca1e3cfa2a5f300fbaeb89fec7fbd27aaa3c04ed1675360e971078f3234df"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\hse_results\\selected_recipe.json",
+          "sha256": "dea179756e9cb8512dc8b9262afc8a2f331496b47bb3cd09eb2e32ada98ae6a5"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_classifier.py",
+          "sha256": "f4364d0021a7067a9b057e7c587a9e42cac1d9c050a2837dc7117c8bb8a838f9",
+          "line": 325
+        }
+      ]
+    },
+    {
+      "id": "F4",
+      "finding": "需要区分初始train+val重训流程与当前train-only融合链；当前未发现直接把dev成员用于参数训练的证据。",
+      "evidence": {
+        "initial_classifier_final_training_splits": [
+          "train",
+          "val"
+        ],
+        "current_actual_HSE_checkpoint_train_indices_match_original_train": true,
+        "current_actual_V4_checkpoint_train_indices_match_original_train": true,
+        "actual_CNN_checkpoint_train_paths_match_original_train": true,
+        "actual_CNN_checkpoint_val_paths_match_original_val": true,
+        "cosine_MLP_saved_training_rows": 21248,
+        "cosine_MLP_train_dev_overlap": 0,
+        "fusion_old_MLP_weight": 0.0,
+        "fusion_new_MLP_weight_before_HSE": 0.2,
+        "current_recipe_producer_pins_reference_initial_results_directory": false
+      },
+      "implication": "当前主要评估风险是dev适应、划分局限及分布差异；不能把初始说明中的refit泛化为当前直接训练泄漏。模型仍由dev选轮，train-only并不使dev恢复为独立测试。",
+      "files": [
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_classifier.py",
+          "sha256": "f4364d0021a7067a9b057e7c587a9e42cac1d9c050a2837dc7117c8bb8a838f9",
+          "line": 280
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\cnn_candidate.py",
+          "sha256": "d65cc970f9d65144387851557c5683ee65fddfdbdff9a23573a453f56cd42e06",
+          "line": 75
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_fusion_head.py",
+          "sha256": "972744996b5687eedbd48fd20a8a5b65d7a1bf2315c329b2e7c6373b7f0414a4",
+          "line": 95
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_specialist_v1\\config.json",
+          "sha256": "61d086a0cdcfb6bbf4c73af87aa43a7f05fd155f75135cbfa7937162c1c6f089"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_task_v4\\config.json",
+          "sha256": "55644830b839c58224a2bdf580f96f0582c8f965916fac99ada9e98f50f90e28"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\cosine_full_train\\train_rows.csv",
+          "sha256": "f7057a08261981ff14d096a0e91357d45784b5781c49adf9f717d0aec62e8ba8"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\fusion_validation_results\\selected_recipe.json",
+          "sha256": "4183ff17894292a9d5145fbf97335dbf75432334d6ab80a2cd50fd86eccd0c54"
+        }
+      ]
+    },
+    {
+      "id": "F5",
+      "finding": "当前最好的V8本地融合增益来自未做本地微调的官方epoch0分支，并非六轮训练让最终融合更好。",
+      "evidence": {
+        "V7_or_V4_incumbent_correct": 1915,
+        "V8_selected_epoch0_correct": 1924,
+        "V8_best_trained_fusion_correct": 1921,
+        "samples": 2656,
+        "selected_gain_correct": 9,
+        "selected_gain_percentage_points": 0.338855421686747,
+        "one_sample_percentage_points": 0.03765060240963856,
+        "epoch0_single_correct": 1579,
+        "best_trained_single_correct": 1839
+      },
+      "implication": "单模型准确率提升与最终融合提升是不同目标；训练会改变互补性，继续压低训练loss或提高单模型dev并不自动改善提交。",
+      "files": [
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\research\\ddamfn_v8_candidate\\delivery_verification.json",
+          "sha256": "4a0bc0774f8e5773585f4d477c97a33e6bb4d5d35e8d6bb6154a7523eb48679f",
+          "line": 165
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ddamfn_v8_results\\candidate_metrics.csv",
+          "sha256": "a43a6a2ac56907d33fc173a29c6236013bc2f528b2655af4da95b3b1d2e8d6f2"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\ddamfn_v8_results\\selected_recipe.json",
+          "sha256": "7cebad906bdd1625c8779d5225f7974ceabe630cdb06f299b9581b6269937fc8"
+        }
+      ]
+    },
+    {
+      "id": "F6",
+      "finding": "官方权重来源/哈希可核验，不等于已排除外部预训练与本地数据重叠或域差异。",
+      "evidence": {
+        "DDAM_official_training_dataset": "AffectNet7",
+        "external_pretrain_overlap_audited": false,
+        "pretrain_overlap_with_local_FER_ruled_out": false,
+        "local_train_images": "48x48 grayscale",
+        "official_DDAM_input": "aligned AffectNet RGB112 according to saved local assessment"
+      },
+      "implication": "这是未排除的限制，不是已证实的数据泄漏。没有来源或身份信息时，随机dev优势未必对应比赛分布。",
+      "files": [
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\research\\ddamfn_v8_candidate\\assessment.json",
+          "sha256": "2b9021f9dc7d1bd741f92753134ebb5ff3c9ba9a58897f8d2c89e2578e0b8f66",
+          "line": 56
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\models\\ddamfn_affectnet7_v8\\source_receipt.json",
+          "sha256": "0bb57314fe08381f65c2833051ffa94d8f6b2282bb11b6ba53dc48fc75d3b109"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\data\\original_splits\\archive_audit.json",
+          "sha256": "6efb69463c93c1eea0d099485fe3cb9c69ab14eac94c30c3a6ea6a9cac2e4005",
+          "line": 51
+        }
+      ]
+    },
+    {
+      "id": "F7",
+      "finding": "V9比反复dev选轮更可信，但目前只能比较官方初始化的DDAM两种训练策略的train内近重复组OOF表现。",
+      "evidence": {
+        "folds": 3,
+        "train_per_fold": 14164,
+        "heldout_per_fold": 7082,
+        "modes": [
+          "full",
+          "fc_only"
+        ],
+        "epochs": 6,
+        "checkpoint": "fixed final EMA only",
+        "seed": 42,
+        "selection": "fc_only pooled OOF correct strictly higher and at least2/3 fold wins; otherwise full",
+        "official_reinitialization_each_fold_arm_refit": true,
+        "development_evaluation_after_refit_candidates": 1
+      },
+      "implication": "不能检验人物/来源隔离、不同随机种子的稳定性、完整融合的独立泛化，也不提供Kaggle保证。选择依据是单DDAM的OOF正确数，不是融合OOF收益。",
+      "files": [
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\research\\continuous_v9_design_review.json",
+          "sha256": "a5816cc622212ae817773b01ea4be19c66b2d3f2c7d7f636669ecf54d2313665"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\finalize_ddamfn_groupcv_v9.py",
+          "sha256": "391ed07fa87c8800e2d029d9be845f3c5e0ab8af090367753de75553a62bebf3",
+          "line": 170
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\prepare_ddamfn_groupcv_v9.py",
+          "sha256": "4cccfacca17c63405ff6c16b66c3426b197d760c9d8ad7ec7523b652194d537a",
+          "line": 189
+        }
+      ]
+    },
+    {
+      "id": "F8",
+      "finding": "旧HSE/LoRA/MLP/CNN本地任务权重不能被重新命名成train内折外预测。",
+      "evidence": {
+        "old_task_branches_trained_on_original_train_count": 21248,
+        "V9_each_fold_holdout_rows_within_old_branch_training_population": 7082,
+        "V9_existing_task_branches_enter_OOF": false
+      },
+      "implication": "折内holdout图片及标签已经参与旧分支参数训练；仅重训分类头、重新划折或把新DDAM的OOF和旧分支在训练样本上的预测相加，都不能消除该泄漏。要评估融合，每个task-trained分支都须排除该外层折，连特征适配/归一化/分类头/融合选择也须限于训练部分。",
+      "files": [
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\hse_specialist_v1\\config.json",
+          "sha256": "61d086a0cdcfb6bbf4c73af87aa43a7f05fd155f75135cbfa7937162c1c6f089"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\lora_task_v4\\config.json",
+          "sha256": "55644830b839c58224a2bdf580f96f0582c8f965916fac99ada9e98f50f90e28"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\cosine_full_train\\train_rows.csv",
+          "sha256": "f7057a08261981ff14d096a0e91357d45784b5781c49adf9f717d0aec62e8ba8"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\experiments\\cnn_reference\\summary.json",
+          "sha256": "9b0db254297b7f7244ee6279ea6f2fe9949c36fd0df967c158a985325ea27042"
+        },
+        {
+          "path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\finalize_ddamfn_groupcv_v9.py",
+          "sha256": "391ed07fa87c8800e2d029d9be845f3c5e0ab8af090367753de75553a62bebf3",
+          "line": 228
+        }
+      ]
+    }
+  ],
+  "recommendation": {
+    "title": "先冻结可信的分组评估，再允许模型迭代进入下一轮。",
+    "steps": [
+      "把现有2656 dev冻结为历史诊断集，不再靠其1至2样本提高反复选方案。先对允许使用的train+val做标签盲跨split近重复审计；能取得人物或来源信息时以它们为更高优先级分组。",
+      "以固定外层分组折评估同一小组预声明方案，内层折负责轮次/参数/融合选择；所有参与完整融合的任务分支都从外部初始化在外层训练部分独立拟合，禁止复用见过外层holdout的任务checkpoint。",
+      "报告逐折、逐种子及成对预测差异，按组计算不确定性；主指标保持比赛accuracy，同时用macro-F1和类别召回定位失误。每轮只测试有限的事先声明方案。",
+      "如果预算只支持当前V9，先把其结论限定为DDAM策略比较，不能包装成融合独立验证。真正最终泛化结论仍需未用于方案选择、且具有来源/身份隔离的新保留数据；重新划分已经反复研究的数据不能创造完全未见的最终测试。"
+    ],
+    "new_models_required": false,
+    "new_training_started_by_auditor": false
+  },
+  "production_files_modified": false,
+  "GPU_used": false,
+  "internal_test_images_read": false,
+  "internal_test_labels_used": false,
+  "external_answers_used": false
+}
