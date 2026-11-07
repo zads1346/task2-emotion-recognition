@@ -1,0 +1,43 @@
+{
+  "format": "v10_trainer_export_independent_cpu_review",
+  "state": "passed",
+  "reviewer": "v7_recovery_export",
+  "created_at_utc": "2026-10-16T07:44:38.968597+00:00",
+  "source_pins": {
+    "src/finalize_expanded_validation_v10.py": "921ba8c93acad6371eb8575fa8f6ad3939daffade81dc9147315306c6709060b",
+    "src/train_expanded_validation_v10.py": "5738a54c6c7c87994eed586bbccc426b81299add96f12f2a05da8a5151a13371",
+    "src/prepare_hse_expanded_validation_v10.py": "79a60783b279bf6baa10956dd4dbbaff9ef547d7dd4164cf6a3699026941bb74",
+    "src/prepare_expanded_validation_v10.py": "e1eed416fe8bf1bf08331a0db25178f58c529c1cb4e7491cf1df1bdaac2d4146",
+    "src/hse_model.py": "b1fa48f4c4a3be657e0b65348c02a98d4ae30b024bd4b5304d242573c231ad3c",
+    "src/train_hse_sam_v7.py": "f4c2b77bfdd944a2f8b328a9367592df247388e3ff7507e2f8714ed0ea853f25",
+    "src/train_hse_specialist.py": "4e8a3d88e5437cf156c0db3792a4b115f5875701b9b81bdd121ef8c3faaa7a75",
+    "src/validate_cosine_fusion.py": "bc878b7ab7ea8289c399d200dd51f0f78f8d0d011f28b9219b83faa72c61194e"
+  },
+  "scope": "Independent CPU source/ABI audit plus synthetic probability/cache/CSV regression; no GPU, training, inference, plan locking or production output writes.",
+  "checks": {
+    "missing_export_fails_without_inference_or_writes": true,
+    "missing_prediction_cache_fails_read_only": true,
+    "valid_cache_float32_and_read_only": true,
+    "tampered_cache_rejected": true,
+    "valid_7065_csv_passes": true,
+    "reordered_ID_rejected": true,
+    "wrong_argmax_rejected": true,
+    "all_reviewed_python_AST_pass": true,
+    "actual_trainer_finalizer_import_ABI_pass": true
+  },
+  "trainer_review": {
+    "official_initialization": "HSE official AffectNet7 checkpoint; native classes mapped [0,2,3,5,6,4]; old task weights absent",
+    "split": "Fresh expanded grouping split 19120/4782; members/image hashes bound; no old task model/old probability evaluation",
+    "optimizer": "All parameters trainable from epoch0; BN running buffers frozen and affine trainable; no head warmup/optimizer recreation; accumulated loss denominator actual logical group size",
+    "evaluation": "Epoch0 diagnostic only; exactly epoch12 EMA selected; no per-epoch validation candidate selection",
+    "resume": "Complete epoch state includes optimizer/scaler/EMA/RNG/history/counters; final model checked against epoch12 EMA shadow",
+    "export": "New HSE original+flip only; fixed average; V8 incumbent preserved and candidate explicitly unranked against V8",
+    "metric_path": "Raw float32 arrays retained; trainer.metrics consumes same raw view average in producer and finalizer, avoiding extra normalization in exact metric comparisons"
+  },
+  "limitations": [
+    "No claim of GPU smoke or training execution: root performs that separately after locking sources.",
+    "External pretraining overlap with competition images is unknown.",
+    "New validation performance cannot be directly compared with old 72.4398% development score."
+  ],
+  "blocking_findings": []
+}
