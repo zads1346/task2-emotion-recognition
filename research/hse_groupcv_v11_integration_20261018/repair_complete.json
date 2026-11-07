@@ -1,0 +1,59 @@
+{
+  "at": "2026-10-18T06:12:01.806619+00:00",
+  "event": "v11_implementation_integration_repaired_and_relocked",
+  "state": "pending_independent_implementation_review",
+  "plan_sha256": "eeb82057cb39abfddb0d74d3e6319c26b9e965b15352f291a49ccf6d8d76d384",
+  "training_only_rows": 19120,
+  "folds": [
+    {
+      "fold": 0,
+      "train": 12745,
+      "held_out": 6375
+    },
+    {
+      "fold": 1,
+      "train": 12745,
+      "held_out": 6375
+    },
+    {
+      "fold": 2,
+      "train": 12750,
+      "held_out": 6370
+    }
+  ],
+  "fixed_blockers": [
+    "final_epoch_purpose_metadata",
+    "shared_selection_rule_contract",
+    "OOF_producer_hash_bindings"
+  ],
+  "cpu_regressions": 6,
+  "launch_gate_checks": 17,
+  "GPU_used": false,
+  "training_started": false,
+  "outer_images_or_labels_accessed": false,
+  "internal_test_read": false,
+  "Kaggle_package_unchanged": true,
+  "independent_review_passed": false,
+  "GPU_smoke_passed": false,
+  "changed_functions": {
+    "train_hse_groupcv_v11.py": {
+      "changed_functions": [
+        "_verify_final",
+        "finalize_run",
+        "model_payload"
+      ],
+      "sha256": "048360d9cf7851c8d4a21f3994526140c87adc29d13ca45e36a55dd6b5fb6823"
+    },
+    "finalize_hse_groupcv_v11.py": {
+      "changed_functions": [
+        "select_cv"
+      ],
+      "sha256": "6288fe9215315908e5b8bcb96590585909b45f7ecc9670ce1d42a50de6fb6cb3"
+    },
+    "run_hse_groupcv_v11.py": {
+      "changed_functions": [],
+      "sha256": "4320c34f2d041ce7f4de25e4eca313447205ece4d97a718d0929acee4c1b9cb0"
+    },
+    "prior_cpu_check_source_matches_archived_trainer": true
+  }
+}
