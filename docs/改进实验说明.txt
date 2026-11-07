@@ -1,0 +1,28 @@
+本轮依次运行缓存特征 MLP、DINOv2 Base 最后四个模块的 LoRA，并与已有 ResNet18 做小范围概率融合。
+原 results 目录中的冻结逻辑回归模型和提交文件保持原样。
+
+模型选择：原验证集准确率优先，Macro-F1 次优先，交叉熵作最终平分排序。
+所有候选只在原 train=21248 上训练，val=2656 选轮次、模型和融合比例。
+标准答案文件不会被这些训练或选择脚本读取。
+原内部测试集已在前一轮看过，本轮分数属于复用内部测试集的比较结果。
+方案锁定后只对选中的模型/组合进行测试和提交推理，不按测试分数重新选方案。
+
+MLP：1536→256→LayerNorm→GELU→Dropout(0.3)→6；最多40轮，早停耐心8。
+LoRA：最后4个qkv，r=8，alpha=16；仅107526参数可训练；最多20轮，早停耐心5。
+微批量4、梯度累积8，混合精度；预训练骨干参数冻结。
+LoRA 支持 epoch 边界恢复，MLP 中断后需使用新的输出目录重新训练。
+GPU 实测通过后启动；所有模型按顺序使用 GPU。
+
+进度：logs/improvement_status.json。
+日志：logs/improvement_mlp.log、logs/improvement_lora.log、logs/improvement_finalize.log。
+模型：experiments/mlp/best.pt、experiments/lora/best.pt。
+本轮最终提交：improved_results/submission.csv。
+选择依据：improved_results/selected_recipe.json。
+本轮最终报告：improved_results/summary.json。
+
+在此目录 PowerShell 中查看：.\check_improvements.ps1
+独立后台启动或恢复：.\start_background.ps1（隐藏窗口，通过 Windows WMI 启动；运行中会用进程锁阻止重复训练）。
+前台启动或恢复：.\start_improvements.ps1。
+后台进程诊断：logs/background_runtime.json 和对应 background_worker 日志。
+状态检查会识别已退出的进程；运行器每15秒更新状态时间。
+关机、休眠或手动结束进程仍会中断本地训练；中断后从最近完整轮次恢复。
