@@ -1,0 +1,43 @@
+{
+  "state": "passed",
+  "source": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\src\\train_ddamfn_groupcv_v9.py",
+  "source_sha256": "0f047377621f60f1e1bc2ee7c064656af4f80bae797265321bf01a40ddb4ce97",
+  "GPU_executed": false,
+  "training_scope": "CPU verification only; no production training, plan, checkpoint or CSV export created",
+  "training_input_receipt": {
+    "manifest_sha256": "1c6929af352703962c3e382aa8a1186fb75baf4ea2d807f48f9708ced40763a9",
+    "train_rows_sha256": "b3bd88d4b63eb67781e8ad80c55e7812b9082c0a6cf29d2009772bbe01ea83dc",
+    "train_image_content_sha256": "78ddfaed575543fb11d89f75f12224f9b0679e8832dd7e10e1f19ee61ca948a2"
+  },
+  "raw_training_images_verified": 21248,
+  "effective_training_members": 21246,
+  "excluded_train_indices": [
+    7727,
+    10448
+  ],
+  "checks": {
+    "AST_syntax": "passed",
+    "train_only_membership_and_all_original_training_file_content_receipt": "passed",
+    "fc_only_native_model_requires_grad_exact_fc_weight_and_bias": "passed",
+    "actual_CPU_DDAM_fc_only_update_changes_only_fc_weight_and_bias": "passed",
+    "frozen_backbone_attention_buffers_and_EMA": "bitwise unchanged",
+    "full_requires_grad_and_all_BN_eval": "passed",
+    "tail20_independent_full_batch_standard_CE_AdamW_vs_8_8_4_accumulation": "passed",
+    "paired_actual_first32_augmented_images_labels_and_postbatch_Torch_RNG": "bitwise identical",
+    "epoch0_atomic_pointer_and_native_model_restore": "passed",
+    "nonempty_optimizer_EMA_scaler_and_RNG_restore": "passed",
+    "V9_full1190_final_EMA_native_loader": "passed",
+    "final_result_probability_metrics_and_last_EMA_binding": "passed",
+    "cached_finalization_prohibited_forward_not_called": "passed"
+  },
+  "fixture_limits": {
+    "checkpoint_tests_used_in_memory_synthetic_plan": true,
+    "checkpoint_files_were_disposable_OS_temp_only_and_cleaned": true,
+    "miniature_DDAM_fixture_updates": 6,
+    "images_per_miniature_fixture_update": 4,
+    "complete_epoch_coverage_and_AMP_skip_metadata_were_simulated_for_interface_tests": true,
+    "final_probability_arrays_were_synthetic_for_cache_binding_tests": true,
+    "no_test_result_is_a_model_performance_score": true,
+    "formal_V9_locked_plan_integration_and_GPU_smoke_are_owned_by_root": true
+  }
+}
