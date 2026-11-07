@@ -1,0 +1,166 @@
+{
+  "state": "passed",
+  "reviewer": "independent v7_export_diagnosis agent",
+  "completed_at": "2026-10-16T14:53:40.780640+08:00",
+  "GPU_used": false,
+  "training_or_export_run": false,
+  "internal_test_read": false,
+  "external_answers_used": false,
+  "classes": [
+    "Angry",
+    "Fear",
+    "Happy",
+    "Sad",
+    "Surprise",
+    "Neutral"
+  ],
+  "checks": {
+    "source_plan_vendor_and_official_parent": true,
+    "original_trainval_image_content_and_members": true,
+    "filtered_train_members_21246": true,
+    "six_complete_epochs_and_all_64_training_artifacts": true,
+    "all_13_raw_ema_or_initial_models_and_26_val_arrays": true,
+    "actual_optimizer_ema_amp_counts": true,
+    "reconstructed_strict_candidate_selection": true,
+    "all_7_output_hashes_and_recipe": true,
+    "competition_7065_image_bytes_and_ID_binding": true,
+    "exact_7065_ID_Emotion_and_argmax": true,
+    "fixed_competition_probability_fusion_exact": true,
+    "old_submissions_preserved": true,
+    "epoch0_is_exact_mapped_official_model": true
+  },
+  "verified_counts": {
+    "training_epochs": 6,
+    "training_artifacts": 64,
+    "candidates": 13,
+    "recipe_producer_pins": 731,
+    "original_trainval_images": 23904,
+    "competition_images": 7065,
+    "successful_optimizer_steps": 3984,
+    "ema_updates": 3984,
+    "amp_skipped_steps": 0
+  },
+  "metrics": {
+    "incumbent_correct": 1915,
+    "incumbent_accuracy": 0.7210090361445783,
+    "selected_name": "epoch_00_baseline",
+    "selected_epoch": 0,
+    "selected_correct": 1924,
+    "selected_accuracy": 0.7243975903614458,
+    "net_correct_gain": 9,
+    "accuracy_gain_percentage_points": 0.33885542168674565,
+    "selected_single_correct": 1579,
+    "selected_single_accuracy": 0.5945030120481928,
+    "best_new_single": {
+      "name": "epoch_06_ema",
+      "epoch": 6,
+      "single_correct": 1839,
+      "fused_correct": 1911
+    },
+    "best_new_fixed_fusion": {
+      "name": "epoch_03_raw",
+      "epoch": 3,
+      "single_correct": 1806,
+      "fused_correct": 1921
+    },
+    "paired_selected_vs_incumbent": {
+      "both_correct": 1860,
+      "baseline_only_correct": 55,
+      "candidate_only_correct": 64,
+      "both_wrong": 677,
+      "net_correct_change": 9
+    }
+  },
+  "candidate_counts": [
+    {
+      "name": "epoch_00_baseline",
+      "epoch": 0,
+      "single_correct": 1579,
+      "fused_correct": 1924
+    },
+    {
+      "name": "epoch_01_raw",
+      "epoch": 1,
+      "single_correct": 1762,
+      "fused_correct": 1907
+    },
+    {
+      "name": "epoch_01_ema",
+      "epoch": 1,
+      "single_correct": 1773,
+      "fused_correct": 1911
+    },
+    {
+      "name": "epoch_02_raw",
+      "epoch": 2,
+      "single_correct": 1790,
+      "fused_correct": 1910
+    },
+    {
+      "name": "epoch_02_ema",
+      "epoch": 2,
+      "single_correct": 1810,
+      "fused_correct": 1915
+    },
+    {
+      "name": "epoch_03_raw",
+      "epoch": 3,
+      "single_correct": 1806,
+      "fused_correct": 1921
+    },
+    {
+      "name": "epoch_03_ema",
+      "epoch": 3,
+      "single_correct": 1822,
+      "fused_correct": 1913
+    },
+    {
+      "name": "epoch_04_raw",
+      "epoch": 4,
+      "single_correct": 1823,
+      "fused_correct": 1909
+    },
+    {
+      "name": "epoch_04_ema",
+      "epoch": 4,
+      "single_correct": 1818,
+      "fused_correct": 1914
+    },
+    {
+      "name": "epoch_05_raw",
+      "epoch": 5,
+      "single_correct": 1837,
+      "fused_correct": 1909
+    },
+    {
+      "name": "epoch_05_ema",
+      "epoch": 5,
+      "single_correct": 1830,
+      "fused_correct": 1912
+    },
+    {
+      "name": "epoch_06_raw",
+      "epoch": 6,
+      "single_correct": 1836,
+      "fused_correct": 1915
+    },
+    {
+      "name": "epoch_06_ema",
+      "epoch": 6,
+      "single_correct": 1839,
+      "fused_correct": 1911
+    }
+  ],
+  "hashes": {
+    "plan": "78485f74243b330d0140a4aa18eb6d0b29a0e2d05f7b84563f5b9d2b07f76b6d",
+    "official_parent": "edf731a458162eef6b2be12c3572bd10cbe92ce8c009da4331184a2943d7ed14",
+    "training_summary": "cc904dc8164ec8d632c471c7bc884d2241f6ddadac8fa606e5646510c1a8c5df",
+    "export_summary": "452510d2a6c899c6ba80ebfed5f7736c024fd82f800cb91028cf0963ce9d090f",
+    "recipe": "7cebad906bdd1625c8779d5225f7974ceabe630cdb06f299b9581b6269937fc8",
+    "submission": "55a037351e0677eadc82ebe81ce6a9c208da402f304cd9eeccba70e2121ce4b6",
+    "probabilities": "18b44f4b0880b4eaa7f9f962558d146b281a26b435aa434c5b296c6081b9176c",
+    "competition_content": "02f2044f158f457ab7384fd6d679ca63596a8cebbc945ca554a4cb2979819ad4",
+    "competition_ID_order": "8ef47545eaa781b6abc114d833fa893157ccf0bca042341c9874df39b72b9f87"
+  },
+  "interpretation": "The valid winning candidate is the official mapped DDAMFN epoch0, evaluated before task fine-tuning. Six local epochs completed and improved standalone TTA from1579 to1839 correct, but their best fixed fusion1921 remained below epoch0 fusion1924. The exported nine-correct gain is from substituting a complementary pretrained classifier, not an improvement caused by the six-epoch fine-tuning. Reused development validation; not Kaggle or independent generalization evidence; pretraining overlap not independently audited."
+}
