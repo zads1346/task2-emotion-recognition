@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-18T06:28:41.358713+00:00",
+  "event": "user_paused_v11_and_monitor",
+  "user_reply": "暂缓 V11，保留现有交付",
+  "automation_status": "PAUSED",
+  "independent_reviewer_started": false,
+  "GPU_smoke_started": false,
+  "training_started": false,
+  "existing_deliverables_preserved": true
+}
