@@ -1,0 +1,55 @@
+本地表情识别改良实验 V3
+
+项目：桌面\表情识别训练\DINOv2_Base
+GPU：本地 RTX 4060 Laptop，8GB。所有 GPU 阶段串行执行。
+保留原最佳 hse_results/submission.csv，开发验证准确率 72.0256024096%（1913/2656）。
+
+第一阶段：补充融合诊断
+读取原 V1、V2 加权实验各第 1～4 轮的当前模型状态，重新做验证集原图＋翻转推断。
+读取的是 model_state，不是 best_model_state，因此不会再次只比较训练前模型。
+固定融合：HSE 50%，旧 DINOv2 LoRA 20%，ResNet18 20%，多层冻结 DINO 特征 MLP 10%。
+仅验证正确数量严格增加时采用新模型；平分保留旧方案。
+独立输出：diagnostic\submission.csv。
+
+第二阶段：HSE 局部微调对照
+两组均从原 HSE 最佳第 7 轮开始，均使用普通均匀样本权重，分别再训练 4 轮。
+A：全部网络更新。
+B：只更新 blocks.6、conv_head、bn2 的可训练参数和 classifier。
+两组固定相同随机种子、增强、数据、轮数、学习率和优化器；BN 运行统计均保持冻结。
+batch_size=8，梯度累积 4 次，有效 batch_size=32，AMP 混合精度。
+骨干学习率 5e-6，分类头 5e-5，AdamW，weight_decay=0.01，标签平滑 0.05。
+对各轮进行相同比例融合验证，只有严格增加验证正确数量才替换第一阶段结果。
+独立输出：hse\submission.csv。
+
+第三阶段：DINOv2 Base LoRA 对照
+先用已核验的 1536 维冻结特征训练共享线性分类头 5 轮；只取训练集行，不用验证集选轮次。
+原图、翻转特征每轮随机选择一个，固定第 5 轮分类头供两组共用。
+A：最后 4 个 Transformer 块的 qkv LoRA。
+B：最后 8 个 Transformer 块的 qkv LoRA。
+两组 rank=8、alpha=16、dropout=0.05，各训练 4 轮。
+官方 DINOv2 主干保持冻结，激活检查点使用 use_reentrant=False；AMP 和梯度累积维持有效 batch_size=32。
+实际微批次大小由正式训练前的真实 GPU 梯度及显存检查锁定，两组共用。
+LoRA 学习率 2e-5、分类头 1e-4、AdamW、weight_decay=0.001、标签平滑 0.05。
+固定只替换融合中的 LoRA 20% 分支；HSE 与其余分支固定，不搜索额外权重。
+独立输出：lora\submission.csv。
+
+最终交付：improvement_v3_results\submission.csv。
+如果新实验没有严格提升，则该文件保留经核验的上一阶段最佳预测。
+所有 CSV 必须包含 7065 行，列为 ID、Emotion，ID 顺序匹配原模板，标签为 0～5 且等于概率 argmax。
+类别：0愤怒、1恐惧、2快乐、3悲伤、4惊讶、5中性。
+
+查看进度（PowerShell）：
+& 'C:\Users\lenovo\Desktop\表情识别训练\DINOv2_Base\check_improvement_v3.ps1'
+
+实时跟随当前阶段日志：
+$project = 'C:\Users\lenovo\Desktop\表情识别训练\DINOv2_Base'
+$taskStatus = Get-Content -LiteralPath "$project\logs\improvement_v3_status.json" -Raw -Encoding UTF8 | ConvertFrom-Json
+Get-Content -LiteralPath $taskStatus.log -Tail 10 -Wait -Encoding UTF8
+阶段切换后重新运行以上两行。Ctrl+C 仅退出日志查看，不会终止后台任务。
+
+电脑重启后：可运行 start_improvement_v3.ps1 恢复；程序从最近完整轮次恢复，已完成阶段仅核验不重训。
+正常运行时不要重复启动其他 GPU 训练。后台会锁定源代码、输入和实验配方。
+日志：logs\improvement_v3_status.json、improvement_v3_runtime.json、improvement_v3_*.log。
+
+这些成绩来自已反复使用的开发验证集，不是 Kaggle 分数或独立泛化性能。
+新实验不读取内部测试图片标签或外部标准答案，不修改原数据和原实验产物，也不上传比赛平台。
