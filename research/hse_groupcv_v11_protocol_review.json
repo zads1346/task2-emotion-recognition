@@ -1,0 +1,28 @@
+{
+  "state": "passed",
+  "reviewer": "/root/v7_export_diagnosis",
+  "reviewed_at": "2026-10-16T10:45:01.759899+00:00",
+  "scope": "Protocol review only; no executable V11 implementation, code review, GPU smoke or launch approval is implied.",
+  "protocol_path": "C:\\Users\\lenovo\\Desktop\\表情识别训练\\DINOv2_Base\\research\\hse_groupcv_v11_protocol.json",
+  "protocol_sha256": "df8b5884ea716c63d27c5a61590edba693351fd1345eee11329c1c609cc23bd1",
+  "unresolved_blockers": [],
+  "reuse_revision_confirmed": true,
+  "reuse_check": "V10 full config matches declared settings; all11 pinned reuse artifacts and both passed delivery receipts match. Reuse is conditional on exact data/order/runtime/seed/augmentation/RNG/loss/BN/optimizer/scaler/EMA/final-epoch equivalence; mismatch stops reuse without silent refit.",
+  "dropout_revision_confirmed": true,
+  "dropout_check": "Pinned HSE constructor defaults dropout/drop-path to0. Smoke must report actual configuration; no stochastic-regularization difference may be claimed if both rates are0 and BN is frozen in both arms.",
+  "data_and_selection_check": "Only newtrain19120 enters3-fold OOF; each fold restarts official initialization; fc_only needs strict pooled correct gain and at least2 strict fold wins. Outer4782 is excluded from CV/selection. Optional final fc_only refit gets one outer confirmation above3240; otherwise preserve V10.",
+  "epoch_budget": {
+    "cv": 72,
+    "maximum_with_optional_refit": 84,
+    "GPU_concurrency": 1
+  },
+  "limitations": [
+    "Protocol approval does not certify executable implementation.",
+    "Development/OOF results do not establish Kaggle improvement, person independence or external-pretraining independence."
+  ],
+  "code_review_and_gpu_smoke_still_required": true,
+  "GPU_used": false,
+  "training_started": false,
+  "images_read": false,
+  "internal_test_images_or_labels_accessed": false
+}
