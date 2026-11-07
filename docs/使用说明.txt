@@ -1,0 +1,35 @@
+DINOv2 Base 本地表情识别
+
+模型：Meta 官方 DINOv2 ViT-B/14，LVD-142M 预训练，骨干参数全部冻结。
+输入：灰度图片转 RGB，双三次缩放至 224×224，ImageNet 均值/标准差归一化。
+特征：768 维 CLS + 768 维 patch 均值，共 1536 维；分别缓存原图和水平翻转。
+分类器：StandardScaler + 多分类逻辑回归，4 个正则化参数 × 2 种类别权重。
+验证集以 Macro-F1 选参数和是否使用翻转概率平均。
+参数锁定后在 train+val 重训分类器，内部 test 评估一次。
+
+数据：26560 张清洗后标注图片；train=21248，val=2656，test=2656。
+比赛测试图片 7065 张，保持提交模板的 ID 和行顺序。
+类别编码：Angry=0，Fear=1，Happy=2，Sad=3，Surprise=4，Neutral=5。
+没有人物 ID，内部测试成绩不能称为人物独立测试成绩。
+
+环境：本目录 .venv，Python 3.11；复用本机 anaconda3/envs/dome 的 CUDA/PyTorch。
+NumPy、SciPy、scikit-learn 等固定依赖安装在本目录 .venv 中。
+该环境依赖本机 dome 环境；它不是可直接复制到其他电脑的完整独立环境。
+所有实际版本和来源由 logs/environment.json 记录。
+完整重建依赖参见 requirements.txt；不要在已运行的环境中升级依赖。
+
+在本目录 PowerShell 中启动或恢复：
+  .\start_training.ps1
+查看进度：
+  .\check_progress.ps1
+
+日志：logs/status.json、logs/extract.log、logs/classifier.log。
+features 中缓存两种视图特征，完成的批次可以在同一环境、数据和代码下继续。
+分类器阶段不保存优化器迭代断点；在参数锁定后中断需要先检查结果，脚本会停止以免混入旧结果。
+同一目录有进程锁，防止同时启动两次训练。
+
+完成后的提交文件：results/submission.csv。
+已训练分类器：results/classifier.joblib。
+官方骨干权重：models/dinov2_vitb14_pretrain.pth。
+成绩与选择参数：results/summary.json、results/test_report.json、results/search.csv。
+当前目录是 DINOv2 实验；上级的 v4 笔记本是原有 CNN 方案。
