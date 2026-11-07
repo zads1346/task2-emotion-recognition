@@ -1,0 +1,10 @@
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch==2.5.1+cu121
+torchvision==0.20.1+cu121
+numpy==1.26.4
+scipy==1.15.3
+scikit-learn==1.6.1
+joblib==1.6.0
+threadpoolctl==3.7.0
+cloudpickle==3.1.2
+Pillow==12.1.1
